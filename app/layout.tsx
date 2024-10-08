@@ -1,3 +1,8 @@
+import { HamburgerIcon } from '@/components/icons/hamburgerIcon';
+import { QrCodeIcon } from '@/components/icons/qrCodeIcon';
+import { UserIcon } from '@/components/icons/userIcon';
+import { H1 } from '@/components/typography/h1';
+import { Button } from '@/components/ui/button';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
@@ -16,7 +21,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={gillSans.className}>{children}</body>
+      <body className={gillSans.className}>
+        <div className="flex justify-center">
+          <div className="w-full max-w-md">
+            <header className="flex p-3 justify-between items-center">
+              <Button variant="ghost" className="w-auto">
+                <HamburgerIcon />
+              </Button>
+
+              <H1>Food &amp; Drinks Festival</H1>
+
+              <div className="flex gap-2">
+                <Button variant="secondary" size="icon">
+                  <QrCodeIcon />
+                </Button>
+
+                <Button variant="secondary" size="icon">
+                  <UserIcon />
+                </Button>
+              </div>
+            </header>
+            {children}
+          </div>
+        </div>
+      </body>
     </html>
   );
 }
