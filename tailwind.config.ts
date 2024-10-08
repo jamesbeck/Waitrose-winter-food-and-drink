@@ -1,16 +1,19 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       colors: {
-        darkBrown: "#3D2D2D",
-        gold: "#a88e58",
+        'waitrose-red': '#7C263B',
+        'waitrose-brown': '#C09C5C',
+        'waitrose-beige': '#EEE6D7',
+        'waitrose-lime': '#C4D143',
+        'waitrose-green': '#244635',
       },
     },
   },
