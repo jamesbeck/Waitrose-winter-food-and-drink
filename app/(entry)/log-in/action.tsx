@@ -11,32 +11,40 @@ import type { FormSchema } from './schema';
 type Result = { status: 'success' } | { status: 'error'; error: string };
 
 export const login = async (values: FormSchema): Promise<Result> => {
-  const existing = await db.table('users').where('email', values.email).first();
+  try {
+    const existing = await db
+      .table('users')
+      .where('email', values.email)
+      .first();
 
-  if (!existing) {
+    if (!existing) {
+      return {
+        status: 'error',
+        error:
+          'There doesn’t seem to be a user with that email address. Please try registering for an account',
+      };
+    }
+
+    const token = generateToken(values.email);
+
+    await sendEmail(values.email, token);
+
+    return {
+      status: 'success',
+    };
+  } catch (error) {
+    console.error(error);
     return {
       status: 'error',
       error:
-        'There doesn’t seem to be a user with that email address. Please try registering for an account',
+        'An error occurred while trying to log in. Please try again later.',
     };
   }
-
-  const token = generateToken(values.email);
-
-  await db.table('users').where('email', values.email).update({
-    login_token: token,
-  });
-
-  await sendEmail(values.email, token);
-
-  return {
-    status: 'success',
-  };
 };
 
 const generateToken = (email: string) => {
   const date = new Date();
-  date.setHours(date.getHours() + 1);
+  date.setDate(date.getDate() + 7);
 
   return jwt.sign({ email, expiration: date }, process.env.JWT_SECRET!);
 };
