@@ -6,9 +6,9 @@ export async function up(knex: Knex): Promise<void> {
     table.string('email').notNullable().unique();
     table.string('first_name').notNullable();
     table.string('last_name').notNullable();
-    table.string('loyalty_card_number').notNullable();
+    table.string('loyalty_card_number');
     table.string('login_token');
-    table.dateTime('login_token_expiry');
+    table.timestamp('email_verified');
     table.timestamps(true, true);
   });
 }

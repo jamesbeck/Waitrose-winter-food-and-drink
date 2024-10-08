@@ -1,5 +1,6 @@
 'use client';
 
+import { Container } from '@/components/layout/container';
 import { Footnote } from '@/components/typography/footnote';
 import { Alert } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -13,7 +14,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { register } from './action';
 import { formSchema, type FormSchema } from './schema';
@@ -21,7 +22,7 @@ import { formSchema, type FormSchema } from './schema';
 type Props = {};
 
 export const RegisterForm: React.FC<Props> = (props: Props) => {
-  const [error, setError] = React.useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -108,19 +109,19 @@ export const RegisterForm: React.FC<Props> = (props: Props) => {
           )}
         />
 
-        <div className="space-y-2 px-6">
+        <Container width="wide">
           <Footnote>* Designates a required field</Footnote>
           <Footnote>
             ** Without a MyWaitrose card you may be ineligible for prizes. Visit
             the signup desk to get one!
           </Footnote>
 
-          <p className="pt-1">
+          <p className="pt-2">
             Through using clever technology, you won&apos;t need a password.
             <br />
             <strong>Ever!</strong>
           </p>
-        </div>
+        </Container>
 
         <Button type="submit">Submit</Button>
       </form>

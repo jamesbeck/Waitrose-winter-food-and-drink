@@ -7,7 +7,22 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 
-const gillSans = localFont({ src: '../fonts/GillSansNovaforJL-Medium.otf' });
+const gillSans = localFont({
+  src: [
+    {
+      path: '../fonts/GillSansNovaJL-Light.woff2',
+      weight: '200',
+    },
+    {
+      path: '../fonts/GillSansNovaJL-Medium.woff2',
+      weight: '400',
+    },
+    {
+      path: '../fonts/GillSansNovaJL-SemiBold.woff2',
+      weight: '600',
+    },
+  ],
+});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
