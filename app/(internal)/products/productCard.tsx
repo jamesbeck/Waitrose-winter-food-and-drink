@@ -1,3 +1,4 @@
+import { HeartEmptyIcon } from '@/components/icons/heartEmptyIcon';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -16,7 +17,9 @@ type Props = {
 
 export const ProductCard: React.FC<Props> = ({ product }: Props) => {
   return (
-    <Card className="text-center flex flex-col">
+    <Card className="text-center flex flex-col relative">
+      <HeartEmptyIcon className="absolute top-2 right-2 size-4 z-10" />
+
       <div className="w-full h-48 relative">
         {product.image_url && (
           <Image
