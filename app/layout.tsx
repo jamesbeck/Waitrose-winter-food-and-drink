@@ -51,9 +51,11 @@ export default function RootLayout({
               <H1>Food &amp; Drink Festival</H1>
 
               <div className="flex gap-2">
-                <Button variant="secondary" size="icon">
-                  <QrCodeIcon />
-                </Button>
+                <Link href="/scan">
+                  <Button variant="secondary" size="icon">
+                    <QrCodeIcon />
+                  </Button>
+                </Link>
 
                 <Link href={email ? '/profile' : '/log-in'}>
                   <Button variant="secondary" size="icon">
