@@ -73,7 +73,7 @@ export default function Scan({ searchParams: { scanned } }: Props) {
           </DialogHeader>
           <div className="space-y-3">
             <Button asChild>
-              <Link href="/wishlist">Go to wishlist</Link>
+              <a href="/wishlist">Go to wishlist</a>
             </Button>
 
             <Button asChild variant="outline">
