@@ -17,6 +17,7 @@ const config: Config = {
         'waitrose-green': '#244635',
         'subtle-background': '#F6F6F6',
         'subtle-foreground': '#878787',
+        'dark-grey': '#626262',
       },
       borderRadius: {
         lg: 'var(--radius)',

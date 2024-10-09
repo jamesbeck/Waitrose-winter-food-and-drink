@@ -1,13 +1,13 @@
-import { HamburgerIcon } from '@/components/icons/hamburgerIcon';
 import { QrCodeIcon } from '@/components/icons/qrCodeIcon';
 import { UserIcon } from '@/components/icons/userIcon';
 import { H1 } from '@/components/typography/h1';
 import { Button } from '@/components/ui/button';
-import { getLoggedInEmail } from '@/lib/auth';
+import { getCurrentUser } from '@/lib/data/user';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Link from 'next/link';
 import './globals.css';
+import { Menu } from './menu';
 
 const gillSans = localFont({
   src: [
@@ -31,12 +31,12 @@ export const metadata: Metadata = {
   description: 'Waitrose Winter Food & Drink Festival',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const email = getLoggedInEmail();
+  const user = await getCurrentUser();
 
   return (
     <html lang="en">
@@ -44,9 +44,7 @@ export default function RootLayout({
         <div className="flex justify-center">
           <div className="w-full max-w-md">
             <header className="flex p-3 justify-between items-center">
-              <Button variant="ghost" className="w-auto">
-                <HamburgerIcon />
-              </Button>
+              <Menu user={user} />
 
               <H1>Food &amp; Drink Festival</H1>
 
@@ -58,7 +56,7 @@ export default function RootLayout({
                 </Button>
 
                 <Button variant="secondary" size="icon" asChild>
-                  <Link href={email ? '/profile' : '/log-in'}>
+                  <Link href={user ? '/profile' : '/log-in'}>
                     <UserIcon />
                   </Link>
                 </Button>

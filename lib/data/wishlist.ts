@@ -1,6 +1,7 @@
 'use server';
 
 import type { Product } from 'knex/types/tables';
+import { revalidatePath } from 'next/cache';
 import { db } from '../knex';
 import type { ProductWithWishlisted } from './products';
 import { getCurrentUser } from './user';
@@ -52,6 +53,8 @@ export const addProductToWishlist = async (
   await db
     .table('wishlist')
     .insert({ user_id: user?.id, product_line_number: line_number });
+
+  revalidatePath('/wishlist');
 };
 
 export const removeProductFromWishlist = async (
@@ -67,4 +70,6 @@ export const removeProductFromWishlist = async (
     .table('wishlist')
     .where({ user_id: user.id, product_line_number: line_number })
     .delete();
+
+  revalidatePath('/wishlist');
 };
