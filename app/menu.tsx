@@ -126,6 +126,7 @@ export const Menu: React.FC<Props> = ({ user }: Props) => {
                 router.push('/log-in');
                 setOpen(false);
               }}
+              className="mt-6"
             >
               Login
             </Button>
