@@ -58,7 +58,7 @@ export const Menu: React.FC<Props> = ({ user }: Props) => {
         </Button>
       </DrawerTrigger>
 
-      <DrawerContent className="right-0 top-0 bottom-0 mt-0 rounded-none w-4/5 border-none">
+      <DrawerContent className="right-0 top-0 bottom-0 mt-0 rounded-none w-4/5 border-none overflow-y-auto">
         <div className="p-6 grow">
           <div className="flex justify-between items-center mb-6">
             <div className="grow">
