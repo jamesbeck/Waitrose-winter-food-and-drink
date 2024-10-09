@@ -27,6 +27,7 @@ export const ProductCard: React.FC<Props> = ({ product }: Props) => {
             alt={product.name}
             fill={true}
             style={{ objectFit: 'contain' }}
+            sizes="50vw, 25vh"
           />
         )}
       </div>
