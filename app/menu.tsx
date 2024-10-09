@@ -127,6 +127,7 @@ export const Menu: React.FC<Props> = ({ user }: Props) => {
                 setOpen(false);
               }}
               className="mt-6"
+              size="sm"
             >
               Login
             </Button>
