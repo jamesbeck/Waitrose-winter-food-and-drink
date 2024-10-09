@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import { Scanner, type IDetectedBarcode } from '@yudiel/react-qr-scanner';
 import Link from 'next/link';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 type Props = {
@@ -27,8 +27,12 @@ export default function Scan({ searchParams: { scanned } }: Props) {
 
   const handleScan = (detectedCodes: IDetectedBarcode[]) => {
     for (const code of detectedCodes) {
+      console.log(code);
+
       if (code.rawValue.match(/^https?:\/\//)) {
-        redirect(code.rawValue);
+        router.push(code.rawValue);
+
+        return;
       }
     }
 

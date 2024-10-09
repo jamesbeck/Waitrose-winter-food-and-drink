@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "import": "tsx cli/import.ts"
+    "import": "tsx cli/import.ts",
+    "export": "tsx cli/export.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -29,6 +30,7 @@
     "lucide-react": "^0.451.0",
     "next": "14.2.14",
     "pg": "^8.13.0",
+    "qrcode": "^1.5.4",
     "react": "^18",
     "react-dom": "^18",
     "react-email": "^3.0.1",
@@ -42,6 +44,7 @@
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^20",
+    "@types/qrcode": "^1.5.5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
