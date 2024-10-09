@@ -17,9 +17,9 @@ export default function Register() {
       </Alert>
 
       <div>
-        <Link href="/log-in">
-          <Button>Return to log-in</Button>
-        </Link>
+        <Button asChild>
+          <Link href="/log-in">Return to log-in</Link>
+        </Button>
       </div>
     </Content>
   );

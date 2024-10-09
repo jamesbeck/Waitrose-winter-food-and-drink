@@ -25,9 +25,10 @@ export const LogInDialog: React.FC<Props> = (props: Props) => {
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-3">
-          <Link href="mailto:">
-            <Button>Open mail app</Button>
-          </Link>
+          <Button asChild>
+            <Link href="mailto:">Open mail app</Link>
+          </Button>
+
           <Button variant="outline" onClick={() => props.onOpenChange?.(false)}>
             Return
           </Button>

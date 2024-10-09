@@ -35,3 +35,25 @@ export const getProducts = async (offset: number = 0): Promise<ProductList> => {
 
   return { count: count?.count || 0, items };
 };
+
+export const getProduct = async (
+  lineNumber: string
+): Promise<ProductWithWishlisted | undefined> => {
+  const user = await getCurrentUser();
+
+  return db
+    .select<ProductWithWishlisted[]>([
+      'products.*',
+      db.raw('wishlist.product_line_number IS NOT NULL as "is_wishlisted"'),
+    ])
+    .from('products')
+    .leftJoin('wishlist', function () {
+      this.on('products.line_number', '=', 'wishlist.product_line_number');
+
+      if (user) {
+        this.andOnVal('wishlist.user_id', user.id);
+      }
+    })
+    .where('products.line_number', lineNumber)
+    .first();
+};

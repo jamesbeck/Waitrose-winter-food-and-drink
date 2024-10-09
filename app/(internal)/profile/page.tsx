@@ -19,11 +19,11 @@ export default async function Profile() {
   return (
     <Content>
       <div className="text-left mb-12">
-        <Link href="/home">
-          <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" asChild>
+          <Link href="/home">
             <BackIcon />
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </div>
 
       <Container>

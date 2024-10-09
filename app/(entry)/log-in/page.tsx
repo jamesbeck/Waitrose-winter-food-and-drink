@@ -32,9 +32,9 @@ export default function LogIn() {
           </Small>
         </Container>
 
-        <Link href="/home">
-          <Button variant="outline">Limited Experience</Button>
-        </Link>
+        <Button variant="outline" asChild>
+          <Link href="/home">Limited Experience</Link>
+        </Button>
       </div>
     </Content>
   );

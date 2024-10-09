@@ -4,11 +4,24 @@ import { Content } from '@/components/layout/content';
 import { H1 } from '@/components/typography/h1';
 import { Alert } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Scanner, type IDetectedBarcode } from '@yudiel/react-qr-scanner';
+import Link from 'next/link';
 import { redirect, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export default function Scan() {
+type Props = {
+  searchParams: {
+    scanned: string;
+  };
+};
+
+export default function Scan({ searchParams: { scanned } }: Props) {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
@@ -40,6 +53,49 @@ export default function Scan() {
           Please ensure permissions are accepted.
         </strong>
       </Content>
+
+      <Dialog
+        open={scanned === 'true'}
+        onOpenChange={() => router.push('/scan')}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Product added to your wishlist!</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3">
+            <Button asChild>
+              <Link href="/wishlist">Go to wishlist</Link>
+            </Button>
+
+            <Button asChild variant="outline">
+              <Link href="/scan" passHref>
+                Scan another item
+              </Link>
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={scanned === 'false'}
+        onOpenChange={() => router.push('/scan')}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Product not added to your wishlist</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3">
+            <Alert variant="destructive">
+              There was a problem adding the product to your wishlist. Please
+              try again.
+            </Alert>
+
+            <Button asChild>
+              <Link href="/scan">Try again</Link>
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
