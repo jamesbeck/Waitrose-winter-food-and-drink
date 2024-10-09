@@ -13,8 +13,9 @@ export default async function Products() {
         <H1>Products</H1>
 
         <Lead>
-          All the festival's products in one place. Search below to find your
-          favourites, find out more information, and add them to your wishlist.
+          All the festival&apos;s products in one place. Search below to find
+          your favourites, find out more information, and add them to your
+          wishlist.
         </Lead>
       </Content>
 
