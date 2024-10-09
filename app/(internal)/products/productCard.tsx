@@ -1,5 +1,3 @@
-import { HeartEmptyIcon } from '@/components/icons/heartEmptyIcon';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -7,18 +5,39 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import type { Product } from 'knex/types/tables';
+import type { ProductWithWishlisted } from '@/lib/data/products';
 import Image from 'next/image';
 import React from 'react';
+import { WishlistAddButton } from './wishlistAddButton';
+import { WishlistRemoveButton } from './wishlistRemoveButton';
 
 type Props = {
-  product: Product;
+  product: ProductWithWishlisted;
+  onChange?: (product: ProductWithWishlisted) => void;
 };
 
-export const ProductCard: React.FC<Props> = ({ product }: Props) => {
+export const ProductCard: React.FC<Props> = ({ product, onChange }: Props) => {
   return (
     <Card className="text-center flex flex-col relative">
-      <HeartEmptyIcon className="absolute top-2 right-2 size-4 z-10" />
+      {product.is_wishlisted ? (
+        <WishlistRemoveButton
+          size="icon"
+          className="absolute top-2 right-2 size-4 z-10"
+          variant="ghost"
+          product={product}
+          onChange={onChange}
+          labelVariant="icon"
+        />
+      ) : (
+        <WishlistAddButton
+          size="icon"
+          className="absolute top-2 right-2 size-4 z-10"
+          variant="ghost"
+          product={product}
+          onChange={onChange}
+          labelVariant="icon"
+        />
+      )}
 
       <div className="w-full h-48 relative">
         {product.image_url && (
@@ -51,7 +70,16 @@ export const ProductCard: React.FC<Props> = ({ product }: Props) => {
       </CardContent>
 
       <CardFooter className="p-3">
-        <Button size="sm">Add to Wishlist</Button>
+        {product.is_wishlisted ? (
+          <WishlistRemoveButton
+            size="sm"
+            className="text-xs"
+            product={product}
+            onChange={onChange}
+          />
+        ) : (
+          <WishlistAddButton size="sm" product={product} onChange={onChange} />
+        )}
       </CardFooter>
     </Card>
   );

@@ -7,6 +7,9 @@ export async function up(knex: Knex): Promise<void> {
     table.timestamps(true, true);
 
     table.primary(['product_line_number', 'user_id']);
+
+    table.foreign('product_line_number').references('products.line_number');
+    table.foreign('user_id').references('users.id');
   });
 }
 

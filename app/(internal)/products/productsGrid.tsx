@@ -1,14 +1,13 @@
 'use client';
 
-import { getProducts } from '@/lib/data/products';
-import { Product } from 'knex/types/tables';
+import { getProducts, type ProductWithWishlisted } from '@/lib/data/products';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ProductCard } from './productCard';
 import { ProductsGridSkeleton } from './productsGridSkeleton';
 
 type Props = {
-  products: Product[];
+  products: ProductWithWishlisted[];
   count: number;
 };
 
@@ -16,12 +15,21 @@ export const ProductsGrid: React.FC<Props> = ({
   products: initialProducts,
   count,
 }: Props) => {
-  const [products, setProducts] = React.useState<Product[]>(initialProducts);
+  const [products, setProducts] =
+    React.useState<ProductWithWishlisted[]>(initialProducts);
 
   const loadProducts = async () => {
     const next = await getProducts(products.length);
 
     setProducts((existing) => [...existing, ...next.items]);
+  };
+
+  const handleProductChange = (product: ProductWithWishlisted) => {
+    setProducts((existing) =>
+      existing.map((changed) =>
+        changed.line_number === product.line_number ? product : changed
+      )
+    );
   };
 
   return (
@@ -34,7 +42,11 @@ export const ProductsGrid: React.FC<Props> = ({
       >
         <div className="grid grid-cols-2 gap-6">
           {products.map((product) => (
-            <ProductCard key={product.line_number} product={product} />
+            <ProductCard
+              key={product.line_number}
+              product={product}
+              onChange={handleProductChange}
+            />
           ))}
         </div>
       </InfiniteScroll>
