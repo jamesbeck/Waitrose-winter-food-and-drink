@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
@@ -26,9 +27,9 @@ export default function Scan({ searchParams: { scanned } }: Props) {
   const [error, setError] = useState<string | null>(null);
 
   const handleScan = (detectedCodes: IDetectedBarcode[]) => {
-    for (const code of detectedCodes) {
-      console.log(code);
+    setError(null);
 
+    for (const code of detectedCodes) {
       if (code.rawValue.match(/^https?:\/\//)) {
         router.push(code.rawValue);
 
@@ -65,6 +66,10 @@ export default function Scan({ searchParams: { scanned } }: Props) {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Product added to your wishlist!</DialogTitle>
+
+            <DialogDescription className="hidden">
+              You can view your wishlist or scan another item.
+            </DialogDescription>
           </DialogHeader>
           <div className="space-y-3">
             <Button asChild>
@@ -87,6 +92,11 @@ export default function Scan({ searchParams: { scanned } }: Props) {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Product not added to your wishlist</DialogTitle>
+
+            <DialogDescription className="hidden">
+              There was a problem adding the product to your wishlist. Please
+              try again.
+            </DialogDescription>
           </DialogHeader>
           <div className="space-y-3">
             <Alert variant="destructive">

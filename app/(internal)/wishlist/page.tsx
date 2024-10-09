@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic';
-
 import { Content } from '@/components/layout/content';
 import { H1 } from '@/components/typography/h1';
 import { getWishlist } from '@/lib/data/wishlist';
