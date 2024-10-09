@@ -6,7 +6,7 @@ import type { FormSchema } from './schema';
 
 type Result = { status: 'success' } | { status: 'error'; error: string };
 
-export const register = async (values: FormSchema): Promise<Result> => {
+export const registerAction = async (values: FormSchema): Promise<Result> => {
   try {
     const existing = await db
       .table('users')

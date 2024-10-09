@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { login } from './action';
+import { logInAction } from './action';
 import { LogInDialog } from './logInDialog';
 import { formSchema, FormSchema } from './schema';
 
@@ -34,7 +34,7 @@ export const LogInForm: React.FC<Props> = (props: Props) => {
   });
 
   const onSubmit = async (data: FormSchema) => {
-    const result = await login(data);
+    const result = await logInAction(data);
 
     if (result.status === 'error') {
       setError(result.error);

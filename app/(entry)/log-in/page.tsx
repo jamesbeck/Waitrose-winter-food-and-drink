@@ -1,12 +1,20 @@
-import { Container } from "@/components/layout/container";
-import { Content } from "@/components/layout/content";
-import { H1 } from "@/components/typography/h1";
-import { Small } from "@/components/typography/small";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { LogInForm } from "./logInForm";
+import { Container } from '@/components/layout/container';
+import { Content } from '@/components/layout/content';
+import { H1 } from '@/components/typography/h1';
+import { Small } from '@/components/typography/small';
+import { Button } from '@/components/ui/button';
+import { getLoggedInEmail } from '@/lib/auth';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { LogInForm } from './logInForm';
 
-export default function Register() {
+export default function LogIn() {
+  const email = getLoggedInEmail();
+
+  if (email) {
+    redirect('/home');
+  }
+
   return (
     <Content>
       <Container width="wide">

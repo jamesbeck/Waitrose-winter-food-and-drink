@@ -16,6 +16,12 @@ export const logIn = (token: string): void => {
   cookieStore.set('token', token);
 };
 
+export const logOut = () => {
+  const cookieStore = cookies();
+
+  cookieStore.delete('token');
+};
+
 export const getLoggedInEmail = (): string | null => {
   const cookieStore = cookies();
   const token = cookieStore.get('token');

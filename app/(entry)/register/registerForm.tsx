@@ -17,7 +17,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { LogInDialog } from '../log-in/logInDialog';
-import { register } from './action';
+import { registerAction } from './action';
 import { formSchema, type FormSchema } from './schema';
 
 type Props = {};
@@ -36,7 +36,7 @@ export const RegisterForm: React.FC<Props> = (props: Props) => {
   });
 
   const onSubmit = async (data: FormSchema) => {
-    const result = await register(data);
+    const result = await registerAction(data);
 
     if (result.status === 'error') {
       setError(result.error);

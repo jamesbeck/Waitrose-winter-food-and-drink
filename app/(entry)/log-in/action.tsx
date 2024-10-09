@@ -11,7 +11,7 @@ import type { FormSchema } from './schema';
 
 type Result = { status: 'success' } | { status: 'error'; error: string };
 
-export const login = async (values: FormSchema): Promise<Result> => {
+export const logInAction = async (values: FormSchema): Promise<Result> => {
   try {
     const existing = await db
       .table('users')

@@ -4,6 +4,8 @@ import type { MailDataRequired } from '@sendgrid/mail';
 import { mail } from './sendgrid';
 
 export const sendLoginLinkEmail = async (email: string, token: string) => {
+  console.log(`${process.env.NEXT_PUBLIC_URL}/authenticate?token=${token}`);
+
   const message: MailDataRequired = {
     to: process.env.SENDGRID_TO_EMAIL || email,
     from: process.env.SENDGRID_FROM_EMAIL!,
