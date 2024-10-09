@@ -6,13 +6,6 @@ import { InlineLink } from '@/components/typography/inlineLink';
 import { Alert } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
   Form,
   FormControl,
   FormField,
@@ -22,10 +15,10 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Link from 'next/link';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { login } from './action';
+import { LogInDialog } from './logInDialog';
 import { formSchema, FormSchema } from './schema';
 
 type Props = {};
@@ -79,7 +72,9 @@ export const LogInForm: React.FC<Props> = (props: Props) => {
         </Container>
 
         <div className="pt-6 space-y-2">
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={form.formState.isSubmitting}>
+            Submit
+          </Button>
 
           <Container>
             Don&apos;t have an account?{' '}
@@ -88,26 +83,7 @@ export const LogInForm: React.FC<Props> = (props: Props) => {
         </div>
       </form>
 
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>We&apos;ve sent you an email</DialogTitle>
-
-            <DialogDescription>
-              Please check for an email from us, and tap the button to verify
-              and log straight in!
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-3">
-            <Link href="mailto:">
-              <Button>Open mail app</Button>
-            </Link>
-            <Button variant="outline" onClick={() => setDialogOpen(false)}>
-              Return
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <LogInDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     </Form>
   );
 };

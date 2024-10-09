@@ -1,5 +1,6 @@
 'use server';
 
+import { sendLoginLink } from '@/lib/auth';
 import { db } from '@/lib/knex';
 import type { FormSchema } from './schema';
 
@@ -26,6 +27,8 @@ export const register = async (values: FormSchema): Promise<Result> => {
       last_name: values.lastName,
       loyalty_card_number: values.loyaltyCardNumber,
     });
+
+    await sendLoginLink(values.email);
 
     return { status: 'success' };
   } catch (error) {

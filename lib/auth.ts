@@ -1,5 +1,13 @@
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
+import { generateToken, validateToken } from './auth/tokens';
+import { sendLoginLinkEmail } from './emails';
+
+export const sendLoginLink = (email: string) => {
+  const token = generateToken(email);
+
+  return sendLoginLinkEmail(email, token);
+};
 
 export const logIn = (token: string): void => {
   jwt.verify(token, process.env.JWT_SECRET!);
@@ -17,7 +25,7 @@ export const getLoggedInEmail = (): string | null => {
   }
 
   try {
-    const decoded = jwt.verify(token.value, process.env.JWT_SECRET!);
+    const decoded = validateToken(token.value);
 
     if (typeof decoded !== 'object' || !decoded.email) {
       return null;

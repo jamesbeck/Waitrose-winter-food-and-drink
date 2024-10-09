@@ -16,6 +16,7 @@ import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { LogInDialog } from '../log-in/logInDialog';
 import { register } from './action';
 import { formSchema, type FormSchema } from './schema';
 
@@ -23,6 +24,7 @@ type Props = {};
 
 export const RegisterForm: React.FC<Props> = (props: Props) => {
   const [error, setError] = useState<string | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,6 +42,8 @@ export const RegisterForm: React.FC<Props> = (props: Props) => {
       setError(result.error);
       return;
     }
+
+    setDialogOpen(true);
   };
 
   return (
@@ -123,8 +127,12 @@ export const RegisterForm: React.FC<Props> = (props: Props) => {
           </p>
         </Container>
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={form.formState.isSubmitting}>
+          Submit
+        </Button>
       </form>
+
+      <LogInDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     </Form>
   );
 };

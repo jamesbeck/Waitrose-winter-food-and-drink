@@ -3,6 +3,7 @@ import { Content } from '@/components/layout/content';
 import { H1 } from '@/components/typography/h1';
 import { Small } from '@/components/typography/small';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 import { LogInForm } from './logInForm';
 
 export default function Register() {
@@ -23,7 +24,9 @@ export default function Register() {
           </Small>
         </Container>
 
-        <Button variant="outline">Limited Experience</Button>
+        <Link href="/home">
+          <Button variant="outline">Limited Experience</Button>
+        </Link>
       </div>
     </Content>
   );

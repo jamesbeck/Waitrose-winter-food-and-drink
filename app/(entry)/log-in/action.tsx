@@ -1,6 +1,7 @@
 'use server';
 
 import { LogInEmail } from '@/emails/LogIn';
+import { sendLoginLink } from '@/lib/auth';
 import { db } from '@/lib/knex';
 import { mail } from '@/lib/sendgrid';
 import { render } from '@react-email/components';
@@ -25,9 +26,7 @@ export const login = async (values: FormSchema): Promise<Result> => {
       };
     }
 
-    const token = generateToken(values.email);
-
-    await sendEmail(values.email, token);
+    await sendLoginLink(values.email);
 
     return {
       status: 'success',

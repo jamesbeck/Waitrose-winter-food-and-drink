@@ -3,8 +3,10 @@ import { QrCodeIcon } from '@/components/icons/qrCodeIcon';
 import { UserIcon } from '@/components/icons/userIcon';
 import { H1 } from '@/components/typography/h1';
 import { Button } from '@/components/ui/button';
+import { getLoggedInEmail } from '@/lib/auth';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import Link from 'next/link';
 import './globals.css';
 
 const gillSans = localFont({
@@ -34,6 +36,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const email = getLoggedInEmail();
+
   return (
     <html lang="en">
       <body className={gillSans.className}>
@@ -51,9 +55,11 @@ export default function RootLayout({
                   <QrCodeIcon />
                 </Button>
 
-                <Button variant="secondary" size="icon">
-                  <UserIcon />
-                </Button>
+                <Link href={email ? '/profile' : '/log-in'}>
+                  <Button variant="secondary" size="icon">
+                    <UserIcon />
+                  </Button>
+                </Link>
               </div>
             </header>
             {children}
