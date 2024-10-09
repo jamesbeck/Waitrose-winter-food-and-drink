@@ -7,8 +7,8 @@ export async function up(knex: Knex): Promise<void> {
     table.string('image_url');
     table.string('supplier').notNullable();
     table.string('room');
-    table.integer('normal_price').notNullable();
-    table.integer('sale_price');
+    table.string('normal_price');
+    table.string('sale_price');
     table.string('unit');
     table.text('description');
     table.string('website_url');
