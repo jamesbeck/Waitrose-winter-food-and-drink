@@ -1,13 +1,12 @@
-export default function Home() {
-  return (
-    <div>
-      <h1>Waitrose Winter Food & Drink</h1>
+import { getCurrentUser } from '@/lib/data/user';
+import { redirect } from 'next/navigation';
 
-      <div className="bg-waitrose-red w-full h-20"></div>
-      <div className="bg-waitrose-brown w-full h-20"></div>
-      <div className="bg-waitrose-beige w-full h-20"></div>
-      <div className="bg-waitrose-lime w-full h-20"></div>
-      <div className="bg-waitrose-green w-full h-20"></div>
-    </div>
-  );
+export default async function Home() {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect('/log-in');
+  }
+
+  redirect('/home');
 }
