@@ -21,11 +21,9 @@ export const AddedToWishlistDialog: React.FC<Props> = ({
     <Dialog open={show} onOpenChange={onChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="font-normal text-xl">
-            Product added to your wishlist!
-          </DialogTitle>
+          <DialogTitle>Product added to your wishlist!</DialogTitle>
 
-          <DialogDescription className="font-light text-base">
+          <DialogDescription>
             You can now navigate to your wishlist for easier access to scan your
             favourite items
           </DialogDescription>
