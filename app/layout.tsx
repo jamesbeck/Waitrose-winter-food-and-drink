@@ -46,7 +46,9 @@ export default async function RootLayout({
             <header className="flex p-3 justify-between items-center">
               <Menu user={user} />
 
-              <H1>Food &amp; Drink Festival</H1>
+              <H1>
+                <Link href="/home">Food &amp; Drink Festival</Link>
+              </H1>
 
               <div className="flex gap-2">
                 <Button variant="secondary" size="icon" asChild>
