@@ -22,7 +22,7 @@ export default function Home() {
       />
 
       <MenuItem
-        text="What's On"
+        text="What’s On"
         align="right"
         colours={['brown', 'green', 'red']}
         image={WhatsOnImage}

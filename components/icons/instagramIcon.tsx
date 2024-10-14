@@ -1,8 +1,10 @@
 import React from 'react';
 
-type Props = {};
+type Props = {
+  className?: string;
+};
 
-export const InstagramIcon: React.FC<Props> = (props: Props) => {
+export const InstagramIcon: React.FC<Props> = ({ className }: Props) => {
   return (
     <svg
       aria-hidden="true"
@@ -11,6 +13,7 @@ export const InstagramIcon: React.FC<Props> = (props: Props) => {
       width="16px"
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <path
         fill="currentColor"

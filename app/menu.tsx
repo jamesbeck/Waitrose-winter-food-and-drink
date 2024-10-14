@@ -24,7 +24,7 @@ type Props = {
 
 const links = [
   {
-    name: "What's On",
+    name: 'What’s On',
     description: 'See everything on at the festival',
     href: '/whats-on',
   },
