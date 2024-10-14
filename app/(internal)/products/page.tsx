@@ -16,8 +16,6 @@ export default async function Products({ searchParams: { search } }: Props) {
     ? await getProducts({ offset: 0, search })
     : await getProducts({ offset: 0 });
 
-  console.log(products);
-
   return (
     <>
       <Content className="pb-0">

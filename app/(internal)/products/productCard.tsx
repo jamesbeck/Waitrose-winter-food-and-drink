@@ -1,3 +1,5 @@
+import { HeartEmptyIcon } from '@/components/icons/heartEmptyIcon';
+import { HeartFullIcon } from '@/components/icons/heartFullIcon';
 import {
   Card,
   CardContent,
@@ -7,6 +9,7 @@ import {
 } from '@/components/ui/card';
 import type { ProductWithWishlisted } from '@/lib/data/products';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import { WishlistAddButton } from './wishlistAddButton';
 import { WishlistRemoveButton } from './wishlistRemoveButton';
@@ -26,7 +29,7 @@ export const ProductCard: React.FC<Props> = ({ product, onChange }: Props) => {
           variant="ghost"
           product={product}
           onChange={onChange}
-          labelVariant="icon"
+          label={<HeartFullIcon />}
         />
       ) : (
         <WishlistAddButton
@@ -35,39 +38,41 @@ export const ProductCard: React.FC<Props> = ({ product, onChange }: Props) => {
           variant="ghost"
           product={product}
           onChange={onChange}
-          labelVariant="icon"
+          label={<HeartEmptyIcon />}
         />
       )}
 
-      <div className="w-full h-48 relative">
-        {product.image_url && (
-          <Image
-            src={product.image_url}
-            alt={product.name}
-            fill={true}
-            style={{ objectFit: 'contain' }}
-            sizes="50vw, 25vh"
-          />
-        )}
-      </div>
+      <Link href={`/products/${product.line_number}`}>
+        <div className="w-full h-48 relative">
+          {product.image_url && (
+            <Image
+              src={product.image_url}
+              alt={product.name}
+              fill={true}
+              style={{ objectFit: 'contain' }}
+              sizes="50vw, 25vh"
+            />
+          )}
+        </div>
 
-      <CardHeader className="px-3 py-0 ">
-        <CardTitle className="text-sm font-normal pb-1 border-b border-subtle-foreground mb-1">
-          {product.name}
-        </CardTitle>
-      </CardHeader>
+        <CardHeader className="px-3 py-0 ">
+          <CardTitle className="text-sm font-normal pb-1 border-b border-subtle-foreground mb-1">
+            {product.name}
+          </CardTitle>
+        </CardHeader>
 
-      <CardContent className="px-3 py-0 grow">
-        {product.supplier && (
-          <div className="text-sm font-normal">{product.supplier}</div>
-        )}
+        <CardContent className="px-3 py-0 grow">
+          {product.supplier && (
+            <div className="text-sm font-normal">{product.supplier}</div>
+          )}
 
-        {product.room && (
-          <div className="text-xs font-light text-subtle-foreground">
-            Stand {product.room}
-          </div>
-        )}
-      </CardContent>
+          {product.room && (
+            <div className="text-xs font-light text-subtle-foreground">
+              Stand {product.room}
+            </div>
+          )}
+        </CardContent>
+      </Link>
 
       <CardFooter className="p-3">
         {product.is_wishlisted ? (

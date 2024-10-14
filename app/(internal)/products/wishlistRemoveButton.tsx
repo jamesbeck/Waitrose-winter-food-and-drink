@@ -1,6 +1,5 @@
 'use client';
 
-import { HeartFullIcon } from '@/components/icons/heartFullIcon';
 import { Button, type ButtonProps } from '@/components/ui/button';
 import type { ProductWithWishlisted } from '@/lib/data/products';
 import { removeProductFromWishlist } from '@/lib/data/wishlist';
@@ -9,13 +8,13 @@ import React from 'react';
 type Props = Omit<ButtonProps, 'onChange'> & {
   product: ProductWithWishlisted;
   onChange?: (product: ProductWithWishlisted) => void;
-  labelVariant?: 'text' | 'icon';
+  label?: string | React.ReactNode;
 };
 
 export const WishlistRemoveButton: React.FC<Props> = ({
   product,
   onChange,
-  labelVariant = 'text',
+  label = 'Remove from Wishlist',
   ...props
 }: Props) => {
   const handleRemove = async () => {
@@ -25,8 +24,8 @@ export const WishlistRemoveButton: React.FC<Props> = ({
   };
 
   return (
-    <Button {...props} onClick={handleRemove}>
-      {labelVariant == 'text' ? 'Remove from Wishlist' : <HeartFullIcon />}
+    <Button onClick={handleRemove} {...props}>
+      {label}
     </Button>
   );
 };

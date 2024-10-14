@@ -1,6 +1,5 @@
 'use client';
 
-import { HeartEmptyIcon } from '@/components/icons/heartEmptyIcon';
 import { Button, type ButtonProps } from '@/components/ui/button';
 import type { ProductWithWishlisted } from '@/lib/data/products';
 import { addProductToWishlist } from '@/lib/data/wishlist';
@@ -9,13 +8,13 @@ import React from 'react';
 type Props = Omit<ButtonProps, 'onChange'> & {
   product: ProductWithWishlisted;
   onChange?: (product: ProductWithWishlisted) => void;
-  labelVariant?: 'text' | 'icon';
+  label?: string | React.ReactNode;
 };
 
 export const WishlistAddButton: React.FC<Props> = ({
   product,
   onChange,
-  labelVariant = 'text',
+  label = 'Add to Wishlist',
   ...props
 }: Props) => {
   const handleAdd = async () => {
@@ -26,7 +25,7 @@ export const WishlistAddButton: React.FC<Props> = ({
 
   return (
     <Button onClick={handleAdd} {...props}>
-      {labelVariant === 'text' ? 'Add to Wishlist' : <HeartEmptyIcon />}
+      {label}
     </Button>
   );
 };

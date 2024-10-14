@@ -1,8 +1,10 @@
 import React from 'react';
 
-type Props = {};
+type Props = {
+  className?: string;
+};
 
-export const HeartFullIcon: React.FC<Props> = (props: Props) => {
+export const HeartFullIcon: React.FC<Props> = ({ className }: Props) => {
   return (
     <svg
       width="27"
@@ -10,6 +12,7 @@ export const HeartFullIcon: React.FC<Props> = (props: Props) => {
       viewBox="0 0 27 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <path
         d="M23.8281 13.4587L13.8274 23.1611L13.8274 23.1611C13.5764 23.4046 13.1732 23.4046 12.9222 23.1611L2.92075 13.459C0.995196 11.5911 0.223107 8.87387 0.893844 6.3082L0.893877 6.30808C1.56541 3.74333 3.57593 1.7162 6.18071 0.966407C8.68669 0.24505 11.3921 0.805493 13.3745 2.44394C15.3572 0.804503 18.0635 0.244041 20.5694 0.965408M23.8281 13.4587L20.5694 0.965409C20.5694 0.965408 20.5694 0.965408 20.5694 0.965408M23.8281 13.4587L23.8284 13.459C25.7539 11.591 26.527 8.87401 25.8563 6.30724L25.8563 6.30722C25.1859 3.74231 23.1742 1.7152 20.5694 0.965408M23.8281 13.4587L20.5694 0.965408"
