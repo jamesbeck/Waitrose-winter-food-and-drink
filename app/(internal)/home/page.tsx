@@ -6,6 +6,7 @@ import ScheduleImage from '@/images/schedule.png';
 import WhatsOnImage from '@/images/whats-on.png';
 import WishlistImage from '@/images/wishlist.png';
 import Image from 'next/image';
+import { Footer } from './footer';
 import { MenuItem } from './menuItem';
 
 export default function Home() {
@@ -59,6 +60,8 @@ export default function Home() {
         image={ProductsImage}
         href="/products"
       />
+
+      <Footer />
     </div>
   );
 }
