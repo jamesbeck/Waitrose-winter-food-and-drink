@@ -11,12 +11,27 @@ type ProductList = {
   items: ProductWithWishlisted[];
 };
 
-export const getProducts = async (offset: number = 0): Promise<ProductList> => {
+type Params = {
+  offset?: number;
+  search?: string;
+};
+
+export const getProducts = async ({
+  offset = 0,
+  search,
+}: Params): Promise<ProductList> => {
   const user = await getCurrentUser();
 
+  const baseQuery = db.from('products');
+
+  if (search) {
+    baseQuery.whereILike('supplier', `%${search}%`).orWhere('room', search);
+  }
+
   const [count, items] = await Promise.all([
-    db.count<{ count: number }[]>('*').from('products').first(),
-    db
+    baseQuery.clone().count<{ count: string }[]>('*').first(),
+    baseQuery
+      .clone()
       .select<ProductWithWishlisted[]>([
         'products.*',
         db.raw('wishlist.product_line_number IS NOT NULL as "is_wishlisted"'),
@@ -33,7 +48,7 @@ export const getProducts = async (offset: number = 0): Promise<ProductList> => {
       .limit(10),
   ]);
 
-  return { count: count?.count || 0, items };
+  return { count: count?.count ? parseInt(count.count) : 0, items };
 };
 
 export const getProduct = async (

@@ -3,13 +3,24 @@ import { H1 } from '@/components/typography/h1';
 import { Lead } from '@/components/typography/lead';
 import { getProducts } from '@/lib/data/products';
 import { ProductsGrid } from './productsGrid';
+import { SearchForm } from './searchForm';
 
-export default async function Products() {
-  const products = await getProducts();
+type Props = {
+  searchParams: {
+    search?: string;
+  };
+};
+
+export default async function Products({ searchParams: { search } }: Props) {
+  const products = search
+    ? await getProducts({ offset: 0, search })
+    : await getProducts({ offset: 0 });
+
+  console.log(products);
 
   return (
     <>
-      <Content>
+      <Content className="pb-0">
         <H1>Products</H1>
 
         <Lead>
@@ -17,9 +28,15 @@ export default async function Products() {
           your favourites, find out more information, and add them to your
           wishlist.
         </Lead>
+
+        <SearchForm search={search} />
       </Content>
 
-      <ProductsGrid products={products.items} count={products.count} />
+      <ProductsGrid
+        products={products.items}
+        count={products.count}
+        search={search}
+      />
     </>
   );
 }
