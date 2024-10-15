@@ -48,6 +48,8 @@ export const getStandardEvents = async ({
 
         if (user) {
           this.andOnVal('schedule.user_id', user.id);
+        } else {
+          this.andOnNull('schedule.user_id');
         }
       })
       .orderBy('id', 'asc')

@@ -21,7 +21,11 @@ export const WishlistRemoveButton: React.FC<Props> = ({
   const [showDialog, setShowDialog] = React.useState(false);
 
   const handleRemove = async () => {
-    await removeProductFromWishlist(product.line_number);
+    const success = await removeProductFromWishlist(product.line_number);
+
+    if (!success) {
+      return;
+    }
 
     onChange?.({ ...product, is_wishlisted: false });
   };

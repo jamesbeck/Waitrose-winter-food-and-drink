@@ -19,7 +19,7 @@ export const getSchedule = async ({
   const user = await getCurrentUser();
 
   if (!user) {
-    redirect('/login');
+    return redirect('/log-in');
   }
 
   const baseQuery = db
@@ -50,22 +50,26 @@ export const addEventToSchedule = async (id: Event['id']) => {
   const user = await getCurrentUser();
 
   if (!user) {
-    throw new Error('User not found');
+    return redirect('/log-in');
   }
 
   await db.table('schedule').insert({ user_id: user.id, event_id: id });
 
   revalidatePath('/schedule');
+
+  return true;
 };
 
 export const removeEventFromSchedule = async (id: Event['id']) => {
   const user = await getCurrentUser();
 
   if (!user) {
-    throw new Error('User not found');
+    return redirect('/log-in');
   }
 
   await db.table('schedule').where({ user_id: user.id, event_id: id }).delete();
 
   revalidatePath('/schedule');
+
+  return true;
 };

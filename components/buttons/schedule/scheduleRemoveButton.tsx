@@ -21,7 +21,11 @@ export const ScheduleRemoveButton: React.FC<Props> = ({
   const [showDialog, setShowDialog] = React.useState(false);
 
   const handleRemove = async () => {
-    await removeEventFromSchedule(event.id);
+    const success = await removeEventFromSchedule(event.id);
+
+    if (!success) {
+      return;
+    }
 
     onChange?.({ ...event, is_scheduled: false });
   };

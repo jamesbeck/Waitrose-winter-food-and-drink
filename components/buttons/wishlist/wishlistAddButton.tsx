@@ -18,7 +18,11 @@ export const WishlistAddButton: React.FC<Props> = ({
   ...props
 }: Props) => {
   const handleAdd = async () => {
-    await addProductToWishlist(product.line_number);
+    const success = await addProductToWishlist(product.line_number);
+
+    if (!success) {
+      return;
+    }
 
     onChange?.({ ...product, is_wishlisted: true });
   };

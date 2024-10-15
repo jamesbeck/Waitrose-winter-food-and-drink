@@ -19,7 +19,7 @@ export const getWishlist = async ({
   const user = await getCurrentUser();
 
   if (!user) {
-    redirect('/login');
+    return redirect('/log-in');
   }
 
   const baseQuery = db
@@ -61,14 +61,16 @@ export const addProductToWishlist = async (
   const user = await getCurrentUser();
 
   if (!user) {
-    throw new Error('User not found');
+    return redirect('/log-in');
   }
 
   await db
     .table('wishlist')
-    .insert({ user_id: user?.id, product_line_number: line_number });
+    .insert({ user_id: user.id, product_line_number: line_number });
 
   revalidatePath('/wishlist');
+
+  return true;
 };
 
 export const removeProductFromWishlist = async (
@@ -77,7 +79,7 @@ export const removeProductFromWishlist = async (
   const user = await getCurrentUser();
 
   if (!user) {
-    throw new Error('User not found');
+    return redirect('/log-in');
   }
 
   await db
@@ -86,4 +88,6 @@ export const removeProductFromWishlist = async (
     .delete();
 
   revalidatePath('/wishlist');
+
+  return true;
 };

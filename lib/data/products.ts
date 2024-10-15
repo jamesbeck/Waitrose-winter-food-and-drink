@@ -41,6 +41,8 @@ export const getProducts = async ({
 
         if (user) {
           this.andOnVal('wishlist.user_id', user.id);
+        } else {
+          this.andOnNull('wishlist.user_id');
         }
       })
       .offset(offset)

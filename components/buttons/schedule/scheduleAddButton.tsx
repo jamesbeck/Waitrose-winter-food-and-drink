@@ -18,7 +18,11 @@ export const ScheduleAddButton: React.FC<Props> = ({
   ...props
 }: Props) => {
   const handleAdd = async () => {
-    await addEventToSchedule(event.id);
+    const success = await addEventToSchedule(event.id);
+
+    if (!success) {
+      return;
+    }
 
     onChange?.({ ...event, is_scheduled: true });
   };
