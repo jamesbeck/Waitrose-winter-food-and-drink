@@ -8,7 +8,7 @@ type Props = {
 
 export const Small: React.FC<Props> = ({ children, className }: Props) => {
   return (
-    <small className={cn('text-subtle-foreground', className)}>
+    <small className={cn('text-subtle-foreground font-light', className)}>
       {children}
     </small>
   );

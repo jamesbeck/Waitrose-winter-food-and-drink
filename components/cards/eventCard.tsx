@@ -47,7 +47,7 @@ export const EventCard: React.FC<Props> = ({ event, onChange }: Props) => {
           colour
         )}
       >
-        <CardTitle className="text-lg font-normal">{event.name}</CardTitle>
+        <CardTitle>{event.name}</CardTitle>
 
         <CardDescription className="hidden">
           {dateString} {event.start_time} - {event.end_time}

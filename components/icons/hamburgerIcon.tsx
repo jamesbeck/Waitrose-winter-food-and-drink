@@ -1,8 +1,10 @@
 import React from 'react';
 
-type Props = {};
+type Props = {
+  className?: string;
+};
 
-export const HamburgerIcon: React.FC<Props> = (props: Props) => {
+export const HamburgerIcon: React.FC<Props> = ({ className }: Props) => {
   return (
     <svg
       width="25"
@@ -10,6 +12,7 @@ export const HamburgerIcon: React.FC<Props> = (props: Props) => {
       viewBox="0 0 25 19"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <line
         x1="0.5"

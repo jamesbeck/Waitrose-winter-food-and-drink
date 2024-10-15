@@ -1,12 +1,12 @@
 'use client';
 
+import { EventCard } from '@/components/cards/eventCard';
 import { EmptyMessage } from '@/components/content/emptyMessage';
 import { DataContainer } from '@/components/layout/dataContainer';
+import { EventsGridSkeleton } from '@/components/skeletons/eventsGridSkeleton';
 import { getStandardEvents, type EventWithScheduled } from '@/lib/data/events';
 import React, { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { EventCard } from '../../../components/content/eventCard';
-import { EventsGridSkeleton } from '../../../components/content/eventsGridSkeleton';
 
 type Props = {
   events: EventWithScheduled[];

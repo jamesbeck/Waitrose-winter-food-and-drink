@@ -5,8 +5,8 @@ import { DataContainer } from '@/components/layout/dataContainer';
 import { getProducts, type ProductWithWishlisted } from '@/lib/data/products';
 import React, { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { ProductCard } from '../../../components/content/productCard';
-import { ProductsGridSkeleton } from '../../../components/content/productsGridSkeleton';
+import { ProductCard } from '../../../components/cards/productCard';
+import { ProductsGridSkeleton } from '../../../components/skeletons/productsGridSkeleton';
 
 type Props = {
   products: ProductWithWishlisted[];

@@ -9,8 +9,8 @@ import {
 } from '@/lib/data/events';
 import React, { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { EventsGridSkeleton } from '../../../components/content/eventsGridSkeleton';
-import { MasterclassCard } from '../../../components/content/masterclassCard';
+import { MasterclassCard } from '../../../components/cards/masterclassCard';
+import { EventsGridSkeleton } from '../../../components/skeletons/eventsGridSkeleton';
 
 type Props = {
   masterclasses: EventWithScheduled[];

@@ -1,18 +1,29 @@
+import { WelcomeCard } from '@/app/(internal)/home/welcomeCard';
 import { ZoomIcon } from '@/components/icons/zoomIcon';
+import { DataContainer } from '@/components/layout/dataContainer';
 import HeaderImage from '@/images/header.png';
 import MasterclassImage from '@/images/masterclass.png';
 import ProductsImage from '@/images/products.png';
 import ScheduleImage from '@/images/schedule.png';
 import WhatsOnImage from '@/images/whats-on.png';
 import WishlistImage from '@/images/wishlist.png';
+import { isWelcomed } from '@/lib/auth';
 import Image from 'next/image';
 import { Footer } from './footer';
 import { MenuItem } from './menuItem';
 
-export default function Home() {
+export default async function Home() {
+  const showWelcome = !(await isWelcomed());
+
   return (
     <div>
       <Image src={HeaderImage} alt="header" priority />
+
+      {showWelcome && (
+        <DataContainer className="px-12">
+          <WelcomeCard />
+        </DataContainer>
+      )}
 
       <MenuItem
         text="Festival Map"

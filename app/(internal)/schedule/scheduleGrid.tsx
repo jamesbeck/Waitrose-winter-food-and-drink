@@ -6,9 +6,9 @@ import { type EventWithScheduled, type FilterDay } from '@/lib/data/events';
 import { getSchedule } from '@/lib/data/schedule';
 import React, { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { EventCard } from '../../../components/content/eventCard';
-import { EventsGridSkeleton } from '../../../components/content/eventsGridSkeleton';
-import { MasterclassCard } from '../../../components/content/masterclassCard';
+import { EventCard } from '../../../components/cards/eventCard';
+import { MasterclassCard } from '../../../components/cards/masterclassCard';
+import { EventsGridSkeleton } from '../../../components/skeletons/eventsGridSkeleton';
 
 type Props = {
   events: EventWithScheduled[];

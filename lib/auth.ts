@@ -1,3 +1,5 @@
+'use server';
+
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { generateToken, validateToken } from './auth/tokens';
@@ -43,4 +45,16 @@ export const getLoggedInEmail = (): string | null => {
 
     return null;
   }
+};
+
+export const isWelcomed = async () => {
+  const cookieStore = cookies();
+  const welcomed = cookieStore.get('welcomed');
+
+  return welcomed !== undefined && welcomed.value === 'true';
+};
+
+export const markWelcomed = () => {
+  const cookieStore = cookies();
+  cookieStore.set('welcomed', 'true');
 };

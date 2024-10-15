@@ -65,9 +65,7 @@ export const MasterclassCard: React.FC<Props> = ({
           textColour
         )}
       >
-        <CardTitle className="text-lg font-normal">
-          {masterclass.name}
-        </CardTitle>
+        <CardTitle>{masterclass.name}</CardTitle>
 
         <CardDescription className="hidden">
           {dateString} {masterclass.start_time} - {masterclass.end_time}

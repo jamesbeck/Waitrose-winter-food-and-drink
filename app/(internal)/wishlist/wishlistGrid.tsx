@@ -1,9 +1,9 @@
 'use client';
 
+import { ProductCard } from '@/components/cards/productCard';
 import { EmptyMessage } from '@/components/content/emptyMessage';
-import { ProductCard } from '@/components/content/productCard';
-import { ProductsGridSkeleton } from '@/components/content/productsGridSkeleton';
 import { DataContainer } from '@/components/layout/dataContainer';
+import { ProductsGridSkeleton } from '@/components/skeletons/productsGridSkeleton';
 import { type ProductWithWishlisted } from '@/lib/data/products';
 import { getWishlist } from '@/lib/data/wishlist';
 import React, { useEffect } from 'react';

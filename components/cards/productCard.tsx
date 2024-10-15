@@ -40,7 +40,7 @@ export const ProductCard: React.FC<Props> = ({ product, onChange }: Props) => {
         </div>
 
         <CardHeader className="px-3 py-0 ">
-          <CardTitle className="text-sm font-normal pb-1 border-b border-subtle-foreground mb-1">
+          <CardTitle className="text-sm pb-1 border-b border-subtle-foreground mb-1">
             {product.name}
           </CardTitle>
         </CardHeader>
