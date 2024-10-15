@@ -1,3 +1,7 @@
+'use server';
+
+import type { Event } from 'knex/types/tables';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { db } from '../knex';
 import type { EventWithScheduled } from './events';
@@ -31,4 +35,28 @@ export const getSchedule = async (
   ]);
 
   return { count: count?.count ? parseInt(count.count) : 0, items };
+};
+
+export const addEventToSchedule = async (id: Event['id']) => {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  await db.table('schedule').insert({ user_id: user.id, event_id: id });
+
+  revalidatePath('/schedule');
+};
+
+export const removeEventFromSchedule = async (id: Event['id']) => {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  await db.table('schedule').where({ user_id: user.id, event_id: id }).delete();
+
+  revalidatePath('/schedule');
 };

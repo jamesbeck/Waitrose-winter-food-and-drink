@@ -1,6 +1,6 @@
+import { ScheduleButton } from '@/components/buttons/scheduleButton';
 import { CalendarIcon } from '@/components/icons/calendarIcon';
 import { ClockIcon } from '@/components/icons/clockIcon';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -14,6 +14,7 @@ import React from 'react';
 
 type Props = {
   event: EventWithScheduled;
+  onChange?: (event: EventWithScheduled) => void;
 };
 
 const dateMappings: Record<EventWithScheduled['day'], Date | undefined> = {
@@ -28,7 +29,7 @@ const colourMappings: Record<EventWithScheduled['day'], string> = {
   Sunday: 'bg-waitrose-brown',
 };
 
-export const EventCard: React.FC<Props> = ({ event }: Props) => {
+export const EventCard: React.FC<Props> = ({ event, onChange }: Props) => {
   const date = dateMappings[event.day];
   const colour = colourMappings[event.day] || 'bg-waitrose-brown';
 
@@ -69,7 +70,7 @@ export const EventCard: React.FC<Props> = ({ event }: Props) => {
       </CardHeader>
 
       <CardContent className="pt-3">
-        <Button variant="outline">Add to schedule</Button>
+        <ScheduleButton event={event} onChange={onChange} />
       </CardContent>
     </Card>
   );

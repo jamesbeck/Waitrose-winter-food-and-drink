@@ -4,9 +4,9 @@ import { H2 } from '@/components/typography/h2';
 import { getProduct } from '@/lib/data/products';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import { WishlistButton } from '../../../../components/buttons/wishlistButton';
+import { WishlistIconButton } from '../../../../components/buttons/wishlistIconButton';
 import { BackButton } from './backButton';
-import { WishlistButton } from './wishlistButton';
-import { WishlistIcon } from './wishlistIcon';
 
 type Props = {
   params: {
@@ -26,7 +26,7 @@ export default async function Products({ params: { lineNumber } }: Props) {
       <div className="relative p-6">
         <BackButton />
 
-        <WishlistIcon product={product} />
+        <WishlistIconButton product={product} />
 
         <div className="w-full h-96 relative">
           {product.image_url && (

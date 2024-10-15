@@ -36,7 +36,6 @@ export const getProducts = async ({
         'products.*',
         db.raw('wishlist.product_line_number IS NOT NULL as "is_wishlisted"'),
       ])
-      .from('products')
       .leftJoin('wishlist', function () {
         this.on('products.line_number', '=', 'wishlist.product_line_number');
 

@@ -1,5 +1,5 @@
-import { HeartEmptyIcon } from '@/components/icons/heartEmptyIcon';
-import { HeartFullIcon } from '@/components/icons/heartFullIcon';
+import { WishlistButton } from '@/components/buttons/wishlistButton';
+import { WishlistIconButton } from '@/components/buttons/wishlistIconButton';
 import {
   Card,
   CardContent,
@@ -11,8 +11,6 @@ import type { ProductWithWishlisted } from '@/lib/data/products';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { WishlistAddButton } from './wishlistAddButton';
-import { WishlistRemoveButton } from './wishlistRemoveButton';
 
 type Props = {
   product: ProductWithWishlisted;
@@ -22,25 +20,11 @@ type Props = {
 export const ProductCard: React.FC<Props> = ({ product, onChange }: Props) => {
   return (
     <Card className="text-center flex flex-col relative">
-      {product.is_wishlisted ? (
-        <WishlistRemoveButton
-          size="icon"
-          className="absolute top-2 right-2 size-4 z-10"
-          variant="ghost"
-          product={product}
-          onChange={onChange}
-          label={<HeartFullIcon />}
-        />
-      ) : (
-        <WishlistAddButton
-          size="icon"
-          className="absolute top-2 right-2 size-4 z-10"
-          variant="ghost"
-          product={product}
-          onChange={onChange}
-          label={<HeartEmptyIcon />}
-        />
-      )}
+      <WishlistIconButton
+        product={product}
+        onChange={onChange}
+        className="top-2 right-2 size-4"
+      />
 
       <Link href={`/products/${product.line_number}`}>
         <div className="w-full h-48 relative">
@@ -75,16 +59,7 @@ export const ProductCard: React.FC<Props> = ({ product, onChange }: Props) => {
       </Link>
 
       <CardFooter className="p-3">
-        {product.is_wishlisted ? (
-          <WishlistRemoveButton
-            size="sm"
-            className="text-xs"
-            product={product}
-            onChange={onChange}
-          />
-        ) : (
-          <WishlistAddButton size="sm" product={product} onChange={onChange} />
-        )}
+        <WishlistButton size="sm" product={product} onChange={onChange} />
       </CardFooter>
     </Card>
   );

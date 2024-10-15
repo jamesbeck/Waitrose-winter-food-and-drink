@@ -29,6 +29,12 @@ export const EventsGrid: React.FC<Props> = ({
     setEvents((existing) => [...existing, ...next.items]);
   };
 
+  const handleEventChange = (event: EventWithScheduled) => {
+    setEvents((existing) =>
+      existing.map((changed) => (changed.id === event.id ? event : changed))
+    );
+  };
+
   if (count === 0) {
     return (
       <DataContainer className="grow p-12 content-center">
@@ -50,7 +56,11 @@ export const EventsGrid: React.FC<Props> = ({
       >
         <div className="grid grid-cols-1 gap-6">
           {events.map((event) => (
-            <EventCard key={event.id} event={event} />
+            <EventCard
+              key={event.id}
+              event={event}
+              onChange={handleEventChange}
+            />
           ))}
         </div>
       </InfiniteScroll>

@@ -2,7 +2,7 @@
 
 import { Button, type ButtonProps } from '@/components/ui/button';
 import type { ProductWithWishlisted } from '@/lib/data/products';
-import { removeProductFromWishlist } from '@/lib/data/wishlist';
+import { addProductToWishlist } from '@/lib/data/wishlist';
 import React from 'react';
 
 type Props = Omit<ButtonProps, 'onChange'> & {
@@ -11,21 +11,23 @@ type Props = Omit<ButtonProps, 'onChange'> & {
   label?: string | React.ReactNode;
 };
 
-export const WishlistRemoveButton: React.FC<Props> = ({
+export const WishlistAddButton: React.FC<Props> = ({
   product,
   onChange,
-  label = 'Remove from Wishlist',
+  label = 'Add to wishlist',
   ...props
 }: Props) => {
-  const handleRemove = async () => {
-    await removeProductFromWishlist(product.line_number);
+  const handleAdd = async () => {
+    await addProductToWishlist(product.line_number);
 
-    onChange?.({ ...product, is_wishlisted: false });
+    onChange?.({ ...product, is_wishlisted: true });
   };
 
   return (
-    <Button onClick={handleRemove} {...props}>
-      {label}
-    </Button>
+    <>
+      <Button onClick={handleAdd} {...props}>
+        {label}
+      </Button>
+    </>
   );
 };
