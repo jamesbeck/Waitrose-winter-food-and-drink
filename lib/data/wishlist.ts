@@ -2,6 +2,7 @@
 
 import type { Product } from 'knex/types/tables';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 import { db } from '../knex';
 import type { ProductWithWishlisted } from './products';
 import { getCurrentUser } from './user';
@@ -12,7 +13,7 @@ export const getWishlist = async (
   const user = await getCurrentUser();
 
   if (!user) {
-    throw new Error('User not found');
+    redirect('/login');
   }
 
   const [count, items] = await Promise.all([

@@ -67,9 +67,7 @@ export const MenuItem: React.FC<Props> = ({
         <div
           className={cn(
             'flex justify-center items-center',
-            align === 'left'
-              ? 'grow uppercase text-2xl flex justify-center items-center'
-              : 'w-16',
+            align === 'left' ? 'grow uppercase text-2xl' : 'w-16',
             colourClasses[1]
           )}
         >
