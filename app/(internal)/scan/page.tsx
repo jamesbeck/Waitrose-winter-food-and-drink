@@ -55,7 +55,11 @@ export default function Scan({ searchParams: { scanned } }: Props) {
 
         <p className="font-light">Issue connecting to camera?</p>
         <strong className="font-medium">
-          Please ensure permissions are accepted.
+          Please ensure{' '}
+          <a href="/scan" className="underline">
+            permissions
+          </a>{' '}
+          are accepted.
         </strong>
       </Content>
 
