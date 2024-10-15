@@ -1,12 +1,11 @@
-import { EmptyMessage } from '@/components/content/emptyMessage';
 import { Content } from '@/components/layout/content';
-import { DataContainer } from '@/components/layout/dataContainer';
 import { H1 } from '@/components/typography/h1';
 import { Lead } from '@/components/typography/lead';
 import { getSchedule } from '@/lib/data/schedule';
+import { ScheduleGrid } from './scheduleGrid';
 
 export default async function Schedule() {
-  const schedule = await getSchedule();
+  const schedule = await getSchedule({});
 
   return (
     <>
@@ -20,14 +19,7 @@ export default async function Schedule() {
         </Lead>
       </Content>
 
-      {schedule.count === 0 && (
-        <DataContainer className="grow p-12 content-center">
-          <EmptyMessage
-            heading="You have no items in your schedule"
-            message="To add items, please head over to the what’s on section and browse the available events"
-          />
-        </DataContainer>
-      )}
+      <ScheduleGrid events={schedule.items} count={schedule.count} />
     </>
   );
 }

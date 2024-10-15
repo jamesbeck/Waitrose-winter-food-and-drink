@@ -2,7 +2,8 @@
 
 import { EmptyMessage } from '@/components/content/emptyMessage';
 import { DataContainer } from '@/components/layout/dataContainer';
-import { getStandardEvents, type EventWithScheduled } from '@/lib/data/events';
+import { type EventWithScheduled } from '@/lib/data/events';
+import { getSchedule } from '@/lib/data/schedule';
 import React, { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { EventCard } from '../../../components/content/eventCard';
@@ -13,7 +14,7 @@ type Props = {
   count: number;
 };
 
-export const EventsGrid: React.FC<Props> = ({
+export const ScheduleGrid: React.FC<Props> = ({
   events: initialEvents,
   count,
 }: Props) => {
@@ -24,7 +25,7 @@ export const EventsGrid: React.FC<Props> = ({
   }, [initialEvents]);
 
   const loadEvents = async () => {
-    const next = await getStandardEvents({ offset: events.length });
+    const next = await getSchedule({ offset: events.length });
 
     setEvents((existing) => [...existing, ...next.items]);
   };
@@ -39,8 +40,8 @@ export const EventsGrid: React.FC<Props> = ({
     return (
       <DataContainer className="grow p-12 content-center">
         <EmptyMessage
-          heading="No events found"
-          message="Try filtering by a different date."
+          heading="You have no items in your schedule"
+          message="To add items, please head over to the what’s on section and browse the available events"
         />
       </DataContainer>
     );

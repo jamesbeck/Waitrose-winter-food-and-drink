@@ -7,9 +7,13 @@ import { db } from '../knex';
 import type { EventWithScheduled } from './events';
 import { getCurrentUser } from './user';
 
-export const getSchedule = async (
-  offset = 0
-): Promise<{ count: number; items: EventWithScheduled[] }> => {
+type Params = {
+  offset?: number;
+};
+
+export const getSchedule = async ({
+  offset = 0,
+}: Params): Promise<{ count: number; items: EventWithScheduled[] }> => {
   const user = await getCurrentUser();
 
   if (!user) {

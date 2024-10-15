@@ -11,7 +11,7 @@ export const DataContainer: React.FC<Props> = ({
   className,
 }: Props) => {
   return (
-    <div className={cn('bg-subtle-background px-6 py-3', className)}>
+    <div className={cn('grow bg-subtle-background px-6 py-3', className)}>
       {children}
     </div>
   );
