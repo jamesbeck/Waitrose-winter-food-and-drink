@@ -3,6 +3,7 @@ import 'dotenv/config';
 import { db } from '@/lib/knex';
 import { filter, getFileStream, map, parseCsv, tap, toDb } from '@/lib/streams';
 import { program } from 'commander';
+import type { Event } from 'knex/types/tables';
 import { pipeline } from 'stream/promises';
 
 type ProductCSVRow = {
@@ -15,6 +16,16 @@ type ProductCSVRow = {
   'Sale price': string;
   Unit: string;
   'Link to WR.com': string;
+};
+
+type EventCSVRow = {
+  ROOM: string;
+  DAY: string;
+  'START TIME': string;
+  'END TIME': string;
+  IMAGE: string;
+  'WHOS ON': string;
+  CONTENT: string;
 };
 
 program.name('import');
@@ -51,6 +62,48 @@ program
         })),
         tap((row) => console.log(row)),
         toDb(db, 'products', 'line_number')
+      );
+    } catch (error) {
+      console.error(error);
+    }
+
+    await db.destroy();
+  });
+
+program
+  .command('events')
+  .argument('<file>', 'File to import')
+  .action(async (fileName) => {
+    try {
+      await pipeline(
+        getFileStream(fileName),
+        parseCsv(),
+        filter(
+          (row: EventCSVRow) => !!row.ROOM && !!row.DAY && !!row['START TIME']
+        ),
+        map(
+          (row: EventCSVRow): Omit<Event, 'created_at' | 'updated_at'> => ({
+            id: `${row.ROOM.toLowerCase().replaceAll(
+              ' ',
+              '-'
+            )}-${row.DAY.toLowerCase()}-${row['START TIME'].replaceAll(
+              ':',
+              ''
+            )}`,
+            type: row.ROOM.startsWith('Masterclass')
+              ? 'masterclass'
+              : 'standard',
+            room: row.ROOM,
+            day: row.DAY,
+            start_time: row['START TIME'],
+            end_time: row['END TIME'],
+            image_url: row.IMAGE,
+            name: row['WHOS ON'],
+            description: row.CONTENT,
+          })
+        ),
+        tap((row) => console.log(row)),
+        toDb(db, 'events', 'id')
       );
     } catch (error) {
       console.error(error);

@@ -33,6 +33,20 @@ declare module 'knex/types/tables' {
     updated_at: Date;
   };
 
+  type Event = {
+    id: string;
+    type: 'standard' | 'masterclass';
+    room: string;
+    day: string;
+    start_time: string;
+    end_time: string;
+    image_url?: string;
+    name: string;
+    description?: string;
+    created_at: Date;
+    updated_at: Date;
+  };
+
   interface Tables {
     users: User;
     products: Product;

@@ -6,31 +6,58 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## CLI
 
-To learn more about Next.js, take a look at the following resources:
+### Product Import
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The product import will override any existing values that have the same line number. Any products without line numbers will be ignored.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+For convenience the `data` directory in the project is Git ignored.
 
-## Deploy on Vercel
+```bash
+npm run import products {path_to_csv}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+e.g. assuming a file in the `data` directory of the project
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+npm run import products "data/WWF24 APP MASTER SHEET - PRODUCT.csv"
+```
+
+### Events Import
+
+The events import will override any existing values that have the same combination of room, day and time (these are combined to make the ID). Any events without values in these columns will be ignored.
+
+For convenience the `data` directory in the project is Git ignored.
+
+```bash
+npm run import events {path_to_csv}
+```
+
+e.g. assuming a file in the `data` directory of the project
+
+```bash
+npm run import events "data/WWF24 APP MASTER SHEET - WHAT'S ON .csv"
+```
+
+### QR Code Export
+
+NOTE: The output directory must already exist.
+
+For convenience the `qr-codes` directory in the project is Git ignored.
+
+```bash
+npm run export qr-codes {output_directory}
+```
+
+e.g. assuming the directory `qr-codes` already exists
+
+```bash
+npm run export qr-codes ./qr-codes
+```
