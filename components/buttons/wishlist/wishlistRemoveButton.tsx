@@ -1,5 +1,6 @@
 'use client';
 
+import { RemoveFromWishlistDialog } from '@/components/dialogs/removeFromWishlistDialog';
 import { Button, type ButtonProps } from '@/components/ui/button';
 import type { ProductWithWishlisted } from '@/lib/data/products';
 import { removeProductFromWishlist } from '@/lib/data/wishlist';
@@ -17,6 +18,8 @@ export const WishlistRemoveButton: React.FC<Props> = ({
   label = 'Remove from wishlist',
   ...props
 }: Props) => {
+  const [showDialog, setShowDialog] = React.useState(false);
+
   const handleRemove = async () => {
     await removeProductFromWishlist(product.line_number);
 
@@ -24,8 +27,15 @@ export const WishlistRemoveButton: React.FC<Props> = ({
   };
 
   return (
-    <Button onClick={handleRemove} {...props}>
-      {label}
-    </Button>
+    <>
+      <Button onClick={() => setShowDialog(true)} {...props}>
+        {label}
+      </Button>
+      <RemoveFromWishlistDialog
+        show={showDialog}
+        onChange={setShowDialog}
+        onConfirm={handleRemove}
+      />
+    </>
   );
 };
