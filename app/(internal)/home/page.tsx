@@ -1,4 +1,4 @@
-import { WelcomeCard } from '@/app/(internal)/home/welcomeCard';
+import { WelcomeCard } from '@/components/cards/welcomeCard';
 import { ZoomIcon } from '@/components/icons/zoomIcon';
 import { DataContainer } from '@/components/layout/dataContainer';
 import HeaderImage from '@/images/header.png';

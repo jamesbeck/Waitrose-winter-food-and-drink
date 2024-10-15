@@ -2,18 +2,13 @@
 
 import { markWelcomed } from '@/lib/auth';
 import React from 'react';
-import { HamburgerIcon } from '../../../components/icons/hamburgerIcon';
-import { QrCodeIcon } from '../../../components/icons/qrCodeIcon';
-import { UserIcon } from '../../../components/icons/userIcon';
-import { Lead } from '../../../components/typography/lead';
-import { Small } from '../../../components/typography/small';
-import { Button } from '../../../components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '../../../components/ui/card';
+import { HamburgerIcon } from '../icons/hamburgerIcon';
+import { QrCodeIcon } from '../icons/qrCodeIcon';
+import { UserIcon } from '../icons/userIcon';
+import { Lead } from '../typography/lead';
+import { Small } from '../typography/small';
+import { Button } from '../ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 
 type Props = {};
 
@@ -58,7 +53,9 @@ export const WelcomeCard: React.FC<Props> = () => {
         </div>
 
         <div>
-          <Small>'Camera permissions' must be allowed, go to settings</Small>
+          <Small>
+            &lsquo;Camera permissions&rsquo; must be allowed, go to settings
+          </Small>
         </div>
 
         <Button variant="outline" onClick={() => handleDismiss()}>
