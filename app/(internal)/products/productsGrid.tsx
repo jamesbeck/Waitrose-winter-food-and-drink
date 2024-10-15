@@ -1,5 +1,7 @@
 'use client';
 
+import { EmptyMessage } from '@/components/content/emptyMessage';
+import { DataContainer } from '@/components/layout/dataContainer';
 import { getProducts, type ProductWithWishlisted } from '@/lib/data/products';
 import React, { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -37,30 +39,35 @@ export const ProductsGrid: React.FC<Props> = ({
     );
   };
 
+  if (count === 0) {
+    return (
+      <DataContainer className="grow p-12 content-center">
+        <EmptyMessage
+          heading="No products found"
+          message="Try searching for something else"
+        />
+      </DataContainer>
+    );
+  }
+
   return (
-    <div className="bg-subtle-background px-6 py-3">
-      {count === 0 ? (
-        <p className="text-center text-gray-500">
-          No products found. Try searching for something else.
-        </p>
-      ) : (
-        <InfiniteScroll
-          dataLength={products.length}
-          next={loadProducts}
-          hasMore={products.length < count}
-          loader={<ProductsGridSkeleton />}
-        >
-          <div className="grid grid-cols-2 gap-6">
-            {products.map((product) => (
-              <ProductCard
-                key={product.line_number}
-                product={product}
-                onChange={handleProductChange}
-              />
-            ))}
-          </div>
-        </InfiniteScroll>
-      )}
-    </div>
+    <DataContainer>
+      <InfiniteScroll
+        dataLength={products.length}
+        next={loadProducts}
+        hasMore={products.length < count}
+        loader={<ProductsGridSkeleton />}
+      >
+        <div className="grid grid-cols-2 gap-6">
+          {products.map((product) => (
+            <ProductCard
+              key={product.line_number}
+              product={product}
+              onChange={handleProductChange}
+            />
+          ))}
+        </div>
+      </InfiniteScroll>
+    </DataContainer>
   );
 };

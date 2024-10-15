@@ -18,7 +18,7 @@ export const getWishlist = async (
 
   const [count, items] = await Promise.all([
     db
-      .count<{ count: number }[]>('*')
+      .count<{ count: string }[]>('*')
       .from('wishlist')
       .where('user_id', user.id)
       .first(),
@@ -39,7 +39,7 @@ export const getWishlist = async (
       .limit(10),
   ]);
 
-  return { count: count?.count || 0, items };
+  return { count: count?.count ? parseInt(count.count) : 0, items };
 };
 
 export const addProductToWishlist = async (

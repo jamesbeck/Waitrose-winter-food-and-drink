@@ -1,5 +1,7 @@
 'use client';
 
+import { EmptyMessage } from '@/components/content/emptyMessage';
+import { DataContainer } from '@/components/layout/dataContainer';
 import { getStandardEvents, type EventWithScheduled } from '@/lib/data/events';
 import React, { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -27,26 +29,31 @@ export const EventsGrid: React.FC<Props> = ({
     setEvents((existing) => [...existing, ...next.items]);
   };
 
+  if (count === 0) {
+    return (
+      <DataContainer className="grow p-12 content-center">
+        <EmptyMessage
+          heading="No events found"
+          message="Try filtering by a different date."
+        />
+      </DataContainer>
+    );
+  }
+
   return (
-    <div className="bg-subtle-background px-6 py-3">
-      {count === 0 ? (
-        <p className="text-center text-gray-500">
-          No events found. Try filtering by a different date.
-        </p>
-      ) : (
-        <InfiniteScroll
-          dataLength={events.length}
-          next={loadEvents}
-          hasMore={events.length < count}
-          loader={<EventsGridSkeleton />}
-        >
-          <div className="grid grid-cols-1 gap-6">
-            {events.map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
-          </div>
-        </InfiniteScroll>
-      )}
-    </div>
+    <DataContainer>
+      <InfiniteScroll
+        dataLength={events.length}
+        next={loadEvents}
+        hasMore={events.length < count}
+        loader={<EventsGridSkeleton />}
+      >
+        <div className="grid grid-cols-1 gap-6">
+          {events.map((event) => (
+            <EventCard key={event.id} event={event} />
+          ))}
+        </div>
+      </InfiniteScroll>
+    </DataContainer>
   );
 };
