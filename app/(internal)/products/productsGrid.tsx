@@ -17,8 +17,7 @@ export const ProductsGrid: React.FC<Props> = ({
   search,
   count,
 }: Props) => {
-  const [products, setProducts] =
-    React.useState<ProductWithWishlisted[]>(initialProducts);
+  const [products, setProducts] = React.useState(initialProducts);
 
   useEffect(() => {
     setProducts(initialProducts);
@@ -39,7 +38,7 @@ export const ProductsGrid: React.FC<Props> = ({
   };
 
   return (
-    <div className="bg-subtle-background p-6">
+    <div className="bg-subtle-background px-6 py-3">
       {count === 0 ? (
         <p className="text-center text-gray-500">
           No products found. Try searching for something else.

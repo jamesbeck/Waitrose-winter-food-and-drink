@@ -81,27 +81,31 @@ program
         filter(
           (row: EventCSVRow) => !!row.ROOM && !!row.DAY && !!row['START TIME']
         ),
-        map(
-          (row: EventCSVRow): Omit<Event, 'created_at' | 'updated_at'> => ({
-            id: `${row.ROOM.toLowerCase().replaceAll(
-              ' ',
-              '-'
-            )}-${row.DAY.toLowerCase()}-${row['START TIME'].replaceAll(
-              ':',
-              ''
-            )}`,
+        map((row: EventCSVRow): Omit<Event, 'created_at' | 'updated_at'> => {
+          const normalisedRoom = row.ROOM.trim()
+            .toLowerCase()
+            .replaceAll(' ', '-');
+          const normalisedDay = row.DAY.trim().toLowerCase();
+          const normalisedStartTime = row['START TIME']
+            .trim()
+            .replaceAll(':', '');
+
+          const id = `${normalisedDay}-${normalisedStartTime}-${normalisedRoom}`;
+
+          return {
+            id,
             type: row.ROOM.startsWith('Masterclass')
               ? 'masterclass'
               : 'standard',
-            room: row.ROOM,
-            day: row.DAY,
-            start_time: row['START TIME'],
+            room: row.ROOM.trim(),
+            day: row.DAY.trim(),
+            start_time: row['START TIME'].trim(),
             end_time: row['END TIME'],
             image_url: row.IMAGE,
             name: row['WHOS ON'],
             description: row.CONTENT,
-          })
-        ),
+          };
+        }),
         tap((row) => console.log(row)),
         toDb(db, 'events', 'id')
       );
