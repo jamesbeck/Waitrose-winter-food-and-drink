@@ -4,15 +4,17 @@ import type { Event } from 'knex/types/tables';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { db } from '../knex';
-import type { EventWithScheduled } from './events';
+import type { EventWithScheduled, FilterDay } from './events';
 import { getCurrentUser } from './user';
 
 type Params = {
   offset?: number;
+  days?: FilterDay[];
 };
 
 export const getSchedule = async ({
   offset = 0,
+  days,
 }: Params): Promise<{ count: number; items: EventWithScheduled[] }> => {
   const user = await getCurrentUser();
 
@@ -20,20 +22,23 @@ export const getSchedule = async ({
     redirect('/login');
   }
 
+  const baseQuery = db
+    .from('schedule')
+    .where('schedule.user_id', user.id)
+    .leftJoin('events', 'events.id', '=', 'schedule.event_id');
+
+  if (days && days.length > 0) {
+    baseQuery.whereIn('events.day', days);
+  }
+
   const [count, items] = await Promise.all([
-    db
-      .count<{ count: string }[]>('*')
-      .from('schedule')
-      .where('user_id', user.id)
-      .first(),
-    db
+    baseQuery.clone().count<{ count: string }[]>('*').first(),
+    baseQuery
+      .clone()
       .select<EventWithScheduled[]>([
         'events.*',
         db.raw('true as "is_scheduled"'),
       ])
-      .from('schedule')
-      .leftJoin('events', 'events.id', '=', 'schedule.event_id')
-      .where('schedule.user_id', user.id)
       .offset(offset)
       .limit(10),
   ]);
