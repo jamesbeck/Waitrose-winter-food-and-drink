@@ -1,14 +1,14 @@
 import { Container } from '@/components/layout/container';
 import { Content } from '@/components/layout/content';
 import { H1 } from '@/components/typography/h1';
-import { getLoggedInEmail } from '@/lib/auth';
+import { getCurrentUser } from '@/lib/data/user';
 import { redirect } from 'next/navigation';
 import { RegisterForm } from './registerForm';
 
-export default function Register() {
-  const email = getLoggedInEmail();
+export default async function Register() {
+  const user = await getCurrentUser();
 
-  if (email) {
+  if (user) {
     redirect('/home');
   }
 
