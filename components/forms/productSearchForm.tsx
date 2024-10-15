@@ -8,19 +8,29 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { SearchInput } from '@/components/ui/searchInput';
+import { errorMap } from '@/lib/errorMap';
 import { zodResolver } from '@hookform/resolvers/zod';
 import debounce from 'debounce';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { formSchema, type FormSchema } from './schema';
+import { z } from 'zod';
+
+z.setErrorMap(errorMap);
+
+const formSchema = z.object({
+  search: z.string(),
+});
+
+type FormSchema = z.infer<typeof formSchema>;
 
 type Props = {
   search?: string;
 };
 
-export const SearchForm: React.FC<Props> = ({ search }: Props) => {
+export const ProductSearchForm: React.FC<Props> = ({ search }: Props) => {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const { replace } = useRouter();
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -39,7 +49,7 @@ export const SearchForm: React.FC<Props> = ({ search }: Props) => {
         params.delete('search');
       }
 
-      replace(`/products?${params.toString()}`);
+      replace(`${pathname}?${params.toString()}`);
     },
     [replace, searchParams]
   );

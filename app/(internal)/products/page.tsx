@@ -2,8 +2,8 @@ import { Content } from '@/components/layout/content';
 import { H1 } from '@/components/typography/h1';
 import { Lead } from '@/components/typography/lead';
 import { getProducts } from '@/lib/data/products';
+import { ProductSearchForm } from '../../../components/forms/productSearchForm';
 import { ProductsGrid } from './productsGrid';
-import { SearchForm } from './searchForm';
 
 type Props = {
   searchParams: {
@@ -27,7 +27,7 @@ export default async function Products({ searchParams: { search } }: Props) {
           wishlist.
         </Lead>
 
-        <SearchForm search={search} />
+        <ProductSearchForm search={search} />
       </Content>
 
       <ProductsGrid

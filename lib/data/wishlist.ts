@@ -7,34 +7,47 @@ import { db } from '../knex';
 import type { ProductWithWishlisted } from './products';
 import { getCurrentUser } from './user';
 
-export const getWishlist = async (
-  offset = 0
-): Promise<{ count: number; items: ProductWithWishlisted[] }> => {
+type Params = {
+  offset?: number;
+  search?: string;
+};
+
+export const getWishlist = async ({
+  offset = 0,
+  search,
+}: Params): Promise<{ count: number; items: ProductWithWishlisted[] }> => {
   const user = await getCurrentUser();
 
   if (!user) {
     redirect('/login');
   }
 
+  const baseQuery = db
+    .from('wishlist')
+    .where('wishlist.user_id', user.id)
+    .leftJoin(
+      'products',
+      'products.line_number',
+      '=',
+      'wishlist.product_line_number'
+    );
+
+  if (search) {
+    baseQuery.andWhere((builder) => {
+      builder
+        .whereILike('products.supplier', `%${search}%`)
+        .orWhere('products.room', search);
+    });
+  }
+
   const [count, items] = await Promise.all([
-    db
-      .count<{ count: string }[]>('*')
-      .from('wishlist')
-      .where('user_id', user.id)
-      .first(),
-    db
+    baseQuery.clone().count<{ count: string }[]>('*').first(),
+    baseQuery
+      .clone()
       .select<ProductWithWishlisted[]>([
         'products.*',
         db.raw('true as "is_wishlisted"'),
       ])
-      .from('wishlist')
-      .leftJoin(
-        'products',
-        'products.line_number',
-        '=',
-        'wishlist.product_line_number'
-      )
-      .where('wishlist.user_id', user.id)
       .offset(offset)
       .limit(10),
   ]);

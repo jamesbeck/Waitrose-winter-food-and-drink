@@ -1,12 +1,13 @@
 'use client';
 
 import { EmptyMessage } from '@/components/content/emptyMessage';
+import { ProductCard } from '@/components/content/productCard';
+import { ProductsGridSkeleton } from '@/components/content/productsGridSkeleton';
 import { DataContainer } from '@/components/layout/dataContainer';
-import { getProducts, type ProductWithWishlisted } from '@/lib/data/products';
+import { type ProductWithWishlisted } from '@/lib/data/products';
+import { getWishlist } from '@/lib/data/wishlist';
 import React, { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { ProductCard } from '../../../components/content/productCard';
-import { ProductsGridSkeleton } from '../../../components/content/productsGridSkeleton';
 
 type Props = {
   products: ProductWithWishlisted[];
@@ -14,7 +15,7 @@ type Props = {
   count: number;
 };
 
-export const ProductsGrid: React.FC<Props> = ({
+export const WishlistGrid: React.FC<Props> = ({
   products: initialProducts,
   search,
   count,
@@ -26,7 +27,7 @@ export const ProductsGrid: React.FC<Props> = ({
   }, [initialProducts]);
 
   const loadProducts = async () => {
-    const next = await getProducts({ offset: products.length, search });
+    const next = await getWishlist({ offset: products.length, search });
 
     setProducts((existing) => [...existing, ...next.items]);
   };
@@ -43,8 +44,8 @@ export const ProductsGrid: React.FC<Props> = ({
     return (
       <DataContainer className="grow p-12 content-center">
         <EmptyMessage
-          heading="No products found"
-          message="Try searching for something else"
+          heading="You have no items in your wishlist"
+          message="To add items, please head over to the products section and browse the available products"
         />
       </DataContainer>
     );
