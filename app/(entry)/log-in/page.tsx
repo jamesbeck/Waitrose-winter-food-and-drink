@@ -3,15 +3,15 @@ import { Content } from '@/components/layout/content';
 import { H1 } from '@/components/typography/h1';
 import { Small } from '@/components/typography/small';
 import { Button } from '@/components/ui/button';
-import { getLoggedInEmail } from '@/lib/auth';
+import { getCurrentUser } from '@/lib/data/user';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { LogInForm } from './logInForm';
 
-export default function LogIn() {
-  const email = getLoggedInEmail();
+export default async function LogIn() {
+  const user = await getCurrentUser();
 
-  if (email) {
+  if (user) {
     redirect('/home');
   }
 
