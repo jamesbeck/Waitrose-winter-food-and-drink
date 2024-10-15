@@ -10,14 +10,25 @@ type EventList = {
   items: EventWithScheduled[];
 };
 
+export type FilterDay = 'Friday' | 'Saturday' | 'Sunday';
+
+export const isFilterDay = (value: string): value is FilterDay =>
+  ['Friday', 'Saturday', 'Sunday'].includes(value);
+
 type Params = {
   offset?: number;
+  days?: FilterDay[];
 };
 
 export const getStandardEvents = async ({
   offset = 0,
+  days,
 }: Params): Promise<EventList> => {
   const baseQuery = db.from('events').where('type', 'standard');
+
+  if (days && days.length > 0) {
+    baseQuery.whereIn('day', days);
+  }
 
   const [count, items] = await Promise.all([
     baseQuery.clone().count<{ count: string }[]>('*').first(),

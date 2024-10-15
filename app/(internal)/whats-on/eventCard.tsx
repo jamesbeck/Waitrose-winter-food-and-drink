@@ -32,8 +32,6 @@ export const EventCard: React.FC<Props> = ({ event }: Props) => {
   const date = dateMappings[event.day];
   const colour = colourMappings[event.day] || 'bg-waitrose-brown';
 
-  console.log(event.day);
-
   const dateString = date
     ? `${date.getDate()}/${date.getMonth() + 1}/${`${date.getFullYear()}`.slice(
         -2

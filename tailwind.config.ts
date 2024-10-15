@@ -18,6 +18,7 @@ const config: Config = {
         'subtle-background': '#F6F6F6',
         'subtle-foreground': '#878787',
         'dark-grey': '#626262',
+        'light-grey': '#C7C7C7',
       },
       borderRadius: {
         lg: 'var(--radius)',

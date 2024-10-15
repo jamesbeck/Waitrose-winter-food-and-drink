@@ -43,7 +43,7 @@ export default async function RootLayout({
       <body className={gillSans.className}>
         <div className="flex justify-center">
           <div className="w-full max-w-md">
-            <header className="flex p-3 justify-between items-center">
+            <header className="flex p-3 justify-between items-center h-20">
               <Menu user={user} />
 
               <H1>

@@ -1,21 +1,39 @@
 import { Content } from '@/components/layout/content';
 import { H1 } from '@/components/typography/h1';
 import { Lead } from '@/components/typography/lead';
-import { getStandardEvents } from '@/lib/data/events';
+import {
+  getStandardEvents,
+  isFilterDay,
+  type FilterDay,
+} from '@/lib/data/events';
 import { EventsGrid } from './eventsGrid';
+import { FiltersDrawer } from './filtersDrawer';
 
-export default async function WhatsOn() {
-  const events = await getStandardEvents({ offset: 0 });
+type Props = {
+  searchParams: {
+    days?: string;
+  };
+};
+
+export default async function WhatsOn({ searchParams: { days } }: Props) {
+  const daysFilter: FilterDay[] = days
+    ? days.split(',').filter(isFilterDay)
+    : ['Friday', 'Saturday', 'Sunday'];
+
+  const events = await getStandardEvents({ offset: 0, days: daysFilter });
 
   return (
     <>
-      <Content>
+      <Content className="pb-0">
         <H1>What&apos;s On</H1>
 
         <Lead>
-          View everything planned for the festival here. Filter and Sort the
-          events to find what you&apos;ll love!
+          View everything planned for the festival here.
+          <br />
+          Filter and Sort the events to find what you&apos;ll love!
         </Lead>
+
+        <FiltersDrawer days={daysFilter} />
       </Content>
 
       <EventsGrid events={events.items} count={events.count} />
