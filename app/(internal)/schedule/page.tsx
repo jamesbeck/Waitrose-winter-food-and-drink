@@ -33,7 +33,11 @@ export default async function Schedule({ searchParams: { days } }: Props) {
         <EventFiltersDrawer days={daysFilter} />
       </Content>
 
-      <ScheduleGrid events={schedule.items} count={schedule.count} />
+      <ScheduleGrid
+        events={schedule.items}
+        count={schedule.count}
+        days={daysFilter}
+      />
     </>
   );
 }

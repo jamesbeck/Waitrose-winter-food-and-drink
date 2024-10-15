@@ -39,6 +39,7 @@ export default async function Masterclasses({ searchParams: { days } }: Props) {
       <MasterclassesGrid
         masterclasses={masterclasses.items}
         count={masterclasses.count}
+        days={daysFilter}
       />
     </>
   );

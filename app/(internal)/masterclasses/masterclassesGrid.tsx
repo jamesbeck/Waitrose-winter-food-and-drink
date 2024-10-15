@@ -2,7 +2,11 @@
 
 import { EmptyMessage } from '@/components/content/emptyMessage';
 import { DataContainer } from '@/components/layout/dataContainer';
-import { getMasterclasses, type EventWithScheduled } from '@/lib/data/events';
+import {
+  getMasterclasses,
+  type EventWithScheduled,
+  type FilterDay,
+} from '@/lib/data/events';
 import React, { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { EventsGridSkeleton } from '../../../components/content/eventsGridSkeleton';
@@ -11,11 +15,13 @@ import { MasterclassCard } from '../../../components/content/masterclassCard';
 type Props = {
   masterclasses: EventWithScheduled[];
   count: number;
+  days: FilterDay[];
 };
 
 export const MasterclassesGrid: React.FC<Props> = ({
   masterclasses: initialMasterclasses,
   count,
+  days,
 }: Props) => {
   const [masterclasses, setMasterclasses] =
     React.useState(initialMasterclasses);
@@ -25,7 +31,7 @@ export const MasterclassesGrid: React.FC<Props> = ({
   }, [initialMasterclasses]);
 
   const loadEvents = async () => {
-    const next = await getMasterclasses({ offset: masterclasses.length });
+    const next = await getMasterclasses({ offset: masterclasses.length, days });
 
     setMasterclasses((existing) => [...existing, ...next.items]);
   };

@@ -2,7 +2,7 @@
 
 import { EmptyMessage } from '@/components/content/emptyMessage';
 import { DataContainer } from '@/components/layout/dataContainer';
-import { type EventWithScheduled } from '@/lib/data/events';
+import { type EventWithScheduled, type FilterDay } from '@/lib/data/events';
 import { getSchedule } from '@/lib/data/schedule';
 import React, { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -13,11 +13,13 @@ import { MasterclassCard } from '../../../components/content/masterclassCard';
 type Props = {
   events: EventWithScheduled[];
   count: number;
+  days: FilterDay[];
 };
 
 export const ScheduleGrid: React.FC<Props> = ({
   events: initialEvents,
   count,
+  days,
 }: Props) => {
   const [events, setEvents] = React.useState(initialEvents);
 
@@ -26,7 +28,7 @@ export const ScheduleGrid: React.FC<Props> = ({
   }, [initialEvents]);
 
   const loadEvents = async () => {
-    const next = await getSchedule({ offset: events.length });
+    const next = await getSchedule({ offset: events.length, days });
 
     setEvents((existing) => [...existing, ...next.items]);
   };
