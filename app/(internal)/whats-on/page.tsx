@@ -14,7 +14,7 @@ export default async function WhatsOn() {
 
         <Lead>
           View everything planned for the festival here. Filter and Sort the
-          events to find what you'll love!
+          events to find what you&apos;ll love!
         </Lead>
       </Content>
 
