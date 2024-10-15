@@ -11,13 +11,13 @@ import {
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 import type { FilterDay } from '@/lib/data/events';
 import React from 'react';
-import { FiltersForm } from './filtersForm';
+import { EventFiltersForm } from '../forms/eventFiltersForm';
 
 type Props = {
   days: FilterDay[];
 };
 
-export const FiltersDrawer: React.FC<Props> = ({ days }: Props) => {
+export const EventFiltersDrawer: React.FC<Props> = ({ days }: Props) => {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -55,7 +55,7 @@ export const FiltersDrawer: React.FC<Props> = ({ days }: Props) => {
             </div>
           </DialogHeader>
 
-          <FiltersForm days={days} onSubmitted={() => setOpen(false)} />
+          <EventFiltersForm days={days} onSubmitted={() => setOpen(false)} />
         </DrawerContent>
       </Drawer>
     </>

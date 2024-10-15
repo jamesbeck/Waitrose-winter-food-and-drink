@@ -7,10 +7,22 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import type { FilterDay } from '@/lib/data/events';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { formSchema, type FormSchema } from './schema';
+
+import { errorMap } from '@/lib/errorMap';
+import { z } from 'zod';
+
+z.setErrorMap(errorMap);
+
+const formSchema = z.object({
+  days: z
+    .array(z.enum(['Friday', 'Saturday', 'Sunday']))
+    .min(1, 'Please select at least one date'),
+});
+
+type FormSchema = z.infer<typeof formSchema>;
 
 type Props = {
   onSubmitted?: (values: FormSchema) => void;
@@ -23,8 +35,12 @@ const dateOptions: { label: string; value: FilterDay }[] = [
   { label: 'Sunday 24th November', value: 'Sunday' },
 ];
 
-export const FiltersForm: React.FC<Props> = ({ onSubmitted, days }: Props) => {
+export const EventFiltersForm: React.FC<Props> = ({
+  onSubmitted,
+  days,
+}: Props) => {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const router = useRouter();
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -42,7 +58,7 @@ export const FiltersForm: React.FC<Props> = ({ onSubmitted, days }: Props) => {
       params.delete('days');
     }
 
-    router.push(`/whats-on?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`);
 
     onSubmitted?.(values);
   };

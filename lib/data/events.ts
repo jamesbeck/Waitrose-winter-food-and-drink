@@ -57,3 +57,38 @@ export const getStandardEvents = async ({
 
   return { count: count?.count ? parseInt(count.count) : 0, items };
 };
+
+export const getMasterclasses = async ({
+  offset = 0,
+  days,
+}: Params): Promise<EventList> => {
+  const user = await getCurrentUser();
+
+  const baseQuery = db.from('events').where('type', 'masterclass');
+
+  if (days && days.length > 0) {
+    baseQuery.whereIn('day', days);
+  }
+
+  const [count, items] = await Promise.all([
+    baseQuery.clone().count<{ count: string }[]>('*').first(),
+    baseQuery
+      .clone()
+      .select<EventWithScheduled[]>([
+        'events.*',
+        db.raw('schedule.event_id IS NOT NULL as "is_scheduled"'),
+      ])
+      .leftJoin('schedule', function () {
+        this.on('events.id', '=', 'schedule.event_id');
+
+        if (user) {
+          this.andOnVal('schedule.user_id', user.id);
+        }
+      })
+      .orderBy('id', 'asc')
+      .offset(offset)
+      .limit(10),
+  ]);
+
+  return { count: count?.count ? parseInt(count.count) : 0, items };
+};

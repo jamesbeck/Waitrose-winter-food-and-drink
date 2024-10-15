@@ -56,12 +56,12 @@ export const EventCard: React.FC<Props> = ({ event, onChange }: Props) => {
         <div className="flex space-x-3 text-white">
           {date && (
             <div className="flex space-x-1 items-center">
-              <CalendarIcon className="mr-1 size-4 -mt-0.5" />
+              <CalendarIcon className="mr-1 size-4 -mt-0.5 fill-white" />
               <div>{dateString}</div>
             </div>
           )}
           <div className="flex space-x-1 items-center">
-            <ClockIcon className="size-4 -mt-0.5" />
+            <ClockIcon className="size-4 -mt-0.5 fill-white" />
             <div>
               {event.start_time} - {event.end_time}
             </div>

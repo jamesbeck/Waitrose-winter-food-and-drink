@@ -6,8 +6,8 @@ import {
   isFilterDay,
   type FilterDay,
 } from '@/lib/data/events';
+import { EventFiltersDrawer } from '../../../components/drawers/eventFiltersDrawer';
 import { EventsGrid } from './eventsGrid';
-import { FiltersDrawer } from './filtersDrawer';
 
 type Props = {
   searchParams: {
@@ -33,7 +33,7 @@ export default async function WhatsOn({ searchParams: { days } }: Props) {
           Filter and Sort the events to find what you&apos;ll love!
         </Lead>
 
-        <FiltersDrawer days={daysFilter} />
+        <EventFiltersDrawer days={daysFilter} />
       </Content>
 
       <EventsGrid events={events.items} count={events.count} />

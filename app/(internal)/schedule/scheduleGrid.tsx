@@ -8,6 +8,7 @@ import React, { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { EventCard } from '../../../components/content/eventCard';
 import { EventsGridSkeleton } from '../../../components/content/eventsGridSkeleton';
+import { MasterclassCard } from '../../../components/content/masterclassCard';
 
 type Props = {
   events: EventWithScheduled[];
@@ -56,13 +57,21 @@ export const ScheduleGrid: React.FC<Props> = ({
         loader={<EventsGridSkeleton />}
       >
         <div className="grid grid-cols-1 gap-6">
-          {events.map((event) => (
-            <EventCard
-              key={event.id}
-              event={event}
-              onChange={handleEventChange}
-            />
-          ))}
+          {events.map((event) =>
+            event.type === 'masterclass' ? (
+              <MasterclassCard
+                key={event.id}
+                masterclass={event}
+                onChange={handleEventChange}
+              />
+            ) : (
+              <EventCard
+                key={event.id}
+                event={event}
+                onChange={handleEventChange}
+              />
+            )
+          )}
         </div>
       </InfiniteScroll>
     </DataContainer>
