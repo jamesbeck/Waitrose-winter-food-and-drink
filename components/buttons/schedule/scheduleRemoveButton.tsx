@@ -1,5 +1,6 @@
 'use client';
 
+import { RemoveFromScheduleDialog } from '@/components/dialogs/removeFromScheduleDialog';
 import { Button, type ButtonProps } from '@/components/ui/button';
 import type { EventWithScheduled } from '@/lib/data/events';
 import { removeEventFromSchedule } from '@/lib/data/schedule';
@@ -17,6 +18,8 @@ export const ScheduleRemoveButton: React.FC<Props> = ({
   label = 'Remove from schedule',
   ...props
 }: Props) => {
+  const [showDialog, setShowDialog] = React.useState(false);
+
   const handleRemove = async () => {
     await removeEventFromSchedule(event.id);
 
@@ -24,8 +27,15 @@ export const ScheduleRemoveButton: React.FC<Props> = ({
   };
 
   return (
-    <Button variant="outline" onClick={handleRemove} {...props}>
-      {label}
-    </Button>
+    <>
+      <Button variant="outline" onClick={() => setShowDialog(true)} {...props}>
+        {label}
+      </Button>
+      <RemoveFromScheduleDialog
+        show={showDialog}
+        onChange={setShowDialog}
+        onConfirm={handleRemove}
+      />
+    </>
   );
 };
