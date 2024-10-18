@@ -10,12 +10,12 @@ type Props = {};
 
 export const Map: React.FC<Props> = (props: Props) => {
   return (
-    <div className="w-full h-svh bg-[#6E5093]">
+    <div className="w-full h-[calc(100svh-5rem)] bg-[#6E5093] relative">
       <KeyDrawer />
 
       <TransformWrapper>
         <TransformComponent>
-          <div className="h-svh flex content-center">
+          <div className="h-[calc(100svh-5rem)] flex content-center">
             <Image src={FestivalMap} alt="Festival map" />
           </div>
         </TransformComponent>
