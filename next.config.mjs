@@ -13,6 +13,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'ecom-su-static-prod.wtrecom.com',
       },
+      {
+        protocol: 'https',
+        hostname: 's7e5a.scene7.com',
+      },
     ],
   },
   webpack: (config) => {

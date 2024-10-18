@@ -19,11 +19,11 @@ program
 
     const products = await db
       .table('products')
-      .select(['line_number', 'stand_number'])
-      .whereNotNull('stand_number');
+      .select(['line_number', 'supplier'])
+      .whereNotNull('supplier');
 
     for (const product of products) {
-      const url = `${process.env.NEXT_PUBLIC_URL}/products?search=${product.stand_number}`;
+      const url = `${process.env.NEXT_PUBLIC_URL}/products?search=${product.supplier}`;
 
       await QRCode.toFile(`${outputDirectory}/${product.line_number}.svg`, url);
       console.log(product.line_number, url);

@@ -25,9 +25,11 @@ export const getProducts = async ({
   const baseQuery = db.from('products');
 
   if (search) {
-    baseQuery
-      .whereILike('supplier', `%${search}%`)
-      .orWhere('stand_number', search);
+    baseQuery.whereILike('supplier', `%${search}%`);
+
+    if (search.match(/^\d+$/)) {
+      baseQuery.orWhere('stand_number', parseInt(search));
+    }
   }
 
   const [count, items] = await Promise.all([
