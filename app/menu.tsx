@@ -62,95 +62,97 @@ export const Menu: React.FC<Props> = ({ user }: Props) => {
         </Button>
       </DrawerTrigger>
 
-      <DrawerContent className="right-0 top-0 bottom-0 mt-0 rounded-none border-none max-w-96 w-4/5 max-h-svh overflow-y-auto overflow-x-hidden">
-        <DialogHeader className="p-6">
-          <div className="flex justify-between items-center">
-            <div className="grow">
-              <DialogTitle className="uppercase text-left text-xl font-normal">
-                Main Menu
-              </DialogTitle>
+      <DrawerContent className="right-0 top-0 bottom-0 mt-0 rounded-none border-none max-w-96 w-4/5">
+        <div className="max-h-svh overflow-y-auto overflow-x-hidden">
+          <DialogHeader className="p-6">
+            <div className="flex justify-between items-center">
+              <div className="grow">
+                <DialogTitle className="uppercase text-left text-xl font-normal">
+                  Main Menu
+                </DialogTitle>
 
-              <DialogDescription className="hidden">
-                Main app navigation
-              </DialogDescription>
+                <DialogDescription className="hidden">
+                  Main app navigation
+                </DialogDescription>
+              </div>
+
+              <div>
+                <Button
+                  variant="ghost"
+                  className="p-0 h-fit mt-2"
+                  onClick={() => setOpen(false)}
+                >
+                  <CrossIcon />
+                </Button>
+              </div>
+            </div>
+          </DialogHeader>
+
+          <div className="flex flex-col h-full">
+            <div className="px-6 grow flex flex-col justify-center">
+              {links.map(({ href, name, description }) => (
+                <a
+                  key={href}
+                  onClick={() => {
+                    router.push(href);
+                    setOpen(false);
+                  }}
+                  className="block space-y-1 border-b border-subtle-foreground py-3 pr-3"
+                >
+                  <h2 className="uppercase">{name}</h2>
+
+                  <div className="flex justify-between items-center">
+                    <p className="font-light text-dark-grey">{description}</p>
+
+                    <ForwardIcon />
+                  </div>
+                </a>
+              ))}
+
+              {user ? (
+                <a
+                  onClick={() => {
+                    router.push('/profile');
+                    setOpen(false);
+                  }}
+                >
+                  <div className="py-6 flex item-center space-x-6">
+                    <div className="rounded-full size-20 bg-waitrose-lime/10 p-3">
+                      <UserIcon className="w-full h-full" />
+                    </div>
+
+                    <div>
+                      <div>{[user.first_name, user.last_name].join(' ')}</div>
+                      {user.loyalty_card_number && (
+                        <>
+                          <div className="font-light">
+                            MyWaitrose Card Number:
+                          </div>
+                          <div className="font-light">
+                            <Secret value={user.loyalty_card_number} />
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </a>
+              ) : (
+                <Button
+                  onClick={() => {
+                    router.push('/log-in');
+                    setOpen(false);
+                  }}
+                  className="my-6"
+                  size="sm"
+                >
+                  Login
+                </Button>
+              )}
             </div>
 
             <div>
-              <Button
-                variant="ghost"
-                className="p-0 h-fit mt-2"
-                onClick={() => setOpen(false)}
-              >
-                <CrossIcon />
-              </Button>
+              <Image src={MenuFooterImage} alt="menu footer" />
             </div>
-          </div>
-        </DialogHeader>
-
-        <div className="flex flex-col h-full">
-          <div className="px-6 grow flex flex-col justify-center">
-            {links.map(({ href, name, description }) => (
-              <a
-                key={href}
-                onClick={() => {
-                  router.push(href);
-                  setOpen(false);
-                }}
-                className="block space-y-1 border-b border-subtle-foreground py-3 pr-3"
-              >
-                <h2 className="uppercase">{name}</h2>
-
-                <div className="flex justify-between items-center">
-                  <p className="font-light text-dark-grey">{description}</p>
-
-                  <ForwardIcon />
-                </div>
-              </a>
-            ))}
-
-            {user ? (
-              <a
-                onClick={() => {
-                  router.push('/profile');
-                  setOpen(false);
-                }}
-              >
-                <div className="py-6 flex item-center space-x-6">
-                  <div className="rounded-full size-20 bg-waitrose-lime/10 p-3">
-                    <UserIcon className="w-full h-full" />
-                  </div>
-
-                  <div>
-                    <div>{[user.first_name, user.last_name].join(' ')}</div>
-                    {user.loyalty_card_number && (
-                      <>
-                        <div className="font-light">
-                          MyWaitrose Card Number:
-                        </div>
-                        <div className="font-light">
-                          <Secret value={user.loyalty_card_number} />
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </a>
-            ) : (
-              <Button
-                onClick={() => {
-                  router.push('/log-in');
-                  setOpen(false);
-                }}
-                className="my-6"
-                size="sm"
-              >
-                Login
-              </Button>
-            )}
-          </div>
-
-          <div>
-            <Image src={MenuFooterImage} alt="menu footer" />
           </div>
         </div>
       </DrawerContent>
