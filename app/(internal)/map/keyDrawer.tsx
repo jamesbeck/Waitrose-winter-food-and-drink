@@ -24,7 +24,7 @@ export const KeyDrawer: React.FC<Props> = (props: Props) => {
         <Button
           variant="outline"
           size="sm"
-          className="text-white absolute top-6 right-6 bg-transparent border-white rounded-none text-base w-fit"
+          className="text-white absolute top-6 right-6 bg-transparent border-white rounded-none text-base w-fit z-20 bg-[#6E5093]"
         >
           Key to Map
         </Button>
