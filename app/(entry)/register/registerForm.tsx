@@ -61,7 +61,13 @@ export const RegisterForm: React.FC<Props> = (props: Props) => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input type="email" required {...field} />
+                <Input
+                  type="email"
+                  required
+                  className="placeholder:opacity-0"
+                  placeholder="Email Address"
+                  {...field}
+                />
               </FormControl>
               <FormLabel>Email Address</FormLabel>
               <FormMessage />
@@ -76,7 +82,12 @@ export const RegisterForm: React.FC<Props> = (props: Props) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input required {...field} />
+                  <Input
+                    required
+                    className="placeholder:opacity-0"
+                    placeholder="First Name"
+                    {...field}
+                  />
                 </FormControl>
                 <FormLabel>First Name</FormLabel>
                 <FormMessage />
@@ -90,7 +101,12 @@ export const RegisterForm: React.FC<Props> = (props: Props) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input required {...field} />
+                  <Input
+                    required
+                    className="placeholder:opacity-0"
+                    placeholder="Last Name"
+                    {...field}
+                  />
                 </FormControl>
                 <FormLabel>Last Name</FormLabel>
                 <FormMessage />
@@ -105,7 +121,12 @@ export const RegisterForm: React.FC<Props> = (props: Props) => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input type="number" className="proportional-nums" {...field} />
+                <Input
+                  type="text"
+                  className="proportional-nums placeholder:opacity-0"
+                  placeholder="Loyalty Card Number"
+                  {...field}
+                />
               </FormControl>
               <FormLabel>Loyalty Card Number**</FormLabel>
               <FormMessage />

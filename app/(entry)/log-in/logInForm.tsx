@@ -59,7 +59,13 @@ export const LogInForm: React.FC<Props> = (props: Props) => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input type="email" required {...field} />
+                <Input
+                  type="email"
+                  required
+                  className="placeholder:opacity-0"
+                  placeholder="Email Address"
+                  {...field}
+                />
               </FormControl>
               <FormLabel>Email Address</FormLabel>
               <FormMessage />
