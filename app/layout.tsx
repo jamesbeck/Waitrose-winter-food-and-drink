@@ -43,28 +43,31 @@ export default async function RootLayout({
       <body className={gillSans.className}>
         <div className="flex justify-center select-none">
           <div className="w-full max-w-md flex flex-col min-h-svh">
-            <header className="flex p-3 justify-between items-center h-20">
-              <Menu user={user} />
+            <header className="fixed w-full bg-white z-40">
+              <div className="flex p-3 justify-between items-center h-20">
+                <Menu user={user} />
 
-              <H1>
-                <Link href="/home">Food &amp; Drink Festival</Link>
-              </H1>
+                <H1>
+                  <Link href="/home">Food &amp; Drink Festival</Link>
+                </H1>
 
-              <div className="flex gap-2">
-                <Button variant="secondary" size="icon" asChild>
-                  <Link href="/scan">
-                    <QrCodeIcon />
-                  </Link>
-                </Button>
+                <div className="flex gap-2">
+                  <Button variant="secondary" size="icon" asChild>
+                    <Link href="/scan">
+                      <QrCodeIcon />
+                    </Link>
+                  </Button>
 
-                <Button variant="secondary" size="icon" asChild>
-                  <Link href={user ? '/profile' : '/log-in'}>
-                    <UserIcon />
-                  </Link>
-                </Button>
+                  <Button variant="secondary" size="icon" asChild>
+                    <Link href={user ? '/profile' : '/log-in'}>
+                      <UserIcon />
+                    </Link>
+                  </Button>
+                </div>
               </div>
             </header>
-            {children}
+
+            <div className="mt-20">{children}</div>
           </div>
         </div>
       </body>
