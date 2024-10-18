@@ -79,7 +79,7 @@ export const Menu: React.FC<Props> = ({ user }: Props) => {
               <div>
                 <Button
                   variant="ghost"
-                  className="p-0 h-fit mt-2"
+                  className="p-2 h-fit"
                   onClick={() => setOpen(false)}
                 >
                   <CrossIcon />
