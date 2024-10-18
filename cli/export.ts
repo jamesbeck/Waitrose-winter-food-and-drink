@@ -64,7 +64,7 @@ program
       doc.setFont('GillSans', 'normal');
 
       doc.setFontSize(20);
-      doc.text(supplier, pageWidth / 2, 40, { align: 'center', maxWidth: 150 });
+      doc.text(supplier, pageWidth / 2, 40, { align: 'center', maxWidth: 180 });
 
       doc.setFontSize(32);
       doc.text('SCAN YOUR FAVOURITES', pageWidth / 2, 60, { align: 'center' });
