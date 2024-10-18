@@ -1,6 +1,7 @@
 import { WelcomeCard } from '@/components/cards/welcomeCard';
 import { ZoomIcon } from '@/components/icons/zoomIcon';
 import { DataContainer } from '@/components/layout/dataContainer';
+import MapImage from '@/images/festival-map.svg';
 import HeaderImage from '@/images/header.png';
 import MasterclassImage from '@/images/masterclass.png';
 import ProductsImage from '@/images/products.png';
@@ -29,6 +30,8 @@ export default async function Home() {
         text="Festival Map"
         align="left"
         colours={['red', 'green', 'brown']}
+        href="/map"
+        image={MapImage}
         icon={<ZoomIcon />}
       />
 
