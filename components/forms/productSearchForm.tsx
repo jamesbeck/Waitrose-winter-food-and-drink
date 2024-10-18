@@ -51,7 +51,7 @@ export const ProductSearchForm: React.FC<Props> = ({ search }: Props) => {
 
       replace(`${pathname}?${params.toString()}`);
     },
-    [replace, searchParams]
+    [replace, searchParams, pathname]
   );
 
   const debouncedSubmit = useCallback(
