@@ -17,6 +17,7 @@ type ProductCSVRow = {
   'Sale price': string;
   Unit: string;
   'Link to WR.com': string;
+  Allergens: string;
 };
 
 type EventCSVRow = {
@@ -67,6 +68,8 @@ program
             row['Link to WR.com'] !== 'Not sold on WR.com'
               ? row['Link to WR.com']
               : null,
+          allergens:
+            row.Allergens && row.Allergens.trim() ? row.Allergens.trim() : null,
         })),
         tap((row) => console.log(row)),
         toDb(db, 'products', 'line_number')

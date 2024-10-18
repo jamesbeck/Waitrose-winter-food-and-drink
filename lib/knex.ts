@@ -23,6 +23,7 @@ declare module 'knex/types/tables' {
     unit?: string;
     description?: string;
     website_url?: string;
+    allergens?: string;
     created_at: Date;
     updated_at: Date;
   };
