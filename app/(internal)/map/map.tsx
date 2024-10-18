@@ -15,7 +15,7 @@ export const Map: React.FC<Props> = (props: Props) => {
 
       <TransformWrapper>
         <TransformComponent>
-          <div className="h-[calc(100svh-5rem)] flex content-center">
+          <div className="h-[calc(100svh-5rem)] flex items-center">
             <Image src={FestivalMap} alt="Festival map" />
           </div>
         </TransformComponent>
