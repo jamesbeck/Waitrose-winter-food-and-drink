@@ -61,3 +61,19 @@ e.g. assuming the directory `qr-codes` already exists
 ```bash
 npm run export qr-codes ./qr-codes
 ```
+
+### QR Code PDF Export
+
+NOTE: The output directory must already exist.
+
+For convenience the `qr-code-pdfs` directory in the project is Git ignored.
+
+```bash
+npm run export qr-code-pdfs {output_directory}
+```
+
+e.g. assuming the directory `qr-code-pdfs` already exists
+
+```bash
+npm run export qr-code-pdfs ./qr-code-pdfs
+```
