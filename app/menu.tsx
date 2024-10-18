@@ -62,7 +62,7 @@ export const Menu: React.FC<Props> = ({ user }: Props) => {
         </Button>
       </DrawerTrigger>
 
-      <DrawerContent className="right-0 top-0 bottom-0 mt-0 rounded-none border-none max-w-96 w-4/5 overflow-y-auto overflow-x-hidden">
+      <DrawerContent className="right-0 top-0 bottom-0 mt-0 rounded-none border-none max-w-96 w-4/5 max-h-svh overflow-y-auto overflow-x-hidden">
         <DialogHeader className="p-6">
           <div className="flex justify-between items-center">
             <div className="grow">
