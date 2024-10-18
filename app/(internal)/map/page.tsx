@@ -1,4 +1,4 @@
-import { Map } from './Map';
+import { Map } from './map';
 
 export default function Guide() {
   return <Map />;
