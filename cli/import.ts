@@ -9,6 +9,7 @@ import { pipeline } from 'stream/promises';
 type ProductCSVRow = {
   'Line Number': string;
   Room: string;
+  'Stand number (int)': string;
   Supplier: string;
   'Image URL': string;
   Products: string;
@@ -45,9 +46,16 @@ program
         map((row: ProductCSVRow) => ({
           line_number: row['Line Number'],
           name: row.Products ? row.Products.trim() : '',
-          image_url: row['Image URL'] || null,
+          image_url:
+            row['Image URL'] && row['Image URL'].trim()
+              ? row['Image URL'].trim()
+              : null,
           supplier: row.Supplier ? row.Supplier.trim() : '',
           room: row.Room || null,
+          stand_number:
+            row['Stand number (int)'] && row['Stand number (int)'].trim() !== ''
+              ? parseInt(row['Stand number (int)'].trim())
+              : null,
           normal_price: row['Normal price']
             ? toMoney(row['Normal price'])
             : null,

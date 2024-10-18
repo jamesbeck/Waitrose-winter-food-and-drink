@@ -50,9 +50,9 @@ export const ProductCard: React.FC<Props> = ({ product, onChange }: Props) => {
             <div className="text-sm font-normal">{product.supplier}</div>
           )}
 
-          {product.room && (
+          {product.stand_number && (
             <div className="text-xs font-light text-subtle-foreground">
-              Stand {product.room}
+              Stand {product.stand_number}
             </div>
           )}
         </CardContent>

@@ -17,6 +17,7 @@ declare module 'knex/types/tables' {
     image_url?: string;
     supplier: string;
     room?: string;
+    stand_number?: number;
     normal_price?: string;
     sale_price?: string;
     unit?: string;
