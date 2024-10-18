@@ -1,21 +1,17 @@
 'use client';
 
+import 'pdfjs-dist/build/pdf.worker.min.mjs';
 import { useCallback, useState } from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
+import { Document, Page } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
 import type { PDFDocumentProxy } from 'pdfjs-dist';
 import useResizeObserver from './hooks';
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url
-).toString();
-
 type Props = {};
 
-export const PDFViewer: React.FC<Props> = (props: Props) => {
+export const PdfViewer: React.FC<Props> = (props: Props) => {
   const [numPages, setNumPages] = useState(0);
   const [containerRef, setContainerRef] = useState<HTMLElement | null>(null);
   const [containerWidth, setContainerWidth] = useState<number>();

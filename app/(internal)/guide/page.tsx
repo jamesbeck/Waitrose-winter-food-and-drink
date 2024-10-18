@@ -1,10 +1,5 @@
-import dynamic from 'next/dynamic';
-
-const PDFViewer = dynamic(
-  () => import('./PDFViewer').then((mod) => mod.PDFViewer),
-  { ssr: false }
-);
+import { LazyPdfViewer } from './LazyPdfViewer';
 
 export default function Guide() {
-  return <PDFViewer />;
+  return <LazyPdfViewer />;
 }
