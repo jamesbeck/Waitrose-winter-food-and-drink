@@ -24,26 +24,26 @@ export const logOut = () => {
   cookieStore.delete('token');
 };
 
-export const getLoggedInEmail = (): string | null => {
+export const getLoggedInEmail = (): Promise<string | null> => {
   const cookieStore = cookies();
   const token = cookieStore.get('token');
 
   if (!token || !token.value) {
-    return null;
+    return Promise.resolve(null);
   }
 
   try {
     const decoded = validateToken(token.value);
 
     if (typeof decoded !== 'object' || !decoded.email) {
-      return null;
+      return Promise.resolve(null);
     }
 
     return decoded.email;
   } catch (error) {
     console.error(error);
 
-    return null;
+    return Promise.resolve(null);
   }
 };
 
