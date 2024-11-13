@@ -1,10 +1,10 @@
-import { EventFiltersDrawer } from '@/components/drawers/eventFiltersDrawer';
-import { Content } from '@/components/layout/content';
-import { H1 } from '@/components/typography/h1';
-import { Lead } from '@/components/typography/lead';
-import { isFilterDay, type FilterDay } from '@/lib/data/events';
-import { getSchedule } from '@/lib/data/schedule';
-import { ScheduleGrid } from './scheduleGrid';
+import { EventFiltersDrawer } from "@/components/drawers/eventFiltersDrawer";
+import { Content } from "@/components/layout/content";
+import { H1 } from "@/components/typography/h1";
+import { Lead } from "@/components/typography/lead";
+import { isFilterDay, type FilterDay } from "@/lib/data/events";
+import { getSchedule } from "@/lib/data/schedule";
+import { ScheduleGrid } from "./scheduleGrid";
 
 type Props = {
   searchParams: {
@@ -14,8 +14,8 @@ type Props = {
 
 export default async function Schedule({ searchParams: { days } }: Props) {
   const daysFilter: FilterDay[] = days
-    ? days.split(',').filter(isFilterDay)
-    : ['Friday', 'Saturday', 'Sunday'];
+    ? days.split(",").filter(isFilterDay)
+    : ["Friday", "Saturday", "Sunday"];
 
   const schedule = await getSchedule({ offset: 0, days: daysFilter });
 
@@ -27,7 +27,7 @@ export default async function Schedule({ searchParams: { days } }: Props) {
         <Lead>
           View everything planned for the festival here.
           <br />
-          Filter and Sort the events to find what you&apos;ll love!
+          Filter and sort the events to find what you&apos;ll love!
         </Lead>
 
         <EventFiltersDrawer days={daysFilter} />

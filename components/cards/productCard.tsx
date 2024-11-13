@@ -1,16 +1,16 @@
-import { WishlistButton } from '@/components/buttons/wishlistButton';
-import { WishlistIconButton } from '@/components/buttons/wishlistIconButton';
+import { WishlistButton } from "@/components/buttons/wishlistButton";
+import { WishlistIconButton } from "@/components/buttons/wishlistIconButton";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import type { ProductWithWishlisted } from '@/lib/data/products';
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
+} from "@/components/ui/card";
+import type { ProductWithWishlisted } from "@/lib/data/products";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 type Props = {
   product: ProductWithWishlisted;
@@ -33,7 +33,7 @@ export const ProductCard: React.FC<Props> = ({ product, onChange }: Props) => {
               src={product.image_url}
               alt={product.name}
               fill={true}
-              style={{ objectFit: 'contain' }}
+              style={{ objectFit: "contain" }}
               sizes="50vw, 25vh"
             />
           )}
@@ -50,11 +50,11 @@ export const ProductCard: React.FC<Props> = ({ product, onChange }: Props) => {
             <div className="text-sm font-normal">{product.supplier}</div>
           )}
 
-          {product.stand_number && (
+          {/* {product.stand_number && (
             <div className="text-xs font-light text-subtle-foreground">
               Stand {product.stand_number}
             </div>
-          )}
+          )} */}
         </CardContent>
       </Link>
 

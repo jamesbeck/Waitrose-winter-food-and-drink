@@ -1,8 +1,8 @@
-'use server';
+"use server";
 
-import type { Product } from 'knex/types/tables';
-import { db } from '../knex';
-import { getCurrentUser } from './user';
+import type { Product } from "knex/types/tables";
+import { db } from "../knex";
+import { getCurrentUser } from "./user";
 
 export type ProductWithWishlisted = Product & { is_wishlisted: boolean };
 
@@ -22,31 +22,32 @@ export const getProducts = async ({
 }: Params): Promise<ProductList> => {
   const user = await getCurrentUser();
 
-  const baseQuery = db.from('products');
+  const baseQuery = db.from("products");
 
   if (search) {
-    baseQuery.whereILike('supplier', `%${search}%`);
+    baseQuery.whereILike("supplier", `%${search}%`);
+    baseQuery.orWhereILike("name", `%${search}%`);
 
-    if (search.match(/^\d+$/)) {
-      baseQuery.orWhere('stand_number', parseInt(search));
-    }
+    // if (search.match(/^\d+$/)) {
+    //   baseQuery.orWhere('stand_number', parseInt(search));
+    // }
   }
 
   const [count, items] = await Promise.all([
-    baseQuery.clone().count<{ count: string }[]>('*').first(),
+    baseQuery.clone().count<{ count: string }[]>("*").first(),
     baseQuery
       .clone()
       .select<ProductWithWishlisted[]>([
-        'products.*',
+        "products.*",
         db.raw('wishlist.product_line_number IS NOT NULL as "is_wishlisted"'),
       ])
-      .leftJoin('wishlist', function () {
-        this.on('products.line_number', '=', 'wishlist.product_line_number');
+      .leftJoin("wishlist", function () {
+        this.on("products.line_number", "=", "wishlist.product_line_number");
 
         if (user) {
-          this.andOnVal('wishlist.user_id', user.id);
+          this.andOnVal("wishlist.user_id", user.id);
         } else {
-          this.andOnNull('wishlist.user_id');
+          this.andOnNull("wishlist.user_id");
         }
       })
       .offset(offset)
@@ -63,17 +64,17 @@ export const getProduct = async (
 
   return db
     .select<ProductWithWishlisted[]>([
-      'products.*',
+      "products.*",
       db.raw('wishlist.product_line_number IS NOT NULL as "is_wishlisted"'),
     ])
-    .from('products')
-    .leftJoin('wishlist', function () {
-      this.on('products.line_number', '=', 'wishlist.product_line_number');
+    .from("products")
+    .leftJoin("wishlist", function () {
+      this.on("products.line_number", "=", "wishlist.product_line_number");
 
       if (user) {
-        this.andOnVal('wishlist.user_id', user.id);
+        this.andOnVal("wishlist.user_id", user.id);
       }
     })
-    .where('products.line_number', lineNumber)
+    .where("products.line_number", lineNumber)
     .first();
 };

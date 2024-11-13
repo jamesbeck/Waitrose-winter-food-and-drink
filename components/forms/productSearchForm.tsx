@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Form,
@@ -6,15 +6,15 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from '@/components/ui/form';
-import { SearchInput } from '@/components/ui/searchInput';
-import { errorMap } from '@/lib/errorMap';
-import { zodResolver } from '@hookform/resolvers/zod';
-import debounce from 'debounce';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React, { useCallback, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+} from "@/components/ui/form";
+import { SearchInput } from "@/components/ui/searchInput";
+import { errorMap } from "@/lib/errorMap";
+import { zodResolver } from "@hookform/resolvers/zod";
+import debounce from "debounce";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React, { useCallback, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 z.setErrorMap(errorMap);
 
@@ -35,7 +35,7 @@ export const ProductSearchForm: React.FC<Props> = ({ search }: Props) => {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      search: search || '',
+      search: search || "",
     },
   });
 
@@ -44,9 +44,9 @@ export const ProductSearchForm: React.FC<Props> = ({ search }: Props) => {
       const params = new URLSearchParams(searchParams);
 
       if (values.search) {
-        params.set('search', values.search);
+        params.set("search", values.search);
       } else {
-        params.delete('search');
+        params.delete("search");
       }
 
       replace(`${pathname}?${params.toString()}`);
@@ -81,7 +81,7 @@ export const ProductSearchForm: React.FC<Props> = ({ search }: Props) => {
             <FormItem>
               <FormControl>
                 <SearchInput
-                  placeholder="Search by supplier name or stand no"
+                  placeholder="Search by product or supplier name"
                   {...field}
                 />
               </FormControl>

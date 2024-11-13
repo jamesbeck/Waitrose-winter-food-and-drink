@@ -1,18 +1,18 @@
-import { Container } from '@/components/layout/container';
-import { Content } from '@/components/layout/content';
-import { H1 } from '@/components/typography/h1';
-import { Small } from '@/components/typography/small';
-import { Button } from '@/components/ui/button';
-import { getCurrentUser } from '@/lib/data/user';
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { LogInForm } from './logInForm';
+import { Container } from "@/components/layout/container";
+import { Content } from "@/components/layout/content";
+import { H1 } from "@/components/typography/h1";
+import { Small } from "@/components/typography/small";
+import { Button } from "@/components/ui/button";
+import { getCurrentUser } from "@/lib/data/user";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { LogInForm } from "./logInForm";
 
 export default async function LogIn() {
   const user = await getCurrentUser();
 
   if (user) {
-    redirect('/home');
+    redirect("/home");
   }
 
   return (
@@ -27,7 +27,7 @@ export default async function LogIn() {
         <Container width="wide">
           <Small>
             If you&apos;d rather just look around, tap below. You won&apos;t be
-            able to take part in our hunts, competitions, or make your own
+            able to take part in our competitions, or make your own
             schedules/bookings
           </Small>
         </Container>

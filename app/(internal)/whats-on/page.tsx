@@ -1,13 +1,13 @@
-import { Content } from '@/components/layout/content';
-import { H1 } from '@/components/typography/h1';
-import { Lead } from '@/components/typography/lead';
+import { Content } from "@/components/layout/content";
+import { H1 } from "@/components/typography/h1";
+import { Lead } from "@/components/typography/lead";
 import {
   getStandardEvents,
   isFilterDay,
   type FilterDay,
-} from '@/lib/data/events';
-import { EventFiltersDrawer } from '../../../components/drawers/eventFiltersDrawer';
-import { EventsGrid } from './eventsGrid';
+} from "@/lib/data/events";
+import { EventFiltersDrawer } from "../../../components/drawers/eventFiltersDrawer";
+import { EventsGrid } from "./eventsGrid";
 
 type Props = {
   searchParams: {
@@ -17,8 +17,8 @@ type Props = {
 
 export default async function WhatsOn({ searchParams: { days } }: Props) {
   const daysFilter: FilterDay[] = days
-    ? days.split(',').filter(isFilterDay)
-    : ['Friday', 'Saturday', 'Sunday'];
+    ? days.split(",").filter(isFilterDay)
+    : ["Friday", "Saturday", "Sunday"];
 
   const events = await getStandardEvents({ offset: 0, days: daysFilter });
 
@@ -30,7 +30,7 @@ export default async function WhatsOn({ searchParams: { days } }: Props) {
         <Lead>
           View everything planned for the festival here.
           <br />
-          Filter and Sort the events to find what you&apos;ll love!
+          Filter and sort the events to find what you&apos;ll love!
         </Lead>
 
         <EventFiltersDrawer days={daysFilter} />
