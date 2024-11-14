@@ -25,8 +25,10 @@ export const getProducts = async ({
   const baseQuery = db.from("products");
 
   if (search) {
-    baseQuery.whereILike("supplier", `%${search}%`);
-    baseQuery.orWhereILike("name", `%${search}%`);
+    baseQuery.whereILike("supplier", `${search}%`);
+    baseQuery.orWhereILike("supplier", `% ${search}%`);
+    baseQuery.orWhereILike("name", `${search}%`);
+    baseQuery.orWhereILike("name", `% ${search}%`);
 
     // if (search.match(/^\d+$/)) {
     //   baseQuery.orWhere('stand_number', parseInt(search));
