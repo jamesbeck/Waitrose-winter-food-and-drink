@@ -34,9 +34,10 @@ export const getWishlist = async ({
 
   if (search) {
     baseQuery.andWhere((builder) => {
-      builder
-        .whereILike("products.supplier", `%${search}%`)
-        .orWhereILike("products.name", `%${search}%`);
+      builder.whereILike("products.supplier", `${search}%`);
+      builder.orWhereILike("products.supplier", `% ${search}%`);
+      builder.orWhereILike("products.name", `${search}%`);
+      builder.orWhereILike("products.name", `% ${search}%`);
     });
   }
 
