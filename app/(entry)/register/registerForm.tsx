@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Container } from '@/components/layout/container';
-import { Footnote } from '@/components/typography/footnote';
-import { Alert } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
+import { Container } from "@/components/layout/container";
+import { Footnote } from "@/components/typography/footnote";
+import { Alert } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -11,14 +11,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { LogInDialog } from '../log-in/logInDialog';
-import { registerAction } from './action';
-import { formSchema, type FormSchema } from './schema';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { LogInDialog } from "../log-in/logInDialog";
+import { registerAction } from "./action";
+import { formSchema, type FormSchema } from "./schema";
 
 type Props = {};
 
@@ -28,17 +28,17 @@ export const RegisterForm: React.FC<Props> = (props: Props) => {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: '',
-      firstName: '',
-      lastName: '',
-      loyaltyCardNumber: '',
+      email: "",
+      firstName: "",
+      lastName: "",
+      loyaltyCardNumber: "",
     },
   });
 
   const onSubmit = async (data: FormSchema) => {
     const result = await registerAction(data);
 
-    if (result.status === 'error') {
+    if (result.status === "error") {
       setError(result.error);
       return;
     }
@@ -128,7 +128,7 @@ export const RegisterForm: React.FC<Props> = (props: Props) => {
                   {...field}
                 />
               </FormControl>
-              <FormLabel>Loyalty Card Number**</FormLabel>
+              <FormLabel>myWaitrose or my John Lewis number**</FormLabel>
               <FormMessage />
             </FormItem>
           )}
@@ -136,10 +136,6 @@ export const RegisterForm: React.FC<Props> = (props: Props) => {
 
         <Container width="wide">
           <Footnote>* Designates a required field</Footnote>
-          <Footnote>
-            ** Without a MyWaitrose card you may be ineligible for prizes. Visit
-            the signup desk to get one!
-          </Footnote>
 
           <p className="pt-2">
             Through using clever technology, you won&apos;t need a password.
