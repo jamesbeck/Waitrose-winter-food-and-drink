@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { markWelcomed } from '@/lib/auth';
-import React from 'react';
-import { HamburgerIcon } from '../icons/hamburgerIcon';
-import { QrCodeIcon } from '../icons/qrCodeIcon';
-import { UserIcon } from '../icons/userIcon';
-import { Lead } from '../typography/lead';
-import { Small } from '../typography/small';
-import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { markWelcomed } from "@/lib/auth";
+import React from "react";
+import { HamburgerIcon } from "../icons/hamburgerIcon";
+import { QrCodeIcon } from "../icons/qrCodeIcon";
+import { UserIcon } from "../icons/userIcon";
+import { Lead } from "../typography/lead";
+import { Small } from "../typography/small";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 type Props = {};
 
@@ -35,8 +35,8 @@ export const WelcomeCard: React.FC<Props> = () => {
         </div>
 
         <Lead>
-          Explore upcoming events and masterclasses and create your own
-          schedule, wish list, and take part in our competition for a prize!
+          Explore upcoming events and masterclasses and create your own schedule
+          or wishlist.
         </Lead>
 
         <div className="flex space-x-3 items-start">

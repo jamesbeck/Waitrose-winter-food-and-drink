@@ -27,8 +27,8 @@ export default async function LogIn() {
         <Container width="wide">
           <Small>
             If you&apos;d rather just look around, tap below. You won&apos;t be
-            able to take part in our competitions, or make your own
-            schedules/bookings
+            able to add items to your wishlist or make your own
+            schedules/bookings.
           </Small>
         </Container>
 
