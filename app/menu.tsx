@@ -24,6 +24,11 @@ type Props = {
 
 const links = [
   {
+    name: "Home",
+    // description: "See everything on at the festival",
+    href: "/",
+  },
+  {
     name: "What’s On",
     description: "See everything on at the festival",
     href: "/whats-on",
@@ -99,13 +104,17 @@ export const Menu: React.FC<Props> = ({ user }: Props) => {
                   }}
                   className="block space-y-1 border-b border-subtle-foreground py-3 pr-3"
                 >
-                  <h2 className="uppercase">{name}</h2>
-
                   <div className="flex justify-between items-center">
-                    <p className="font-light text-dark-grey">{description}</p>
-
-                    <ForwardIcon />
+                    <h2 className="uppercase">{name}</h2>
+                    {!description && <ForwardIcon />}
                   </div>
+
+                  {description && (
+                    <div className="flex justify-between items-center">
+                      <p className="font-light text-dark-grey">{description}</p>
+                      <ForwardIcon />
+                    </div>
+                  )}
                 </a>
               ))}
 
