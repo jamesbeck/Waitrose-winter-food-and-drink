@@ -1,19 +1,19 @@
-import 'dotenv/config';
+import "dotenv/config";
 
-import { db } from '@/lib/knex';
-import { program } from 'commander';
-import { jsPDF } from 'jspdf';
-import type { Product } from 'knex/types/tables';
-import fs from 'node:fs/promises';
-import path from 'node:path';
-import QRCode from 'qrcode';
-import './GillSans-normal';
+import { db } from "@/lib/knex";
+import { program } from "commander";
+import { jsPDF } from "jspdf";
+import type { Product } from "knex/types/tables";
+import fs from "node:fs/promises";
+import path from "node:path";
+import QRCode from "qrcode";
+import "./GillSans-normal";
 
-program.name('export');
+program.name("export");
 
 program
-  .command('qr-codes')
-  .argument('<output-directory>', 'Directory to save QR codes')
+  .command("qr-codes")
+  .argument("<output-directory>", "Directory to save QR codes")
   .action(async (outputDirectory) => {
     // Clear the output directory contents
     for (const file of await fs.readdir(outputDirectory)) {
@@ -21,9 +21,9 @@ program
     }
 
     const products = await db
-      .table('products')
-      .select(['line_number', 'supplier'])
-      .whereNotNull('supplier');
+      .table("products")
+      .select(["line_number", "supplier"])
+      .whereNotNull("supplier");
 
     for (const product of products) {
       const url = `${process.env.NEXT_PUBLIC_URL}/products?search=${product.supplier}`;
@@ -36,15 +36,15 @@ program
   });
 
 program
-  .command('qr-code-pdfs')
-  .argument('<output-directory>', 'Directory to save QR code PDFs')
+  .command("qr-code-pdfs")
+  .argument("<output-directory>", "Directory to save QR code PDFs")
   .action(async (outputDirectory) => {
     // Clear the output directory contents
     for (const file of await fs.readdir(outputDirectory)) {
       await fs.unlink(path.join(outputDirectory, file));
     }
 
-    const products = await db.table('products').whereNotNull('supplier');
+    const products = await db.table("products").whereNotNull("supplier");
 
     const productsBySupplier = products.reduce((acc, product) => {
       if (!acc[product.supplier]) {
@@ -71,7 +71,7 @@ program
       }, [] as Product[][]);
 
       const doc = new jsPDF();
-      doc.setFont('GillSans', 'normal');
+      doc.setFont("GillSans", "normal");
       doc.setCharSpace(0.01);
 
       const allergens = products
@@ -96,36 +96,36 @@ program
 
         doc.setFontSize(20);
         doc.text(supplier, pageWidth / 2, 20 + yMargin, {
-          align: 'center',
+          align: "center",
           maxWidth: 180,
         });
 
         doc.setFontSize(32);
-        doc.text('SCAN YOUR FAVOURITES', pageWidth / 2, 37 + yMargin, {
-          align: 'center',
+        doc.text("SCAN YOUR FAVOURITES", pageWidth / 2, 37 + yMargin, {
+          align: "center",
         });
 
         doc.setFontSize(12);
         doc.text(
-          'If you like what you try on this stand, scan the QR code below using you smartphone, follow the instructions and we will email you a list of all scanned products after the festival.',
+          "If you like what you try on this stand, scan the QR code below using your smartphone and follow the instructions to add products to you wishlist.",
           pageWidth / 2,
           50 + yMargin,
-          { align: 'center', maxWidth: 150 }
+          { align: "center", maxWidth: 150 }
         );
 
         const url = `${process.env.NEXT_PUBLIC_URL}/products?search=${supplier}`;
 
         // const svg = await QRCode.toString(url, { type: 'svg' });
         const pngImage = await QRCode.toDataURL(url, {
-          type: 'image/png',
+          type: "image/png",
           width: 200,
         });
 
-        doc.addImage(pngImage, 'PNG', pageWidth / 2 - 25, 70 + yMargin, 50, 50);
+        doc.addImage(pngImage, "PNG", pageWidth / 2 - 25, 70 + yMargin, 50, 50);
 
         doc.setFontSize(24);
-        doc.text('PRODUCT LIST', pageWidth / 2, 135 + yMargin, {
-          align: 'center',
+        doc.text("PRODUCT LIST", pageWidth / 2, 135 + yMargin, {
+          align: "center",
         });
 
         doc.setFontSize(10);
@@ -142,8 +142,8 @@ program
             doc.text(product.name, 15, y, {
               maxWidth: 70,
             });
-            doc.text(product.normal_price || '', pageWidth / 2 - 8, y, {
-              align: 'right',
+            doc.text(product.normal_price || "", pageWidth / 2 - 8, y, {
+              align: "right",
             });
 
             if (product.name.length > 45) {
@@ -159,8 +159,8 @@ program
             doc.text(product.name, pageWidth / 2 + 8, y, {
               maxWidth: 70,
             });
-            doc.text(product.normal_price || '', pageWidth - 15, y, {
-              align: 'right',
+            doc.text(product.normal_price || "", pageWidth - 15, y, {
+              align: "right",
             });
 
             if (product.name.length > 45) {
@@ -171,11 +171,11 @@ program
           chunk.forEach((product, index) => {
             doc.text(product.name, 30, 150 + index * 8 + yMargin);
             doc.text(
-              product.normal_price || '',
+              product.normal_price || "",
               pageWidth - 30,
               150 + index * 8 + yMargin,
               {
-                align: 'right',
+                align: "right",
               }
             );
           });
@@ -186,16 +186,16 @@ program
         if (allergens.length > 0) {
           doc.text(allergens[0], pageWidth / 2, 260, {
             maxWidth: 160,
-            align: 'center',
+            align: "center",
           });
         }
 
         doc.setFontSize(8);
         doc.text(
-          'Product availability, prices and promotions are correct at time of going to press and may vary.',
+          "Product availability, prices and promotions are correct at time of going to press and may vary.",
           pageWidth / 2,
           280,
-          { align: 'center', maxWidth: 80 }
+          { align: "center", maxWidth: 80 }
         );
 
         if (chunks.indexOf(chunk) < chunks.length - 1) {
@@ -203,33 +203,33 @@ program
         }
       }
 
-      doc.save(`${outputDirectory}/${supplier.replaceAll('/', '-')}.pdf`);
+      doc.save(`${outputDirectory}/${supplier.replaceAll("/", "-")}.pdf`);
     }
 
     db.destroy();
   });
 
 program
-  .command('event-qr-code-pdfs')
-  .argument('<output-directory>', 'Directory to save QR code PDFs')
+  .command("event-qr-code-pdfs")
+  .argument("<output-directory>", "Directory to save QR code PDFs")
   .action(async (outputDirectory) => {
     // Clear the output directory contents
     for (const file of await fs.readdir(outputDirectory)) {
       await fs.unlink(path.join(outputDirectory, file));
     }
 
-    const events = await db.table('events');
+    const events = await db.table("events");
 
     for (const event of events) {
       const products = await db
-        .select<Product[]>('products.*')
-        .table('products')
+        .select<Product[]>("products.*")
+        .table("products")
         .leftJoin(
-          'event_products',
-          'products.line_number',
-          'event_products.product_line_number'
+          "event_products",
+          "products.line_number",
+          "event_products.product_line_number"
         )
-        .where('event_products.event_id', event.id);
+        .where("event_products.event_id", event.id);
 
       if (products.length === 0) {
         continue;
@@ -249,7 +249,7 @@ program
       }, [] as Product[][]);
 
       const doc = new jsPDF();
-      doc.setFont('GillSans', 'normal');
+      doc.setFont("GillSans", "normal");
 
       const allergens = products
         .map((product) => product.allergens)
@@ -273,36 +273,36 @@ program
 
         doc.setFontSize(20);
         doc.text(event.name, pageWidth / 2, 20 + yMargin, {
-          align: 'center',
+          align: "center",
           maxWidth: 180,
         });
 
         doc.setFontSize(32);
-        doc.text('SCAN YOUR FAVOURITES', pageWidth / 2, 37 + yMargin, {
-          align: 'center',
+        doc.text("SCAN YOUR FAVOURITES", pageWidth / 2, 37 + yMargin, {
+          align: "center",
         });
 
         doc.setFontSize(12);
         doc.text(
-          'If you like what you see at this event, scan the QR code below using you smartphone, follow the instructions and we will email you a list of all scanned products after the festival.',
+          "If you like what you see at this event, scan the QR code below using your smartphone and follow the instructions to add products to you wishlist.",
           pageWidth / 2,
           50 + yMargin,
-          { align: 'center', maxWidth: 150 }
+          { align: "center", maxWidth: 150 }
         );
 
         const url = `${process.env.NEXT_PUBLIC_URL}/events/${event.id}`;
 
         // const svg = await QRCode.toString(url, { type: 'svg' });
         const pngImage = await QRCode.toDataURL(url, {
-          type: 'image/png',
+          type: "image/png",
           width: 200,
         });
 
-        doc.addImage(pngImage, 'PNG', pageWidth / 2 - 25, 70 + yMargin, 50, 50);
+        doc.addImage(pngImage, "PNG", pageWidth / 2 - 25, 70 + yMargin, 50, 50);
 
         doc.setFontSize(24);
-        doc.text('PRODUCT LIST', pageWidth / 2, 135 + yMargin, {
-          align: 'center',
+        doc.text("PRODUCT LIST", pageWidth / 2, 135 + yMargin, {
+          align: "center",
         });
 
         doc.setFontSize(10);
@@ -319,8 +319,8 @@ program
             doc.text(product.name, 15, y, {
               maxWidth: 70,
             });
-            doc.text(product.normal_price || '', pageWidth / 2 - 8, y, {
-              align: 'right',
+            doc.text(product.normal_price || "", pageWidth / 2 - 8, y, {
+              align: "right",
             });
 
             if (product.name.length > 43) {
@@ -336,8 +336,8 @@ program
             doc.text(product.name, pageWidth / 2 + 8, y, {
               maxWidth: 70,
             });
-            doc.text(product.normal_price || '', pageWidth - 15, y, {
-              align: 'right',
+            doc.text(product.normal_price || "", pageWidth - 15, y, {
+              align: "right",
             });
 
             if (product.name.length > 44) {
@@ -348,11 +348,11 @@ program
           chunk.forEach((product, index) => {
             doc.text(product.name, 30, 150 + index * 8 + yMargin);
             doc.text(
-              product.normal_price || '',
+              product.normal_price || "",
               pageWidth - 30,
               150 + index * 8 + yMargin,
               {
-                align: 'right',
+                align: "right",
               }
             );
           });
@@ -363,16 +363,16 @@ program
         if (allergens.length > 0) {
           doc.text(allergens[0], pageWidth / 2, 260, {
             maxWidth: 160,
-            align: 'center',
+            align: "center",
           });
         }
 
         doc.setFontSize(8);
         doc.text(
-          'Product availability, prices and promotions are correct at time of going to press and may vary.',
+          "Product availability, prices and promotions are correct at time of going to press and may vary.",
           pageWidth / 2,
           280,
-          { align: 'center', maxWidth: 80 }
+          { align: "center", maxWidth: 80 }
         );
 
         if (chunks.indexOf(chunk) < chunks.length - 1) {
@@ -381,7 +381,7 @@ program
       }
 
       doc.save(
-        `${outputDirectory}/${event.id}-${event.name.replaceAll('/', '-')}.pdf`
+        `${outputDirectory}/${event.id}-${event.name.replaceAll("/", "-")}.pdf`
       );
     }
 
