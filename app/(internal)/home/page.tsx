@@ -6,6 +6,7 @@ import HeaderImage from '@/images/header.png';
 import MasterclassImage from '@/images/masterclass.png';
 import ProductsImage from '@/images/products.png';
 import ScheduleImage from '@/images/schedule.png';
+import ShowGuidePreviewImage from '@/images/show-guide-preview.png';
 import WhatsOnImage from '@/images/whats-on.png';
 import WishlistImage from '@/images/wishlist.png';
 import { isWelcomed } from '@/lib/auth';
@@ -33,6 +34,14 @@ export default async function Home() {
         href="/map"
         image={MapImage}
         icon={<ZoomIcon />}
+      />
+
+      <MenuItem
+        text="Show Guide"
+        align="right"
+        colours={['red', 'green', 'brown']}
+        href="/WFDF 2024_SHOWGUIDE V4.pdf"
+        image={ShowGuidePreviewImage}
       />
 
       <MenuItem
