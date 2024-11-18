@@ -50,18 +50,29 @@ export const EventCard: React.FC<Props> = ({ event, onChange }: Props) => {
             {dateString} {event.start_time} - {event.end_time}
           </CardDescription>
 
-          <div className="flex space-x-3 text-white">
-            {date && (
+          <div className="space-y-1">
+            <div className="flex space-x-3 text-white">
+              {date && (
+                <div className="flex space-x-1 items-center">
+                  <CalendarIcon className="mr-1 size-4 -mt-0.5 fill-white" />
+                  <div>{dateString}</div>
+                </div>
+              )}
               <div className="flex space-x-1 items-center">
-                <CalendarIcon className="mr-1 size-4 -mt-0.5 fill-white" />
-                <div>{dateString}</div>
+                <ClockIcon className="size-4 -mt-0.5 fill-white" />
+                <div>
+                  {event.start_time} - {event.end_time}
+                </div>
               </div>
-            )}
-            <div className="flex space-x-1 items-center">
-              <ClockIcon className="size-4 -mt-0.5 fill-white" />
-              <div>
-                {event.start_time} - {event.end_time}
-              </div>
+            </div>
+
+            <div>
+              {(event.room || event.floor) && (
+                <p className="">
+                  {event.room}
+                  {event.floor ? ` - ${event.floor} Floor` : ''}
+                </p>
+              )}
             </div>
           </div>
         </CardHeader>

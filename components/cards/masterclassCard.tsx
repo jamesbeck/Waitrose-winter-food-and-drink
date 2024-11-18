@@ -68,20 +68,31 @@ export const MasterclassCard: React.FC<Props> = ({
             {dateString} {masterclass.start_time} - {masterclass.end_time}
           </CardDescription>
 
-          <div className="flex space-x-3 text-white">
-            {date && (
+          <div className="space-y-1">
+            <div className="flex space-x-3 text-white">
+              {date && (
+                <div className="flex space-x-1 items-center">
+                  <CalendarIcon
+                    className={cn('mr-1 size-4 -mt-0.5', iconColour)}
+                  />
+                  <div>{dateString}</div>
+                </div>
+              )}
               <div className="flex space-x-1 items-center">
-                <CalendarIcon
-                  className={cn('mr-1 size-4 -mt-0.5', iconColour)}
-                />
-                <div>{dateString}</div>
+                <ClockIcon className={cn('size-4 -mt-0.5', iconColour)} />
+                <div>
+                  {masterclass.start_time} - {masterclass.end_time}
+                </div>
               </div>
-            )}
-            <div className="flex space-x-1 items-center">
-              <ClockIcon className={cn('size-4 -mt-0.5', iconColour)} />
-              <div>
-                {masterclass.start_time} - {masterclass.end_time}
-              </div>
+            </div>
+
+            <div className="text-white">
+              {(masterclass.room || masterclass.floor) && (
+                <p className="">
+                  {masterclass.room}
+                  {masterclass.floor ? ` - ${masterclass.floor} Floor` : ''}
+                </p>
+              )}
             </div>
           </div>
         </CardHeader>

@@ -41,18 +41,29 @@ export default async function Event({ params: { id } }: Props) {
       <Content className="relative text-left">
         <H1 className="text-left">{event.name}</H1>
 
-        <div className="flex space-x-3">
-          {dateString && (
+        <div className="space-y-1">
+          <div className="flex space-x-3">
+            {dateString && (
+              <div className="flex space-x-1 items-center">
+                <CalendarIcon className="mr-1 size-4 -mt-0.5 fill-black" />
+                <div>{dateString}</div>
+              </div>
+            )}
             <div className="flex space-x-1 items-center">
-              <CalendarIcon className="mr-1 size-4 -mt-0.5 fill-black" />
-              <div>{dateString}</div>
+              <ClockIcon className="size-4 -mt-0.5 fill-black" />
+              <div>
+                {event.start_time} - {event.end_time}
+              </div>
             </div>
-          )}
-          <div className="flex space-x-1 items-center">
-            <ClockIcon className="size-4 -mt-0.5 fill-black" />
-            <div>
-              {event.start_time} - {event.end_time}
-            </div>
+          </div>
+
+          <div>
+            {(event.room || event.floor) && (
+              <p className="">
+                {event.room}
+                {event.floor ? ` - ${event.floor} Floor` : ''}
+              </p>
+            )}
           </div>
         </div>
 
