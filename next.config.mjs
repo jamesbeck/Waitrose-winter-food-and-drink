@@ -21,6 +21,22 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'media.johnlewiscontent.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.giftpro.co.uk',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cutterandsquidge.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.johnlewis.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'johnlewis.com',
+      },
     ],
   },
   webpack: (config) => {
