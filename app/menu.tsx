@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { CrossIcon } from "@/components/icons/crossIcon";
-import { ForwardIcon } from "@/components/icons/forwardIcon";
-import { HamburgerIcon } from "@/components/icons/hamburgerIcon";
-import { UserIcon } from "@/components/icons/userIcon";
-import { Secret } from "@/components/typography/secret";
-import { Button } from "@/components/ui/button";
+import { CrossIcon } from '@/components/icons/crossIcon';
+import { ForwardIcon } from '@/components/icons/forwardIcon';
+import { HamburgerIcon } from '@/components/icons/hamburgerIcon';
+import { UserIcon } from '@/components/icons/userIcon';
+import { Secret } from '@/components/typography/secret';
+import { Button } from '@/components/ui/button';
 import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
-import MenuFooterImage from "@/images/menu-footer.png";
-import type { User } from "knex/types/tables";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+} from '@/components/ui/dialog';
+import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
+import MenuFooterImage from '@/images/menu-footer.png';
+import type { User } from 'knex/types/tables';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
 type Props = {
   user?: User;
@@ -24,34 +24,33 @@ type Props = {
 
 const links = [
   {
-    name: "Home",
-    // description: "See everything on at the festival",
-    href: "/",
+    name: 'Home',
+    href: '/home',
   },
   {
-    name: "What’s On",
-    description: "See everything on at the festival",
-    href: "/whats-on",
+    name: 'What’s On',
+    description: 'See everything on at the festival',
+    href: '/whats-on',
   },
   {
-    name: "My Schedule",
-    description: "Add sessions to your schedule",
-    href: "/schedule",
+    name: 'My Schedule',
+    description: 'Add sessions to your schedule',
+    href: '/schedule',
   },
   {
-    name: "Masterclass",
-    description: "Add your pre-booked sessions to your schedule",
-    href: "/masterclasses",
+    name: 'Masterclass',
+    description: 'Add your pre-booked sessions to your schedule',
+    href: '/masterclasses',
   },
   {
-    name: "Products",
-    description: "View our available products",
-    href: "/products",
+    name: 'Products',
+    description: 'View our available products',
+    href: '/products',
   },
   {
-    name: "My Wishlist",
-    description: "Your best of the fest!",
-    href: "/wishlist",
+    name: 'My Wishlist',
+    description: 'Your best of the fest!',
+    href: '/wishlist',
   },
 ];
 
@@ -121,7 +120,7 @@ export const Menu: React.FC<Props> = ({ user }: Props) => {
               {user ? (
                 <a
                   onClick={() => {
-                    router.push("/profile");
+                    router.push('/profile');
                     setOpen(false);
                   }}
                 >
@@ -131,7 +130,7 @@ export const Menu: React.FC<Props> = ({ user }: Props) => {
                     </div>
 
                     <div>
-                      <div>{[user.first_name, user.last_name].join(" ")}</div>
+                      <div>{[user.first_name, user.last_name].join(' ')}</div>
                       {user.loyalty_card_number && (
                         <>
                           <div className="font-light">
@@ -148,7 +147,7 @@ export const Menu: React.FC<Props> = ({ user }: Props) => {
               ) : (
                 <Button
                   onClick={() => {
-                    router.push("/log-in");
+                    router.push('/log-in');
                     setOpen(false);
                   }}
                   className="my-6"
