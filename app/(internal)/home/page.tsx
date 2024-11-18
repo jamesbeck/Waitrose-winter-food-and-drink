@@ -28,20 +28,20 @@ export default async function Home() {
       )}
 
       <MenuItem
+        text="Show Guide"
+        align="right"
+        colours={['green', 'red', 'brown']}
+        href="/WFDF 2024_SHOWGUIDE V4.pdf"
+        image={ShowGuidePreviewImage}
+      />
+
+      <MenuItem
         text="Festival Map"
         align="left"
         colours={['red', 'green', 'brown']}
         href="/map"
         image={MapImage}
         icon={<ZoomIcon />}
-      />
-
-      <MenuItem
-        text="Show Guide"
-        align="right"
-        colours={['red', 'green', 'brown']}
-        href="/WFDF 2024_SHOWGUIDE V4.pdf"
-        image={ShowGuidePreviewImage}
       />
 
       <MenuItem
