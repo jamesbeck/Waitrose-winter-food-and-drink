@@ -19,6 +19,7 @@ import { useForm } from "react-hook-form";
 import { LogInDialog } from "../log-in/logInDialog";
 import { registerAction } from "./action";
 import { formSchema, type FormSchema } from "./schema";
+import Link from "next/link";
 
 type Props = {};
 
@@ -138,10 +139,30 @@ export const RegisterForm: React.FC<Props> = (props: Props) => {
           <Footnote>* Designates a required field</Footnote>
 
           <p className="pt-2">
-            Through using clever technology, you won&apos;t need a password.
-            <br />
+            Through using clever technology, you won&apos;t need a
+            password.&nbsp;
             <strong>Ever!</strong>
           </p>
+        </Container>
+
+        <Container width="wide">
+          <Footnote>
+            Please refer to our{" "}
+            <Link
+              className="underline"
+              href="https://www.waitrose.com/ecom/help-information/privacy-notice?srsltid=AfmBOoqAQhIhMKQiRME-O7b1GXThE7tIg0BIKQvxOpGp7wE5zgQJRMhc"
+            >
+              Privacy Policy
+            </Link>{" "}
+            to see details on how we and our suppliers may use data to
+            administer and provide the event and to request feedback. If there
+            are any questions regarding this privacy policy you may contact us
+            via{" "}
+            <a className="undeline" href="mailto:info@waitrosefestivals.com">
+              info@waitrosefestivals.com
+            </a>
+            .
+          </Footnote>
         </Container>
 
         <Button type="submit" disabled={form.formState.isSubmitting}>
