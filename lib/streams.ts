@@ -66,3 +66,22 @@ export const toDb = (db: Knex, tableName: string, keyColumn?: string) =>
       }
     },
   });
+
+export const toDbIgnore = (db: Knex, tableName: string, keyColumn?: string[]) =>
+  new Writable({
+    objectMode: true,
+    async write(data: Record<string, unknown>, _encoding, callback) {
+      try {
+        const query = db(tableName).insert(data);
+
+        if (keyColumn) {
+          query.onConflict(keyColumn).ignore();
+        }
+
+        await query;
+        callback();
+      } catch (error) {
+        callback(error as Error);
+      }
+    },
+  });

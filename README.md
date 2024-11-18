@@ -10,8 +10,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-
-
 ## CLI
 
 ### Product Import
@@ -76,4 +74,20 @@ e.g. assuming the directory `qr-code-pdfs` already exists
 
 ```bash
 npm run export qr-code-pdfs ./qr-code-pdfs
+```
+
+### Event QR Code PDF Export
+
+NOTE: The output directory must already exist.
+
+For convenience the `event-qr-code-pdfs` directory in the project is Git ignored.
+
+```bash
+npm run export event-qr-code-pdfs {output_directory}
+```
+
+e.g. assuming the directory `event-qr-code-pdfs` already exists
+
+```bash
+npm run export event-qr-code-pdfs ./qr-code-pdfs
 ```

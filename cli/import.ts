@@ -1,7 +1,15 @@
 import 'dotenv/config';
 
 import { db } from '@/lib/knex';
-import { filter, getFileStream, map, parseCsv, tap, toDb } from '@/lib/streams';
+import {
+  filter,
+  getFileStream,
+  map,
+  parseCsv,
+  tap,
+  toDb,
+  toDbIgnore,
+} from '@/lib/streams';
 import { program } from 'commander';
 import type { Event } from 'knex/types/tables';
 import { pipeline } from 'stream/promises';
@@ -39,12 +47,23 @@ program
   .argument('<file>', 'File to import')
   .action(async (fileName) => {
     try {
+      let skipped: ProductCSVRow[] = [];
+
       await pipeline(
         getFileStream(fileName),
         parseCsv(),
+        tap((row: ProductCSVRow) => {
+          if (
+            !row['Line Number'] ||
+            row['Line Number'].trim().match(/^\d+$/) === null
+          ) {
+            skipped.push(row);
+          }
+        }),
         filter(
           (row: ProductCSVRow) =>
-            !!row['Line Number'] && row['Line Number'].match(/^\d+$/) !== null
+            !!row['Line Number'] &&
+            row['Line Number'].trim().match(/^\d+$/) !== null
         ),
         map((row: ProductCSVRow) => ({
           line_number: row['Line Number'].trim(),
@@ -78,7 +97,12 @@ program
       await pipeline(
         getFileStream(fileName),
         parseCsv(),
-        filter((row: ProductCSVRow) => !!row['Line Number'] && row['Line Number'].match(/^\d+$/) !== null && !!row['Session ID']),
+        filter(
+          (row: ProductCSVRow) =>
+            !!row['Line Number'] &&
+            row['Line Number'].match(/^\d+$/) !== null &&
+            !!row['Session ID']
+        ),
         map((row: ProductCSVRow) =>
           row['Session ID']
             .trim()
@@ -89,8 +113,15 @@ program
             }))
         ),
         tap((row) => console.log(row)),
-        toDb(db, 'event_products')
-      )
+        toDbIgnore(db, 'event_products', ['event_id', 'product_line_number'])
+      );
+
+      if (skipped.length > 0) {
+        console.log('Skipped rows:');
+        for (const row of skipped) {
+          console.log(row);
+        }
+      }
     } catch (error) {
       console.error(error);
     }
@@ -106,7 +137,8 @@ program
       await pipeline(
         getFileStream(fileName),
         parseCsv(),
-        map((row: EventCSVRow): Omit<Event, 'created_at' | 'updated_at'> => ({
+        map(
+          (row: EventCSVRow): Omit<Event, 'created_at' | 'updated_at'> => ({
             id: row['SESSION ID'].trim(),
             is_masterclass: row.LOCATION.trim().startsWith('Masterclass'),
             type: row['TYPE DROP IN PRE BOOK SIGN UP'].trim(),
@@ -118,7 +150,8 @@ program
             image_url: row.IMAGE,
             name: row['WHOS ON'],
             description: row.CONTENT,
-          })),
+          })
+        ),
         tap((row) => console.log(row)),
         toDb(db, 'events', 'id')
       );
