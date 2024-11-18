@@ -129,7 +129,7 @@ program
             maxWidth: 70,
           });
           doc.text(
-            product.sale_price || product.normal_price || '',
+            product.normal_price || '',
             pageWidth / 2 - 8,
             y,
             {
@@ -151,7 +151,7 @@ program
             maxWidth: 70,
           });
           doc.text(
-            product.sale_price || product.normal_price || '',
+            product.normal_price || '',
             pageWidth - 15,
             y,
             {
@@ -167,7 +167,7 @@ program
         products.forEach((product, index) => {
           doc.text(product.name, 30, 150 + index * 8 + yMargin);
           doc.text(
-            product.sale_price || product.normal_price || '',
+            product.normal_price || '',
             pageWidth - 30,
             150 + index * 8 + yMargin,
             {

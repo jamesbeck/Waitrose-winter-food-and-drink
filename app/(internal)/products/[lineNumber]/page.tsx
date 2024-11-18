@@ -1,13 +1,11 @@
 import { Content } from "@/components/layout/content";
 import { H1 } from "@/components/typography/h1";
-import { H2 } from "@/components/typography/h2";
 import { getProduct } from "@/lib/data/products";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { WishlistButton } from "../../../../components/buttons/wishlistButton";
 import { WishlistIconButton } from "../../../../components/buttons/wishlistIconButton";
 import { BackButton } from "./backButton";
-import { Button } from "@/components/ui/button";
 import { ViewOnWaitroseButton } from "./viewOnWaitroseButton";
 
 type Props = {
@@ -52,22 +50,8 @@ export default async function Products({ params: { lineNumber } }: Props) {
             {product.normal_price && (
               <div className="text-right">{product.normal_price}</div>
             )}
-            {product.sale_price && (
-              <div className="font-light text-right text-nowrap">
-                Sale Price: {product.sale_price}
-              </div>
-            )}
           </div>
         </div>
-        {product.unit && (
-          <div>
-            <H2 className="pb-3">Specifics</H2>
-
-            <div>Units</div>
-            <div className="font-light">{product.unit}</div>
-          </div>
-        )}
-
         {product.website_url && (
           <ViewOnWaitroseButton url={product.website_url} />
         )}
