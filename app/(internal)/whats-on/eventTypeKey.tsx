@@ -1,3 +1,4 @@
+import { InlineLink } from '@/components/typography/inlineLink';
 import React from 'react';
 import { EventTypeIndicator } from '../events/[id]/eventTypeIndicator';
 
@@ -19,8 +20,11 @@ export const EventTypeKey: React.FC<Props> = (props: Props) => {
       </div>
       <div>
         <EventTypeIndicator type="PRE BOOK" />{' '}
-        <span className="text-red-500">PRE-BOOK</span> Check on
-        waitrosefestivals.com to see if there are spaces left.
+        <span className="text-red-500">PRE-BOOK</span> Check on{' '}
+        <InlineLink href="http://waitrosefestivals.com">
+          waitrosefestivals.com
+        </InlineLink>{' '}
+        to see if there are spaces left.
       </div>
     </div>
   );
