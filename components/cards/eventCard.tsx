@@ -1,3 +1,4 @@
+import { EventTypeIndicator } from '@/app/(internal)/events/[id]/eventTypeIndicator';
 import { getEventDate } from '@/app/(internal)/events/[id]/helpers';
 import { ScheduleButton } from '@/components/buttons/scheduleButton';
 import { CalendarIcon } from '@/components/icons/calendarIcon';
@@ -44,7 +45,9 @@ export const EventCard: React.FC<Props> = ({ event, onChange }: Props) => {
             colour
           )}
         >
-          <CardTitle>{event.name}</CardTitle>
+          <CardTitle>
+            {event.name} <EventTypeIndicator type={event.type} />
+          </CardTitle>
 
           <CardDescription className="hidden">
             {dateString} {event.start_time} - {event.end_time}

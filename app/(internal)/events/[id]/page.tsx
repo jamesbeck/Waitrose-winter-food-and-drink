@@ -8,6 +8,7 @@ import { getEvent, getEventProducts } from '@/lib/data/events';
 import { notFound } from 'next/navigation';
 import { BackButton } from '../../products/[lineNumber]/backButton';
 import { EventProductsGrid } from './eventProductsGrid';
+import { EventTypeIndicator } from './eventTypeIndicator';
 import { getEventDate } from './helpers';
 
 type Props = {
@@ -39,7 +40,9 @@ export default async function Event({ params: { id } }: Props) {
       </div>
 
       <Content className="relative text-left">
-        <H1 className="text-left">{event.name}</H1>
+        <H1 className="text-left">
+          {event.name} <EventTypeIndicator type={event.type} />
+        </H1>
 
         <div className="space-y-1">
           <div className="flex space-x-3">

@@ -7,6 +7,7 @@ import {
   type FilterDay,
 } from '@/lib/data/events';
 import { EventFiltersDrawer } from '../../../components/drawers/eventFiltersDrawer';
+import { EventTypeKey } from '../whats-on/eventTypeKey';
 import { MasterclassesGrid } from './masterclassesGrid';
 
 type Props = {
@@ -32,6 +33,8 @@ export default async function Masterclasses({ searchParams: { days } }: Props) {
           the festival. If you have purchased a ticket you can add this to your
           schedule
         </Lead>
+
+        <EventTypeKey />
 
         <EventFiltersDrawer days={daysFilter} />
       </Content>

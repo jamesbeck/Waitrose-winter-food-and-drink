@@ -1,3 +1,4 @@
+import { EventTypeIndicator } from '@/app/(internal)/events/[id]/eventTypeIndicator';
 import { getEventDate } from '@/app/(internal)/events/[id]/helpers';
 import { ScheduleButton } from '@/components/buttons/scheduleButton';
 import { CalendarIcon } from '@/components/icons/calendarIcon';
@@ -62,7 +63,9 @@ export const MasterclassCard: React.FC<Props> = ({
             textColour
           )}
         >
-          <CardTitle>{masterclass.name}</CardTitle>
+          <CardTitle>
+            {masterclass.name} <EventTypeIndicator type={masterclass.type} />
+          </CardTitle>
 
           <CardDescription className="hidden">
             {dateString} {masterclass.start_time} - {masterclass.end_time}
