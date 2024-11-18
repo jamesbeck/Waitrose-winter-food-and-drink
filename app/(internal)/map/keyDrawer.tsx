@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
+import MapAccessibleEntry from '@/images/map-accessible-entry.svg';
 import MapGlassWashPointImage from '@/images/map-glass-wash-point.svg';
 import MapGoodyBagImage from '@/images/map-goody-bag.svg';
 import Image from 'next/image';
@@ -24,7 +25,7 @@ export const KeyDrawer: React.FC<Props> = (props: Props) => {
         <Button
           variant="outline"
           size="sm"
-          className="text-white absolute top-6 right-6 bg-transparent border-white rounded-none text-base w-fit z-20 bg-[#6E5093]"
+          className="text-white absolute top-6 right-6 bg-transparent  border-none rounded text-base w-fit z-20 bg-[#93743F]"
         >
           Key to Map
         </Button>
@@ -54,33 +55,28 @@ export const KeyDrawer: React.FC<Props> = (props: Props) => {
 
             <div className="pt-12 space-y-6">
               <div className="flex space-x-6 items-center">
-                <div className="size-10 bg-[#E0B1C6]"></div>
+                <div className="size-10 bg-[#A66776]"></div>
                 <div className="uppercase">Wine</div>
               </div>
 
               <div className="flex space-x-6 items-center">
-                <div className="size-10 bg-[#9FCDE1]"></div>
+                <div className="size-10 bg-[#B8D437]"></div>
                 <div className="uppercase">Spirits</div>
               </div>
 
               <div className="flex space-x-6 items-center">
-                <div className="size-10 bg-[#ECCF83]"></div>
+                <div className="size-10 bg-[#8A5D3B]"></div>
                 <div className="uppercase">Beer &amp; Cider</div>
               </div>
 
               <div className="flex space-x-6 items-center">
-                <div className="size-10 bg-[#9EC498]"></div>
-                <div className="uppercase">Cosy Corner</div>
-              </div>
-
-              <div className="flex space-x-6 items-center">
-                <div className="size-10 bg-[#B08D84]"></div>
-                <div className="uppercase">Mindful Drinking Den</div>
-              </div>
-
-              <div className="flex space-x-6 items-center">
-                <div className="size-10 bg-[#A99CC5]"></div>
+                <div className="size-10 bg-[#80163E]"></div>
                 <div className="uppercase">Waitrose Experiences</div>
+              </div>
+
+              <div className="flex space-x-6 items-center">
+                <div className="size-10 bg-[#FFFFFF] border border-neutral-400"></div>
+                <div className="uppercase">VIP Lounge</div>
               </div>
 
               <div className="flex space-x-6 items-center">
@@ -103,8 +99,16 @@ export const KeyDrawer: React.FC<Props> = (props: Props) => {
               </div>
 
               <div className="flex space-x-6 items-center">
-                <div className="size-10 bg-[#ED67A5]"></div>
+                <div className="size-10 bg-[#D71B5C]"></div>
                 <div className="uppercase">Toilets</div>
+              </div>
+
+              <div className="flex space-x-6 items-center">
+                <div className="size-10 relative">
+                  <Image src={MapAccessibleEntry} alt="Goody bag" fill />
+                </div>
+
+                <div className="uppercase">Accessible Entry</div>
               </div>
 
               <div className="flex space-x-6 items-center">

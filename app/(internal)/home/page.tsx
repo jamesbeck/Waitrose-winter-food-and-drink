@@ -1,12 +1,12 @@
 import { WelcomeCard } from '@/components/cards/welcomeCard';
 import { ZoomIcon } from '@/components/icons/zoomIcon';
 import { DataContainer } from '@/components/layout/dataContainer';
-import MapImage from '@/images/festival-map.svg';
 import HeaderImage from '@/images/header.png';
 import MasterclassImage from '@/images/masterclass.png';
 import ProductsImage from '@/images/products.png';
 import ScheduleImage from '@/images/schedule.png';
 import ShowGuidePreviewImage from '@/images/show-guide-preview.png';
+import MapImage from '@/images/show-map-ground.svg';
 import WhatsOnImage from '@/images/whats-on.png';
 import WishlistImage from '@/images/wishlist.png';
 import { isWelcomed } from '@/lib/auth';

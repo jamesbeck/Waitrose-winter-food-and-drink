@@ -39,7 +39,7 @@ export const MenuItem: React.FC<Props> = ({
       <div className="flex min-h-48">
         <div
           className={cn(
-            align === 'left' ? 'grow relative' : 'w-16',
+            align === 'left' ? 'grow relative bg-waitrose-brown' : 'w-16',
             align === 'left' ? '' : colourClasses[0]
           )}
         >
