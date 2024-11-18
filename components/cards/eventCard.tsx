@@ -78,14 +78,17 @@ export const EventCard: React.FC<Props> = ({ event, onChange }: Props) => {
                   <div>{dateString}</div>
                 </div>
               )}
-              <div className="flex space-x-1 items-center">
-                <ClockIcon
-                  className={cn('size-4 -mt-0.5 fill-white', iconColour)}
-                />
-                <div>
-                  {event.start_time} - {event.end_time}
+              {event.start_time && (
+                <div className="flex space-x-1 items-center">
+                  <ClockIcon
+                    className={cn('size-4 -mt-0.5 fill-white', iconColour)}
+                  />
+                  <div>
+                    {event.start_time}
+                    {event.end_time ? ` - ${event.end_time}` : ''}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <div className="text-white">

@@ -2,9 +2,7 @@ import { InlineLink } from '@/components/typography/inlineLink';
 import React from 'react';
 import { EventTypeIndicator } from '../events/[id]/eventTypeIndicator';
 
-type Props = {};
-
-export const EventTypeKey: React.FC<Props> = (props: Props) => {
+export const EventTypeKey: React.FC = () => {
   return (
     <div className="text-left border rounded-lg p-4 space-y-1 font-light text-gray-700">
       <div>There are three types of session...</div>
