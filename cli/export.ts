@@ -72,6 +72,7 @@ program
 
       const doc = new jsPDF();
       doc.setFont('GillSans', 'normal');
+      doc.setCharSpace(0.01);
 
       const allergens = products
         .map((product) => product.allergens)
