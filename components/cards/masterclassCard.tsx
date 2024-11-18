@@ -21,20 +21,20 @@ type Props = {
 };
 
 const bgColourMappings: Record<EventWithScheduled['day'], string> = {
-  Friday: 'bg-waitrose-red',
-  Saturday: 'bg-waitrose-brown',
+  Friday: 'bg-waitrose-brown',
+  Saturday: 'bg-waitrose-red',
   Sunday: 'bg-waitrose-lime',
 };
 
 const textColourMappings: Record<EventWithScheduled['day'], string> = {
-  Friday: 'text-waitrose-lime',
-  Saturday: 'text-waitrose-red',
+  Friday: 'text-waitrose-red',
+  Saturday: 'text-waitrose-lime',
   Sunday: 'text-waitrose-red',
 };
 
 const iconColourMappings: Record<EventWithScheduled['day'], string> = {
-  Friday: 'fill-waitrose-lime',
-  Saturday: 'fill-waitrose-red',
+  Friday: 'fill-waitrose-red',
+  Saturday: 'fill-waitrose-lime',
   Sunday: 'fill-waitrose-red',
 };
 

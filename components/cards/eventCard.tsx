@@ -22,13 +22,27 @@ type Props = {
 
 const colourMappings: Record<EventWithScheduled['day'], string> = {
   Friday: 'bg-waitrose-brown',
-  Saturday: 'bg-waitrose-brown',
-  Sunday: 'bg-waitrose-brown',
+  Saturday: 'bg-waitrose-red',
+  Sunday: 'bg-waitrose-lime',
+};
+
+const textColourMappings: Record<EventWithScheduled['day'], string> = {
+  Friday: 'text-waitrose-red',
+  Saturday: 'text-waitrose-lime',
+  Sunday: 'text-waitrose-red',
+};
+
+const iconColourMappings: Record<EventWithScheduled['day'], string> = {
+  Friday: 'fill-waitrose-red',
+  Saturday: 'fill-waitrose-lime',
+  Sunday: 'fill-waitrose-red',
 };
 
 export const EventCard: React.FC<Props> = ({ event, onChange }: Props) => {
   const date = getEventDate(event.day);
-  const colour = colourMappings[event.day] || 'bg-waitrose-brown';
+  const bgColour = colourMappings[event.day] || 'bg-waitrose-brown';
+  const textColour = textColourMappings[event.day] || 'text-waitrose-red';
+  const iconColour = iconColourMappings[event.day] || 'fill-waitrose-red';
 
   const dateString = date
     ? `${date.getDate()}/${date.getMonth() + 1}/${`${date.getFullYear()}`.slice(
@@ -42,7 +56,8 @@ export const EventCard: React.FC<Props> = ({ event, onChange }: Props) => {
         <CardHeader
           className={cn(
             'h-40 p-3 flex flex-col justify-end space-y-6 rounded-t-3xl text-white',
-            colour
+            bgColour,
+            textColour
           )}
         >
           <CardTitle>
@@ -57,19 +72,23 @@ export const EventCard: React.FC<Props> = ({ event, onChange }: Props) => {
             <div className="flex space-x-3 text-white">
               {date && (
                 <div className="flex space-x-1 items-center">
-                  <CalendarIcon className="mr-1 size-4 -mt-0.5 fill-white" />
+                  <CalendarIcon
+                    className={cn('mr-1 size-4 -mt-0.5 fill-white', iconColour)}
+                  />
                   <div>{dateString}</div>
                 </div>
               )}
               <div className="flex space-x-1 items-center">
-                <ClockIcon className="size-4 -mt-0.5 fill-white" />
+                <ClockIcon
+                  className={cn('size-4 -mt-0.5 fill-white', iconColour)}
+                />
                 <div>
                   {event.start_time} - {event.end_time}
                 </div>
               </div>
             </div>
 
-            <div>
+            <div className="text-white">
               {(event.room || event.floor) && (
                 <p className="">
                   {event.room}
