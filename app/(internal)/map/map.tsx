@@ -16,7 +16,7 @@ export const Map: React.FC<Props> = (props: Props) => {
       <KeyDrawer />
 
       <Tabs defaultValue="ground">
-        <TabsList className="grid grid-cols-2 absolute top-6 left-[7.5%] z-20 w-[85%] mx-auto">
+        <TabsList className="grid grid-cols-2 absolute top-6 left-[7.5%] z-20 w-[85%] mx-auto border-4 border-[#C09554]">
           <TabsTrigger value="ground" className="text-lg">
             Ground Floor
           </TabsTrigger>
