@@ -48,12 +48,18 @@ export const tap = <T>(sideEffect: (chunk: T) => void) =>
     },
   });
 
-export const toDb = (db: Knex, tableName: string, keyColumn: string) =>
+export const toDb = (db: Knex, tableName: string, keyColumn?: string) =>
   new Writable({
     objectMode: true,
     async write(data: Record<string, unknown>, _encoding, callback) {
       try {
-        await db(tableName).insert(data).onConflict(keyColumn).merge();
+        const query = db(tableName).insert(data);
+
+        if (keyColumn) {
+          query.onConflict(keyColumn).merge();
+        }
+
+        await query;
         callback();
       } catch (error) {
         callback(error as Error);

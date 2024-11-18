@@ -14,20 +14,22 @@ type ProductCSVRow = {
   'Image URL': string;
   Products: string;
   'Normal price': string;
-  'Sale price': string;
-  Unit: string;
   'Link to WR.com': string;
   Allergens: string;
+  'Session ID': string;
 };
 
 type EventCSVRow = {
-  ROOM: string;
+  LOCATION: string;
   DAY: string;
   'START TIME': string;
   'END TIME': string;
   IMAGE: string;
   'WHOS ON': string;
   CONTENT: string;
+  'TYPE DROP IN PRE BOOK SIGN UP': string;
+  FLOOR: string;
+  'SESSION ID': string;
 };
 
 program.name('import');
@@ -45,7 +47,7 @@ program
             !!row['Line Number'] && row['Line Number'].match(/^\d+$/) !== null
         ),
         map((row: ProductCSVRow) => ({
-          line_number: row['Line Number'],
+          line_number: row['Line Number'].trim(),
           name: row.Products ? row.Products.trim() : '',
           image_url:
             row['Image URL'] && row['Image URL'].trim()
@@ -60,8 +62,6 @@ program
           normal_price: row['Normal price']
             ? toMoney(row['Normal price'])
             : null,
-          sale_price: row['Sale price'] ? toMoney(row['Sale price']) : null,
-          unit: row.Unit || null,
           description: null,
           website_url:
             row['Link to WR.com'] &&
@@ -74,6 +74,23 @@ program
         tap((row) => console.log(row)),
         toDb(db, 'products', 'line_number')
       );
+
+      await pipeline(
+        getFileStream(fileName),
+        parseCsv(),
+        filter((row: ProductCSVRow) => !!row['Line Number'] && row['Line Number'].match(/^\d+$/) !== null && !!row['Session ID']),
+        map((row: ProductCSVRow) =>
+          row['Session ID']
+            .trim()
+            .split(',')
+            .map((sessionId) => ({
+              event_id: sessionId.trim(),
+              product_line_number: row['Line Number'].trim(),
+            }))
+        ),
+        tap((row) => console.log(row)),
+        toDb(db, 'event_products')
+      )
     } catch (error) {
       console.error(error);
     }
@@ -89,34 +106,19 @@ program
       await pipeline(
         getFileStream(fileName),
         parseCsv(),
-        filter(
-          (row: EventCSVRow) => !!row.ROOM && !!row.DAY && !!row['START TIME']
-        ),
-        map((row: EventCSVRow): Omit<Event, 'created_at' | 'updated_at'> => {
-          const normalisedRoom = row.ROOM.trim()
-            .toLowerCase()
-            .replaceAll(' ', '-');
-          const normalisedDay = row.DAY.trim().toLowerCase();
-          const normalisedStartTime = row['START TIME']
-            .trim()
-            .replaceAll(':', '');
-
-          const id = `${normalisedDay}-${normalisedStartTime}-${normalisedRoom}`;
-
-          return {
-            id,
-            type: row.ROOM.startsWith('Masterclass')
-              ? 'masterclass'
-              : 'standard',
-            room: row.ROOM.trim(),
+        map((row: EventCSVRow): Omit<Event, 'created_at' | 'updated_at'> => ({
+            id: row['SESSION ID'].trim(),
+            is_masterclass: row.LOCATION.trim().startsWith('Masterclass'),
+            type: row['TYPE DROP IN PRE BOOK SIGN UP'].trim(),
+            room: row.LOCATION.trim(),
+            floor: row.FLOOR.trim(),
             day: row.DAY.trim(),
             start_time: row['START TIME'].trim(),
             end_time: row['END TIME'],
             image_url: row.IMAGE,
             name: row['WHOS ON'],
             description: row.CONTENT,
-          };
-        }),
+          })),
         tap((row) => console.log(row)),
         toDb(db, 'events', 'id')
       );
