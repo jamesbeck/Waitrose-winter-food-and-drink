@@ -2,6 +2,7 @@
 
 import type { Event } from 'knex/types/tables';
 import { db } from '../knex';
+import type { ProductList, ProductWithWishlisted } from './products';
 import { getCurrentUser } from './user';
 
 export type EventWithScheduled = Event & {
@@ -88,6 +89,67 @@ export const getMasterclasses = async ({
         }
       })
       .orderBy('id', 'asc')
+      .offset(offset)
+      .limit(10),
+  ]);
+
+  return { count: count?.count ? parseInt(count.count) : 0, items };
+};
+
+export const getEvent = async (
+  id: string
+): Promise<EventWithScheduled | undefined> => {
+  const user = await getCurrentUser();
+
+  return db
+    .select<EventWithScheduled[]>([
+      'events.*',
+      db.raw('schedule.event_id IS NOT NULL as "is_scheduled"'),
+    ])
+    .from('events')
+    .leftJoin('schedule', function () {
+      this.on('events.id', '=', 'schedule.event_id');
+
+      if (user) {
+        this.andOnVal('schedule.user_id', user.id);
+      }
+    })
+    .where('events.id', id)
+    .first();
+};
+
+export const getEventProducts = async (
+  id: string,
+  offset = 0
+): Promise<ProductList> => {
+  const user = await getCurrentUser();
+
+  const baseQuery = db
+    .from('products')
+    .leftJoin(
+      'event_products',
+      'products.line_number',
+      'event_products.product_line_number'
+    )
+    .where('event_products.event_id', id);
+
+  const [count, items] = await Promise.all([
+    baseQuery.clone().count<{ count: string }[]>('*').first(),
+    baseQuery
+      .clone()
+      .select<ProductWithWishlisted[]>([
+        'products.*',
+        db.raw('wishlist.product_line_number IS NOT NULL as "is_wishlisted"'),
+      ])
+      .leftJoin('wishlist', function () {
+        this.on('products.line_number', '=', 'wishlist.product_line_number');
+
+        if (user) {
+          this.andOnVal('wishlist.user_id', user.id);
+        } else {
+          this.andOnNull('wishlist.user_id');
+        }
+      })
       .offset(offset)
       .limit(10),
   ]);
