@@ -29,7 +29,7 @@ export const getStandardEvents = async ({
 }: Params): Promise<EventList> => {
   const user = await getCurrentUser();
 
-  const baseQuery = db.from('events').where('type', 'standard');
+  const baseQuery = db.from('events').where('is_masterclass', false);
 
   if (days && days.length > 0) {
     baseQuery.whereIn('day', days);
@@ -66,7 +66,7 @@ export const getMasterclasses = async ({
 }: Params): Promise<EventList> => {
   const user = await getCurrentUser();
 
-  const baseQuery = db.from('events').where('type', 'masterclass');
+  const baseQuery = db.from('events').where('is_masterclass', true);
 
   if (days && days.length > 0) {
     baseQuery.whereIn('day', days);
