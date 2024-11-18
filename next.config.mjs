@@ -17,6 +17,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 's7e5a.scene7.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'media.johnlewiscontent.com',
+      },
     ],
   },
   webpack: (config) => {
