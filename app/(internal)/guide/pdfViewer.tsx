@@ -35,7 +35,7 @@ export const PdfViewer: React.FC<Props> = (props: Props) => {
   return (
     <div className="w-full" ref={setContainerRef}>
       <Document
-        file="/festival-guide-app.pdf"
+        file="/WFDF 2024_SHOWGUIDE V4.pdf"
         onLoadSuccess={onDocumentLoadSuccess}
         loading={null}
       >
