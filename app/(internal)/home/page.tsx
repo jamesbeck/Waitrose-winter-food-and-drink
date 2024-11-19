@@ -33,6 +33,7 @@ export default async function Home() {
         colours={['green', 'red', 'brown']}
         href="/WFDF 2024_SHOWGUIDE V4.pdf"
         image={ShowGuidePreviewImage}
+        openInNewTab={true}
       />
 
       <MenuItem

@@ -13,6 +13,7 @@ type Props = {
   href?: string;
   align: 'left' | 'right';
   colours: [Colour, Colour, Colour];
+  openInNewTab?: boolean;
 };
 
 export const MenuItem: React.FC<Props> = ({
@@ -22,6 +23,7 @@ export const MenuItem: React.FC<Props> = ({
   href,
   align,
   colours,
+  openInNewTab = false,
 }: Props) => {
   const colourClasses = colours.map((colour) => {
     switch (colour) {
@@ -86,5 +88,11 @@ export const MenuItem: React.FC<Props> = ({
     </>
   );
 
-  return href ? <Link href={href}>{content}</Link> : <>{content}</>;
+  return href ? (
+    <Link href={href} target={openInNewTab ? '_blank' : undefined}>
+      {content}
+    </Link>
+  ) : (
+    <>{content}</>
+  );
 };
