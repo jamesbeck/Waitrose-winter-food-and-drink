@@ -39,7 +39,11 @@ export default async function WhatsOn({ searchParams: { days } }: Props) {
         <EventFiltersDrawer days={daysFilter} />
       </Content>
 
-      <EventsGrid events={events.items} count={events.count} />
+      <EventsGrid
+        events={events.items}
+        count={events.count}
+        days={daysFilter}
+      />
     </>
   );
 }

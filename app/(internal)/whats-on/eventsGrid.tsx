@@ -4,17 +4,23 @@ import { EventCard } from '@/components/cards/eventCard';
 import { EmptyMessage } from '@/components/content/emptyMessage';
 import { DataContainer } from '@/components/layout/dataContainer';
 import { EventsGridSkeleton } from '@/components/skeletons/eventsGridSkeleton';
-import { getStandardEvents, type EventWithScheduled } from '@/lib/data/events';
+import {
+  getStandardEvents,
+  type EventWithScheduled,
+  type FilterDay,
+} from '@/lib/data/events';
 import React, { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 type Props = {
   events: EventWithScheduled[];
+  days: FilterDay[];
   count: number;
 };
 
 export const EventsGrid: React.FC<Props> = ({
   events: initialEvents,
+  days,
   count,
 }: Props) => {
   const [events, setEvents] = React.useState(initialEvents);
@@ -24,7 +30,7 @@ export const EventsGrid: React.FC<Props> = ({
   }, [initialEvents]);
 
   const loadEvents = async () => {
-    const next = await getStandardEvents({ offset: events.length });
+    const next = await getStandardEvents({ offset: events.length, days });
 
     setEvents((existing) => [...existing, ...next.items]);
   };
