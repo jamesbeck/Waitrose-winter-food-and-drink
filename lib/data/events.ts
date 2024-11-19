@@ -1,9 +1,9 @@
-'use server';
+"use server";
 
-import type { Event } from 'knex/types/tables';
-import { db } from '../knex';
-import type { ProductList, ProductWithWishlisted } from './products';
-import { getCurrentUser } from './user';
+import type { Event } from "knex/types/tables";
+import { db } from "../knex";
+import type { ProductList, ProductWithWishlisted } from "./products";
+import { getCurrentUser } from "./user";
 
 export type EventWithScheduled = Event & {
   is_scheduled: boolean;
@@ -14,10 +14,10 @@ type EventList = {
   items: EventWithScheduled[];
 };
 
-export type FilterDay = 'Friday' | 'Saturday' | 'Sunday';
+export type FilterDay = "Friday" | "Saturday" | "Sunday" | "Always on";
 
 export const isFilterDay = (value: string): value is FilterDay =>
-  ['Friday', 'Saturday', 'Sunday'].includes(value);
+  ["Friday", "Saturday", "Sunday"].includes(value);
 
 type Params = {
   offset?: number;
@@ -30,30 +30,32 @@ export const getStandardEvents = async ({
 }: Params): Promise<EventList> => {
   const user = await getCurrentUser();
 
-  const baseQuery = db.from('events').where('is_masterclass', false);
+  const baseQuery = db.from("events").where("is_masterclass", false);
 
   if (days && days.length > 0) {
-    baseQuery.whereIn('day', days);
+    //always bring back "Always on" events
+    days = days.concat("Always on");
+    baseQuery.whereIn("day", days);
   }
 
   const [count, items] = await Promise.all([
-    baseQuery.clone().count<{ count: string }[]>('*').first(),
+    baseQuery.clone().count<{ count: string }[]>("*").first(),
     baseQuery
       .clone()
       .select<EventWithScheduled[]>([
-        'events.*',
+        "events.*",
         db.raw('schedule.event_id IS NOT NULL as "is_scheduled"'),
       ])
-      .leftJoin('schedule', function () {
-        this.on('events.id', '=', 'schedule.event_id');
+      .leftJoin("schedule", function () {
+        this.on("events.id", "=", "schedule.event_id");
 
         if (user) {
-          this.andOnVal('schedule.user_id', user.id);
+          this.andOnVal("schedule.user_id", user.id);
         } else {
-          this.andOnNull('schedule.user_id');
+          this.andOnNull("schedule.user_id");
         }
       })
-      .orderBy('id', 'asc')
+      .orderBy("id", "asc")
       .offset(offset)
       .limit(10),
   ]);
@@ -67,30 +69,30 @@ export const getMasterclasses = async ({
 }: Params): Promise<EventList> => {
   const user = await getCurrentUser();
 
-  const baseQuery = db.from('events').where('is_masterclass', true);
+  const baseQuery = db.from("events").where("is_masterclass", true);
 
   if (days && days.length > 0) {
-    baseQuery.whereIn('day', days);
+    baseQuery.whereIn("day", days);
   }
 
   const [count, items] = await Promise.all([
-    baseQuery.clone().count<{ count: string }[]>('*').first(),
+    baseQuery.clone().count<{ count: string }[]>("*").first(),
     baseQuery
       .clone()
       .select<EventWithScheduled[]>([
-        'events.*',
+        "events.*",
         db.raw('schedule.event_id IS NOT NULL as "is_scheduled"'),
       ])
-      .leftJoin('schedule', function () {
-        this.on('events.id', '=', 'schedule.event_id');
+      .leftJoin("schedule", function () {
+        this.on("events.id", "=", "schedule.event_id");
 
         if (user) {
-          this.andOnVal('schedule.user_id', user.id);
+          this.andOnVal("schedule.user_id", user.id);
         } else {
-          this.andOnNull('schedule.user_id');
+          this.andOnNull("schedule.user_id");
         }
       })
-      .orderBy('id', 'asc')
+      .orderBy("id", "asc")
       .offset(offset)
       .limit(10),
   ]);
@@ -105,20 +107,20 @@ export const getEvent = async (
 
   return db
     .select<EventWithScheduled[]>([
-      'events.*',
+      "events.*",
       db.raw('schedule.event_id IS NOT NULL as "is_scheduled"'),
     ])
-    .from('events')
-    .leftJoin('schedule', function () {
-      this.on('events.id', '=', 'schedule.event_id');
+    .from("events")
+    .leftJoin("schedule", function () {
+      this.on("events.id", "=", "schedule.event_id");
 
       if (user) {
-        this.andOnVal('schedule.user_id', user.id);
+        this.andOnVal("schedule.user_id", user.id);
       } else {
-        this.andOnNull('schedule.user_id');
+        this.andOnNull("schedule.user_id");
       }
     })
-    .where('events.id', id)
+    .where("events.id", id)
     .first();
 };
 
@@ -129,29 +131,29 @@ export const getEventProducts = async (
   const user = await getCurrentUser();
 
   const baseQuery = db
-    .from('products')
+    .from("products")
     .leftJoin(
-      'event_products',
-      'products.line_number',
-      'event_products.product_line_number'
+      "event_products",
+      "products.line_number",
+      "event_products.product_line_number"
     )
-    .where('event_products.event_id', id);
+    .where("event_products.event_id", id);
 
   const [count, items] = await Promise.all([
-    baseQuery.clone().count<{ count: string }[]>('*').first(),
+    baseQuery.clone().count<{ count: string }[]>("*").first(),
     baseQuery
       .clone()
       .select<ProductWithWishlisted[]>([
-        'products.*',
+        "products.*",
         db.raw('wishlist.product_line_number IS NOT NULL as "is_wishlisted"'),
       ])
-      .leftJoin('wishlist', function () {
-        this.on('products.line_number', '=', 'wishlist.product_line_number');
+      .leftJoin("wishlist", function () {
+        this.on("products.line_number", "=", "wishlist.product_line_number");
 
         if (user) {
-          this.andOnVal('wishlist.user_id', user.id);
+          this.andOnVal("wishlist.user_id", user.id);
         } else {
-          this.andOnNull('wishlist.user_id');
+          this.andOnNull("wishlist.user_id");
         }
       })
       .offset(offset)
