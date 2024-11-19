@@ -1,12 +1,13 @@
-import { Content } from "@/components/layout/content";
-import { H1 } from "@/components/typography/h1";
-import { getProduct } from "@/lib/data/products";
-import Image from "next/image";
-import { notFound } from "next/navigation";
-import { WishlistButton } from "../../../../components/buttons/wishlistButton";
-import { WishlistIconButton } from "../../../../components/buttons/wishlistIconButton";
-import { BackButton } from "./backButton";
-import { ViewOnWaitroseButton } from "./viewOnWaitroseButton";
+import { Content } from '@/components/layout/content';
+import { H1 } from '@/components/typography/h1';
+import PlaceholderImage from '@/images/placeholder.jpg';
+import { getProduct } from '@/lib/data/products';
+import Image from 'next/image';
+import { notFound } from 'next/navigation';
+import { WishlistButton } from '../../../../components/buttons/wishlistButton';
+import { WishlistIconButton } from '../../../../components/buttons/wishlistIconButton';
+import { BackButton } from './backButton';
+import { ViewOnWaitroseButton } from './viewOnWaitroseButton';
 
 type Props = {
   params: {
@@ -29,12 +30,20 @@ export default async function Products({ params: { lineNumber } }: Props) {
         <WishlistIconButton product={product} />
 
         <div className="w-full h-96 relative">
-          {product.image_url && (
+          {product.image_url ? (
             <Image
               src={product.image_url}
               alt={product.name}
               fill={true}
-              style={{ objectFit: "contain" }}
+              style={{ objectFit: 'contain' }}
+              sizes="100vw, 50vh"
+            />
+          ) : (
+            <Image
+              src={PlaceholderImage}
+              alt={product.name}
+              fill={true}
+              style={{ objectFit: 'contain' }}
               sizes="100vw, 50vh"
             />
           )}
@@ -55,7 +64,7 @@ export default async function Products({ params: { lineNumber } }: Props) {
         {product.website_url && (
           <ViewOnWaitroseButton url={product.website_url} />
         )}
-        <WishlistButton product={product} variant={"outline"} />
+        <WishlistButton product={product} variant={'outline'} />
       </Content>
     </>
   );
