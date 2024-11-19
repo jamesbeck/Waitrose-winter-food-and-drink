@@ -107,7 +107,7 @@ program
 
         doc.setFontSize(12);
         doc.text(
-          "If you like what you try on this stand, scan the QR code below using your smartphone and follow the instructions to add products to you wishlist.",
+          "If you like what you try on this stand, scan the QR code below using your smartphone and follow the instructions to add products to your wishlist.",
           pageWidth / 2,
           50 + yMargin,
           { align: "center", maxWidth: 150 }
@@ -284,7 +284,7 @@ program
 
         doc.setFontSize(12);
         doc.text(
-          "If you like what you see at this event, scan the QR code below using your smartphone and follow the instructions to add products to you wishlist.",
+          "If you like what you see at this event, scan the QR code below using your smartphone and follow the instructions to add products to your wishlist.",
           pageWidth / 2,
           50 + yMargin,
           { align: "center", maxWidth: 150 }
