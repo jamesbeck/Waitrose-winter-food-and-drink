@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import { H2 } from '@/components/typography/h2';
-import { Alert } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
-import type { FilterDay } from '@/lib/data/events';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import { H2 } from "@/components/typography/h2";
+import { Alert } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import type { FilterDay } from "@/lib/data/events";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React from "react";
+import { useForm } from "react-hook-form";
 
-import { errorMap } from '@/lib/errorMap';
-import { z } from 'zod';
+import { errorMap } from "@/lib/errorMap";
+import { z } from "zod";
 
 z.setErrorMap(errorMap);
 
 const formSchema = z.object({
   days: z
-    .array(z.enum(['Friday', 'Saturday', 'Sunday']))
-    .min(1, 'Please select at least one date'),
+    .array(z.enum(["Friday", "Saturday", "Sunday", "Always on"]))
+    .min(1, "Please select at least one date"),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -30,9 +30,10 @@ type Props = {
 };
 
 const dateOptions: { label: string; value: FilterDay }[] = [
-  { label: 'Friday 22nd November', value: 'Friday' },
-  { label: 'Saturday 23rd November', value: 'Saturday' },
-  { label: 'Sunday 24th November', value: 'Sunday' },
+  { label: "Friday 22nd November", value: "Friday" },
+  { label: "Saturday 23rd November", value: "Saturday" },
+  { label: "Sunday 24th November", value: "Sunday" },
+  { label: "Always on", value: "Always on" },
 ];
 
 export const EventFiltersForm: React.FC<Props> = ({
@@ -53,9 +54,9 @@ export const EventFiltersForm: React.FC<Props> = ({
     const params = new URLSearchParams(searchParams);
 
     if (values.days && values.days.length > 0 && values.days.length < 3) {
-      params.set('days', values.days.join(','));
+      params.set("days", values.days.join(","));
     } else {
-      params.delete('days');
+      params.delete("days");
     }
 
     router.push(`${pathname}?${params.toString()}`);
