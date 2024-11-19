@@ -29,7 +29,7 @@ export const ProductCard: React.FC<Props> = ({ product, onChange }: Props) => {
 
       <Link href={`/products/${product.line_number}`}>
         <div className="w-full h-48 relative">
-          {product.image_url ? (
+          {product.image_url && product.image_url.startsWith('http') ? (
             <Image
               src={product.image_url}
               alt={product.name}

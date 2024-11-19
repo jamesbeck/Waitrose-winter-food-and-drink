@@ -30,7 +30,7 @@ export default async function Products({ params: { lineNumber } }: Props) {
         <WishlistIconButton product={product} />
 
         <div className="w-full h-96 relative">
-          {product.image_url ? (
+          {product.image_url && product.image_url.startsWith('http') ? (
             <Image
               src={product.image_url}
               alt={product.name}
